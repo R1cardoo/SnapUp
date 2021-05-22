@@ -1,9 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    app:layoutDescription="@xml/activity_main_scene">
 
+
+    <EditText
+        android:id="@+id/userName2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="type your username"
+        android:inputType="text"
+        android:maxLines="1"
+        tools:layout_editor_absoluteX="35dp"
+        tools:layout_editor_absoluteY="210dp" />
+
+    <TextView
+        android:id="@+id/passWord1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="password："
+        android:textSize="30dp"
+        tools:layout_editor_absoluteX="233dp"
+        tools:layout_editor_absoluteY="480dp" />
+
+    <TextView
+        android:id="@+id/userName1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="username:"
+        android:textSize="30dp"
+        tools:layout_editor_absoluteX="106dp"
+        tools:layout_editor_absoluteY="522dp" />
+
+    <EditText
+        android:id="@+id/passWord2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="type your password"
+        android:inputType="text"
+        android:maxLines="1"
+        tools:layout_editor_absoluteX="124dp"
+        tools:layout_editor_absoluteY="373dp" />
 
     <TextView
         android:id="@+id/textView"
@@ -11,33 +52,10 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="抢票软件"
-        android:textSize="50dp" />
+        android:textSize="70dp"
+        app:layout_constrainedHeight="true"
+        app:layout_constrainedWidth="true"
+        tools:layout_editor_absoluteX="57dp"
+        tools:layout_editor_absoluteY="65dp" />
 
-    <TextView
-        android:id="@+id/userName1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="username:"
-        android:textSize="20dp" />
-
-    <EditText
-        android:id="@+id/userName2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="type your username"
-        android:maxLines="1" />
-
-    <TextView
-        android:id="@+id/passWord1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="password：" />
-
-    <EditText
-        android:id="@+id/passWord2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="type your password"
-        android:maxLines="1" />
-
-</LinearLayout>
+</androidx.constraintlayout.motion.widget.MotionLayout>
