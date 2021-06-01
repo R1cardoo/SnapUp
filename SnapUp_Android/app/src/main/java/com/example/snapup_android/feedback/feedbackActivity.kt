@@ -1,12 +1,12 @@
-package com.example.snapup_android
+package com.example.snapup_android.feedback
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-//deprecated
-class MainActivity : AppCompatActivity() {
+import com.example.snapup_android.R
+
+class feedbackActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_feedback)
     }
-
 }
