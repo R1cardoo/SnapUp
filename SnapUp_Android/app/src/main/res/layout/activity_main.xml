@@ -66,4 +66,14 @@
         tools:layout_editor_absoluteX="57dp"
         tools:layout_editor_absoluteY="65dp" />
 
+    <TextView
+        android:id="@+id/copyright"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="copyright reserved:180711"
+        android:textSize="10dp"
+        app:layout_constrainedHeight="true"
+        app:layout_constrainedWidth="true"
+        tools:layout_editor_absoluteX="200dp"
+        tools:layout_editor_absoluteY="500dp" />
 </androidx.constraintlayout.motion.widget.MotionLayout>
