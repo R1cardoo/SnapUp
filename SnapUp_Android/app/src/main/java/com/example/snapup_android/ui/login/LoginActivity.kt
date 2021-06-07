@@ -1,6 +1,7 @@
 package com.example.snapup_android.ui.login
 
 import android.app.Activity
+import android.content.Intent
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -14,6 +15,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
+import com.example.snapup_android.MainActivity
 
 import com.example.snapup_android.R
 
@@ -101,6 +103,10 @@ class LoginActivity : AppCompatActivity() {
         val welcome = getString(R.string.welcome)
         val displayName = model.displayName
         // TODO : initiate successful logged in experience
+
+        val intent = Intent(this,MainActivity::class.java)
+        startActivity(intent)
+
         Toast.makeText(
             applicationContext,
             "$welcome $displayName",

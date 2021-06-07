@@ -9,8 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SnapUp_Android">
+        <activity
+            android:name=".feedback.feedbackActivity"
+            android:label="@string/title_activity_feedback"
+            android:theme="@style/Theme.SnapUp_Android.NoActionBar"></activity>
         <activity android:name=".completeOrder.completeOrderActivity" />
-        <activity android:name=".feedback.feedbackActivity" />
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".viewInfo.viewInfoActivity"
             android:label="@string/title_activity_view_info"
