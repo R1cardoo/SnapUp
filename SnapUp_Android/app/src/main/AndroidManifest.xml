@@ -10,11 +10,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SnapUp_Android">
         <activity
+            android:name=".Homepage.HomepageActivity"
+            android:label="@string/title_activity_homepage"
+            android:theme="@style/Theme.SnapUp_Android.NoActionBar"></activity>
+        <activity
             android:name=".feedback.feedbackActivity"
             android:label="@string/title_activity_feedback"
-            android:theme="@style/Theme.SnapUp_Android.NoActionBar"></activity>
+            android:theme="@style/Theme.SnapUp_Android.NoActionBar" />
         <activity android:name=".completeOrder.completeOrderActivity" />
-        <activity android:name=".MainActivity" />
         <activity
             android:name=".viewInfo.viewInfoActivity"
             android:label="@string/title_activity_view_info"
@@ -23,7 +26,7 @@
             android:name=".viewOrder.viewOrderActivity"
             android:label="@string/title_activity_view_order"
             android:theme="@style/Theme.SnapUp_Android.NoActionBar" />
-        <activity android:name=".ui.login.LoginActivity">
+        <activity android:name="com.example.snapup_android.login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

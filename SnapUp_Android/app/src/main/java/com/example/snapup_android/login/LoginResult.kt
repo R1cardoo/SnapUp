@@ -1,4 +1,4 @@
-package com.example.snapup_android.ui.login
+package com.example.snapup_android.login
 
 /**
  * Authentication result : success (user details) or error message.

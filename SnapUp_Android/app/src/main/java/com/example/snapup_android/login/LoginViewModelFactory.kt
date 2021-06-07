@@ -1,4 +1,4 @@
-package com.example.snapup_android.ui.login
+package com.example.snapup_android.login
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

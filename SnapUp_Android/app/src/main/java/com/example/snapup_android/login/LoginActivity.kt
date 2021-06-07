@@ -1,4 +1,4 @@
-package com.example.snapup_android.ui.login
+package com.example.snapup_android.login
 
 import android.app.Activity
 import android.content.Intent
@@ -15,7 +15,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
-import com.example.snapup_android.MainActivity
+import com.example.snapup_android.Homepage.HomepageActivity
 
 import com.example.snapup_android.R
 
@@ -104,7 +104,7 @@ class LoginActivity : AppCompatActivity() {
         val displayName = model.displayName
         // TODO : initiate successful logged in experience
 
-        val intent = Intent(this,MainActivity::class.java)
+        val intent = Intent(this, HomepageActivity::class.java)
         startActivity(intent)
 
         Toast.makeText(

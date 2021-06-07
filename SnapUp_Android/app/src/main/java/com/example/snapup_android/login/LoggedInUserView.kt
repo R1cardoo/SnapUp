@@ -1,4 +1,4 @@
-package com.example.snapup_android.ui.login
+package com.example.snapup_android.login
 
 /**
  * User details post authentication that is exposed to the UI
