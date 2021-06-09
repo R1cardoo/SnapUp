@@ -9,26 +9,55 @@
         android:id="@+id/nav_home"
         android:name="com.example.snapup_android.Homepage.home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_nav_quit"
+            app:destination="@id/nav_quit" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_order"
+            app:destination="@id/nav_order" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_info"
+            app:destination="@id/nav_info" />
+        <action
+            android:id="@+id/action_nav_home_to_nav_feedback"
+            app:destination="@id/nav_feedback" />
+    </fragment>
     <fragment
         android:id="@+id/nav_info"
         android:name="com.example.snapup_android.viewInfo.ScheduleList"
         android:label="班次信息"
-        tools:layout="@layout/fragment_schedule_list" />
+        tools:layout="@layout/fragment_schedule_list" >
+        <action
+            android:id="@+id/action_nav_info_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
     <fragment
         android:id="@+id/nav_order"
         android:name="com.example.snapup_android.viewOrder.FirstFragment"
         android:label="我的订单"
-        tools:layout="@layout/activity_view_order" />
+        tools:layout="@layout/activity_view_order" >
+        <action
+            android:id="@+id/action_nav_order_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
     <fragment
         android:id="@+id/nav_feedback"
         android:name="com.example.snapup_android.feedback.First3Fragment"
         android:label="反馈"
-        tools:layout="@layout/activity_feedback" />
+        tools:layout="@layout/activity_feedback" >
+        <action
+            android:id="@+id/action_nav_feedback_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
     <fragment
         android:id="@+id/nav_quit"
         android:name="com.example.snapup_android.login.LoginActivity"
         android:label="退出登录"
-        tools:layout="@layout/activity_login" />
+        tools:layout="@layout/activity_login" >
+        <action
+            android:id="@+id/action_nav_quit_to_nav_home"
+            app:destination="@id/nav_home" />
+    </fragment>
 
 </navigation>
