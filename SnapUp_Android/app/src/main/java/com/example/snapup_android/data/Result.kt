@@ -16,3 +16,7 @@ sealed class Result<out T : Any> {
         }
     }
 }
+
+class WrongLoginException : Exception(){
+
+}

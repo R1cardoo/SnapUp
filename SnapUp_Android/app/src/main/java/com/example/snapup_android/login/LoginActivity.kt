@@ -32,6 +32,7 @@ class LoginActivity : AppCompatActivity() {
         val password = findViewById<EditText>(R.id.password)
         val login = findViewById<Button>(R.id.login)
         val loading = findViewById<ProgressBar>(R.id.loading)
+        val instance by lazy { this }
 
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
