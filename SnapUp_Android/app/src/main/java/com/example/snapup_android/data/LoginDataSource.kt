@@ -30,6 +30,7 @@ class LoginDataSource {
         try {
             // TODO: handle loggedInUser authentication
             val handler = Handler()
+            /*
             Thread {//子线程
                 val name = encode(username)                 //md5加密
                 val pass = encode(password)
@@ -71,7 +72,7 @@ class LoginDataSource {
             }.start()
 
             val mMsg = mHandler.obtainMessage()    //对返回的msg进行判断是否正确
-
+            */
             val fakeUser = LoggedInUser(UUID.randomUUID().toString(), "Jane Doe")    //UID 和 昵称
             return Success(fakeUser)
 
