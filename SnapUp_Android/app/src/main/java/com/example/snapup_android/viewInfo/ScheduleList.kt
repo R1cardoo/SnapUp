@@ -1,15 +1,18 @@
 package com.example.snapup_android.viewInfo
 
 import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import com.example.snapup_android.R
+import com.example.snapup_android.viewInfo.MyItemRecyclerViewAdapter.OnItemClickLitener
 import com.example.snapup_android.viewInfo.dummy.DummyContent
+
 
 /**
  * A fragment representing a list of Items.
@@ -17,10 +20,10 @@ import com.example.snapup_android.viewInfo.dummy.DummyContent
 class ScheduleList : Fragment() {
 
     private var columnCount = 1
+    private var mContext =null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         arguments?.let {
             columnCount = it.getInt(ARG_COLUMN_COUNT)
         }
@@ -31,7 +34,6 @@ class ScheduleList : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_schedule_list_list, container, false)
-
         // Set the adapter
         if (view is RecyclerView) {
             with(view) {
@@ -40,8 +42,16 @@ class ScheduleList : Fragment() {
                     else -> GridLayoutManager(context, columnCount)
                 }
                 adapter = MyItemRecyclerViewAdapter(DummyContent.ITEMS)
+                (adapter as MyItemRecyclerViewAdapter).setOnItemClickLitener(object : OnItemClickLitener {
+                    override fun onItemClick(view: View?, position: Int) {
+                        val a = 0
+                       // Toast.makeText(mContext, "这是条目" + (adapter as MyItemRecyclerViewAdapter).values[position], Toast.LENGTH_LONG).show()
+                    }
+                })
+                view.adapter = adapter
             }
         }
+
         return view
     }
 
