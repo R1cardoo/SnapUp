@@ -44,8 +44,9 @@ class ScheduleList : Fragment() {
                 adapter = MyItemRecyclerViewAdapter(DummyContent.ITEMS)
                 (adapter as MyItemRecyclerViewAdapter).setOnItemClickLitener(object : OnItemClickLitener {
                     override fun onItemClick(view: View?, position: Int) {
+                        TODO()//为每个item添加点击事件
                         val a = 0
-                       // Toast.makeText(mContext, "这是条目" + (adapter as MyItemRecyclerViewAdapter).values[position], Toast.LENGTH_LONG).show()
+                        //Toast.makeText(mContext, "这是条目" + (adapter as MyItemRecyclerViewAdapter).values[position], Toast.LENGTH_LONG).show()
                     }
                 })
                 view.adapter = adapter

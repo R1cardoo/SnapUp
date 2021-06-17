@@ -1,0 +1,3 @@
+1、在MyItemRecyclerViewAdapter里更改自己的list存储的数据结构，并在xml里补出相应的组件存储它
+	（图可以找一找）
+2、在ScheduleList里，为list中每个对象提供点击事件，显示具体信息。可以用一个界面或者弹窗
