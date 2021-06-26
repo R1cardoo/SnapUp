@@ -1,3 +1,14 @@
 1、在MyItemRecyclerViewAdapter里更改自己的list存储的数据结构，并在xml里补出相应的组件存储它
 	（图可以找一找）
 2、在ScheduleList里，为list中每个对象提供点击事件，显示具体信息。可以用一个界面或者弹窗
+
+
+
+
+
+
+**************
+1、Handler使用方法 第一行代码393页
+2、Intent传递对象 序列化 再as Person
+3、在Fragment中使用toast 通关创建MyApplicationContext类，然后get
+4、创建所有order项的点击事件  第一行代码517页

@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.snapup_android.MyApplication
 import com.example.snapup_android.R
 import com.example.snapup_android.viewInfo.MyItemRecyclerViewAdapter.OnItemClickLitener
 import com.example.snapup_android.viewInfo.dummy.DummyContent
@@ -20,7 +21,6 @@ import com.example.snapup_android.viewInfo.dummy.DummyContent
 class ScheduleList : Fragment() {
 
     private var columnCount = 1
-    private var mContext =null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,9 +44,9 @@ class ScheduleList : Fragment() {
                 adapter = MyItemRecyclerViewAdapter(DummyContent.ITEMS)
                 (adapter as MyItemRecyclerViewAdapter).setOnItemClickLitener(object : OnItemClickLitener {
                     override fun onItemClick(view: View?, position: Int) {
-                        TODO()//为每个item添加点击事件
+                        //点击事件 弹出详情
                         val a = 0
-                        //Toast.makeText(mContext, "这是条目" + (adapter as MyItemRecyclerViewAdapter).values[position], Toast.LENGTH_LONG).show()
+                        Toast.makeText(MyApplication.context, "这是条目" + (adapter as MyItemRecyclerViewAdapter).values[position], Toast.LENGTH_SHORT).show()
                     }
                 })
                 view.adapter = adapter
