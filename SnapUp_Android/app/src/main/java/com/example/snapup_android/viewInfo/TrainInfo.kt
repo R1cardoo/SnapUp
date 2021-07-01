@@ -1,4 +1,4 @@
-package com.example.snapup_android.viewOrder
+package com.example.snapup_android.viewInfo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -29,8 +29,8 @@ class TrainInfo : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         collapsingToolbar.title = trainId         //名字
-        Glide.with(this).load(trainId).into(fruitImageView)
-        fruitContentText.text = generateFruitContent(terminus)
+        Glide.with(this).load(trainId).into(TrainImageView)
+        TrainContentText.text = generateFruitContent(terminus)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -43,5 +43,5 @@ class TrainInfo : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun generateFruitContent(fruitName: String) = fruitName.repeat(500)
+    private fun generateFruitContent(trainId: String) = trainId.repeat(100)
 }

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".viewInfo.TrainInfo">
+    tools:context=".viewOrder.OrderInfo">
 
 
     <com.google.android.material.appbar.AppBarLayout
@@ -24,7 +24,7 @@
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
             <ImageView
-                android:id="@+id/TrainImageView"
+                android:id="@+id/OrderImageView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
@@ -61,7 +61,7 @@
                 app:cardCornerRadius="4dp">
 
                 <TextView
-                    android:id="@+id/TrainContentText"
+                    android:id="@+id/OrderContentText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp" />
