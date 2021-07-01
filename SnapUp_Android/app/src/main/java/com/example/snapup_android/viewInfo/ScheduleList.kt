@@ -1,18 +1,18 @@
 package com.example.snapup_android.viewInfo
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.snapup_android.MyApplication
 import com.example.snapup_android.R
 import com.example.snapup_android.viewInfo.MyItemRecyclerViewAdapter.OnItemClickLitener
 import com.example.snapup_android.viewInfo.dummy.DummyContent
+import com.example.snapup_android.viewOrder.TrainInfo
 
 
 /**
@@ -45,8 +45,15 @@ class ScheduleList : Fragment() {
                 (adapter as MyItemRecyclerViewAdapter).setOnItemClickLitener(object : OnItemClickLitener {
                     override fun onItemClick(view: View?, position: Int) {
                         //点击事件 弹出详情
-                        val a = 0
-                        Toast.makeText(MyApplication.context, "这是条目" + (adapter as MyItemRecyclerViewAdapter).values[position], Toast.LENGTH_SHORT).show()
+                        val dummy = (adapter as MyItemRecyclerViewAdapter).values[position]
+
+                        val bundle = Bundle()
+                        //向bundle传递需要的字段
+
+                        val intent = Intent(context, TrainInfo::class.java).apply {
+                            putExtras(bundle)
+                        }
+                        startActivity(intent)
                     }
                 })
                 view.adapter = adapter
