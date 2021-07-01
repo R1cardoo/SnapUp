@@ -3,13 +3,32 @@
     package="com.example.snapup_android">
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SnapUp_Android">
-        <activity android:name=".MainActivity">
+        <activity android:name=".viewOrder.TrainInfo"></activity>
+        <activity
+            android:name=".Homepage.HomepageActivity"
+            android:label="@string/title_activity_homepage"
+            android:theme="@style/Theme.SnapUp_Android.NoActionBar" />
+        <activity
+            android:name=".feedback.feedbackActivity"
+            android:label="@string/title_activity_feedback"
+            android:theme="@style/Theme.SnapUp_Android.NoActionBar" />
+        <activity android:name=".completeOrder.completeOrderActivity" />
+        <activity
+            android:name=".viewInfo.viewInfoActivity"
+            android:label="@string/title_activity_view_info"
+            android:theme="@style/Theme.SnapUp_Android.NoActionBar" />
+        <activity
+            android:name=".viewOrder.viewOrderActivity"
+            android:label="@string/title_activity_view_order"
+            android:theme="@style/Theme.SnapUp_Android.NoActionBar" />
+        <activity android:name=".login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
