@@ -12,11 +12,11 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.snapup_android.R
-import com.example.snapup_android.feedback.feedbackActivity
+import com.example.snapup_android.feedback.FeedbackActivity
 import com.example.snapup_android.login.LoginActivity
-import com.example.snapup_android.settings.settingsActivity
-import com.example.snapup_android.viewInfo.viewInfoActivity
-import com.example.snapup_android.viewOrder.viewOrderActivity
+import com.example.snapup_android.settings.SettingsActivity
+import com.example.snapup_android.viewInfo.ViewInfoActivity
+import com.example.snapup_android.viewOrder.ViewOrderActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
@@ -57,19 +57,19 @@ class HomepageActivity : AppCompatActivity() {
                     drawerLayout.closeDrawers()
                 }
                 R.id.nav_info -> {
-                    val intent = Intent(this, viewInfoActivity::class.java)
+                    val intent = Intent(this, ViewInfoActivity::class.java)
                     startActivity(intent)
                 }
                 R.id.nav_order -> {
-                    val intent = Intent(this, viewOrderActivity::class.java)
+                    val intent = Intent(this, ViewOrderActivity::class.java)
                     startActivity(intent)
                 }
                 R.id.nav_feedback -> {
-                    val intent = Intent(this, feedbackActivity::class.java)
+                    val intent = Intent(this, FeedbackActivity::class.java)
                     startActivity(intent)
                 }
                 R.id.nav_settings -> {
-                    val intent = Intent(this , settingsActivity::class.java)
+                    val intent = Intent(this , SettingsActivity::class.java)
                     startActivity(intent)
                 }
                 R.id.nav_quit -> {

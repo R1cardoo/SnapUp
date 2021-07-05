@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_order"
-        android:name="com.example.snapup_android.viewOrder.viewOrderActivity"
+        android:name="com.example.snapup_android.viewOrder.ViewOrderActivity"
         android:label="我的订单"
         tools:layout="@layout/activity_view_order" >
         <action
@@ -47,7 +47,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_feedback"
-        android:name="com.example.snapup_android.feedback.feedbackActivity"
+        android:name="com.example.snapup_android.feedback.FeedbackActivity"
         android:label="反馈"
         tools:layout="@layout/activity_feedback" >
         <action
@@ -56,7 +56,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_settings"
-        android:name="com.example.snapup_android.settings.settingsActivity"
+        android:name="com.example.snapup_android.settings.SettingsActivity"
         android:label="个人信息"
         tools:layout="@layout/activity_settings" >
         <action

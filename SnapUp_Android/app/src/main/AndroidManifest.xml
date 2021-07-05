@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SnapUp_Android">
-        <activity android:name=".settings.settingsActivity"></activity>
+        <activity android:name=".settings.SettingsActivity"></activity>
         <activity android:name=".login.RegisterActivity" />
         <activity android:name=".viewInfo.TrainInfo" />
         <activity
@@ -18,16 +18,16 @@
             android:label="@string/title_activity_homepage"
             android:theme="@style/Theme.SnapUp_Android.NoActionBar" />
         <activity
-            android:name=".feedback.feedbackActivity"
+            android:name=".feedback.FeedbackActivity"
             android:label="@string/title_activity_feedback"
             android:theme="@style/Theme.SnapUp_Android.NoActionBar" />
-        <activity android:name=".completeOrder.completeOrderActivity" />
+        <activity android:name=".completeOrder.CompleteOrderActivity" />
         <activity
-            android:name=".viewInfo.viewInfoActivity"
+            android:name=".viewInfo.ViewInfoActivity"
             android:label="@string/title_activity_view_info"
             android:theme="@style/Theme.SnapUp_Android.NoActionBar" />
         <activity
-            android:name=".viewOrder.viewOrderActivity"
+            android:name=".viewOrder.ViewOrderActivity"
             android:label="@string/title_activity_view_order"
             android:theme="@style/Theme.SnapUp_Android.NoActionBar" />
         <activity android:name=".login.LoginActivity">
