@@ -14,6 +14,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.snapup_android.R
 import com.example.snapup_android.feedback.feedbackActivity
 import com.example.snapup_android.login.LoginActivity
+import com.example.snapup_android.settings.settingsActivity
 import com.example.snapup_android.viewInfo.viewInfoActivity
 import com.example.snapup_android.viewOrder.viewOrderActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -65,6 +66,10 @@ class HomepageActivity : AppCompatActivity() {
                 }
                 R.id.nav_feedback -> {
                     val intent = Intent(this, feedbackActivity::class.java)
+                    startActivity(intent)
+                }
+                R.id.nav_settings -> {
+                    val intent = Intent(this , settingsActivity::class.java)
                     startActivity(intent)
                 }
                 R.id.nav_quit -> {
