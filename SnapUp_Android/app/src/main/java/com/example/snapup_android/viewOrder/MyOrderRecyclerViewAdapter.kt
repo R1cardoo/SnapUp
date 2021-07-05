@@ -6,16 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.example.snapup_android.R
-import com.example.snapup_android.viewInfo.MyItemRecyclerViewAdapter.OnItemClickLitener
 
-import com.example.snapup_android.viewOrder.dummy.DummyContent.DummyItem
+import com.example.snapup_android.viewOrder.dummy.OrderList.OrderInfo
 
 /**
- * [RecyclerView.Adapter] that can display a [DummyItem].
+ * [RecyclerView.Adapter] that can display a [OrderInfo].
  * TODO: Replace the implementation with code for your data type.
  */
 class MyOrderRecyclerViewAdapter(
-    val values: List<DummyItem>
+    val values: List<OrderInfo>
 ) : RecyclerView.Adapter<MyOrderRecyclerViewAdapter.ViewHolder>() {
 
     private var mOnOrderClickLitener: OnOrderClickLitener? = null
@@ -28,8 +27,9 @@ class MyOrderRecyclerViewAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.idView.text = item.id
-        holder.contentView.text = item.content
+        holder.beginToDestination.text = "${item.BeginningStation}——${item.Destination}"
+        holder.time.text = item.Time
+        holder.trainId.text = item.TrainId
     }
     interface OnOrderClickLitener {
         fun onItemClick(view: View?, position: Int)
@@ -42,11 +42,12 @@ class MyOrderRecyclerViewAdapter(
     override fun getItemCount(): Int = values.size
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val idView: TextView = view.findViewById(R.id.item_number)
-        val contentView: TextView = view.findViewById(R.id.content)
+        val beginToDestination: TextView = view.findViewById(R.id.BeginToDestination)
+        val time: TextView = view.findViewById(R.id.Time)
+        val trainId: TextView = view.findViewById(R.id.TrainId)
 
         override fun toString(): String {
-            return super.toString() + " '" + contentView.text + "'"
+            return super.toString() + " '" + beginToDestination.text + "'"
         }
     }
 }

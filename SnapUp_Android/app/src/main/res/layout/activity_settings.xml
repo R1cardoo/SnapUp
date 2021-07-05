@@ -6,6 +6,27 @@
     android:layout_height="match_parent"
     tools:context=".settings.SettingsActivity">
 
+    <Button
+        android:id="@+id/Edit_Settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:layout_marginBottom="33dp"
+        android:text="编辑信息"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/Upload_Settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="33dp"
+        android:text="提交修改"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
     <EditText
         android:id="@+id/editText1"
         android:layout_width="201dp"
@@ -53,7 +74,6 @@
         app:layout_constraintStart_toEndOf="@+id/textView4"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="MissingConstraints" />
-
 
     <TextView
         android:id="@+id/textView1"

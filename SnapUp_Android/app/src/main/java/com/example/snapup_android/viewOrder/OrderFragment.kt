@@ -10,11 +10,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.snapup_android.R
-import com.example.snapup_android.viewInfo.MyItemRecyclerViewAdapter
-import com.example.snapup_android.viewInfo.MyItemRecyclerViewAdapter.OnItemClickLitener
-import com.example.snapup_android.viewInfo.TrainInfo
 import com.example.snapup_android.viewOrder.MyOrderRecyclerViewAdapter.OnOrderClickLitener
-import com.example.snapup_android.viewOrder.dummy.DummyContent
+import com.example.snapup_android.viewOrder.dummy.OrderList
 
 /**
  * A fragment representing a list of Items.
@@ -44,7 +41,7 @@ class OrderFragment : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MyOrderRecyclerViewAdapter(DummyContent.ITEMS)
+                adapter = MyOrderRecyclerViewAdapter(OrderList.ITEMS)
                 (adapter as MyOrderRecyclerViewAdapter).setOnOrderClickLitener(object : OnOrderClickLitener {
                     override fun onItemClick(view: View?, position: Int) {
                         //点击事件 弹出详情

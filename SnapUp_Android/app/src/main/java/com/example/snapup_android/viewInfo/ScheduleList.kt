@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.snapup_android.R
 import com.example.snapup_android.viewInfo.MyItemRecyclerViewAdapter.OnItemClickLitener
-import com.example.snapup_android.viewInfo.dummy.DummyContent
+import com.example.snapup_android.viewInfo.dummy.TrainList
 
 
 /**
@@ -40,7 +40,7 @@ class ScheduleList : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MyItemRecyclerViewAdapter(DummyContent.ITEMS)
+                adapter = MyItemRecyclerViewAdapter(TrainList.ITEMS)
                 (adapter as MyItemRecyclerViewAdapter).setOnItemClickLitener(object : OnItemClickLitener {
                     override fun onItemClick(view: View?, position: Int) {
                         //点击事件 弹出详情
