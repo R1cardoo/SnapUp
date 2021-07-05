@@ -6,14 +6,18 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-
     <fragment
         android:id="@+id/list"
         android:name="com.example.snapup_android.viewInfo.ScheduleList"
-        android:layout_width="400dp"
+        android:layout_width="0dp"
         android:layout_height="600dp"
-        tools:layout="@layout/fragment_schedule_list_list"
-        tools:ignore="MissingConstraints" />
-
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="42dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        tools:layout="@layout/fragment_schedule_list_list" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

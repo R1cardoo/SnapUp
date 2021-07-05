@@ -47,7 +47,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="美女说：非著名程序员公众号是东半球最好的技术分享公众号"/>
+                    android:text="trainPath"/>
 
                 <TextView
                     android:id="@+id/TrainId"
@@ -56,7 +56,7 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:layout_height="wrap_content"
-                    android:text="非著名程序员"/>
+                    android:text="trainId"/>
                 <TextView
                     android:id="@+id/Time"
                     android:layout_width="wrap_content"
@@ -64,7 +64,7 @@
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:layout_height="wrap_content"
-                    android:text="非著名程序员"/>
+                    android:text="trainTime"/>
 
                 <androidx.appcompat.widget.AppCompatCheckBox
                     android:layout_width="wrap_content"

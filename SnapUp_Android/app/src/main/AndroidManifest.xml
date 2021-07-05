@@ -13,6 +13,7 @@
         <activity android:name=".settings.SettingsActivity"></activity>
         <activity android:name=".login.RegisterActivity" />
         <activity android:name=".viewInfo.TrainInfo" />
+        <activity android:name=".viewOrder.OrderInfo" />
         <activity
             android:name=".Homepage.HomepageActivity"
             android:label="@string/title_activity_homepage"

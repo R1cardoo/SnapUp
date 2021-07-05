@@ -5,6 +5,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import com.example.snapup_android.R
+import com.example.snapup_android.viewInfo.ScheduleList
 
 class ViewOrderActivity : AppCompatActivity() {
 
@@ -13,9 +14,6 @@ class ViewOrderActivity : AppCompatActivity() {
         setContentView(R.layout.activity_view_order)
         setSupportActionBar(findViewById(R.id.toolbar))
 
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
+        val orderFragment = OrderFragment.newInstance(5)
     }
 }

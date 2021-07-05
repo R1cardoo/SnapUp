@@ -19,19 +19,15 @@ class MyItemRecyclerViewAdapter(
     val values: List<TrainInfo>
 ) : RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder>() {
 
-    private var mOnItemClickLitener: OnItemClickLitener? = null
+    private var mOnItemClickListener: OnItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.fragment_schedule_list, parent, false)
         return ViewHolder(view)
     }
-    interface OnItemClickLitener {
+    interface OnItemClickListener {
         fun onItemClick(view: View?, position: Int)
-    }
-
-    fun setOnItemClickLitener(OnItemClickLitener: OnItemClickLitener) {
-        mOnItemClickLitener = OnItemClickLitener
     }
 
     @SuppressLint("SetTextI18n")
@@ -40,9 +36,13 @@ class MyItemRecyclerViewAdapter(
         holder.beginToDestination.text = "${item.BeginningStation}——${item.Destination}"
         holder.time.text = item.Time
         holder.trainId.text = item.TrainId
-        if (mOnItemClickLitener != null) {
-            holder.itemView.setOnClickListener(OnClickListener { view -> mOnItemClickLitener!!.onItemClick(view, position) })
+        if (mOnItemClickListener != null) {
+            holder.itemView.setOnClickListener(OnClickListener { view -> mOnItemClickListener!!.onItemClick(view, position) })
         }
+    }
+
+    fun setOnItemClickListener(OnItemClickListener: OnItemClickListener) {
+        mOnItemClickListener = OnItemClickListener
     }
 
     override fun getItemCount(): Int = values.size

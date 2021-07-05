@@ -4,6 +4,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.View.OnClickListener
 import android.widget.TextView
 import com.example.snapup_android.R
 
@@ -17,26 +18,29 @@ class MyOrderRecyclerViewAdapter(
     val values: List<OrderInfo>
 ) : RecyclerView.Adapter<MyOrderRecyclerViewAdapter.ViewHolder>() {
 
-    private var mOnOrderClickLitener: OnOrderClickLitener? = null
+    private var mOnOrderClickListener: OnOrderClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.fragment_item, parent, false)
         return ViewHolder(view)
     }
-
+    interface OnOrderClickListener {
+        fun onItemClick(view: View?, position: Int)
+    }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
         holder.beginToDestination.text = "${item.BeginningStation}——${item.Destination}"
         holder.time.text = item.Time
         holder.trainId.text = item.TrainId
-    }
-    interface OnOrderClickLitener {
-        fun onItemClick(view: View?, position: Int)
+        if (mOnOrderClickListener != null) {
+            holder.itemView.setOnClickListener(OnClickListener { view -> mOnOrderClickListener!!.onItemClick(view, position) })
+        }
     }
 
-    fun setOnOrderClickLitener(OnOrderClickLitener: OnOrderClickLitener) {
-        mOnOrderClickLitener = OnOrderClickLitener
+
+    fun setOnOrderClickListener(OnOrderClickListener: OnOrderClickListener) {
+        mOnOrderClickListener = OnOrderClickListener
     }
 
     override fun getItemCount(): Int = values.size

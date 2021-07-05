@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.snapup_android.R
-import com.example.snapup_android.viewInfo.MyItemRecyclerViewAdapter.OnItemClickLitener
+import com.example.snapup_android.viewInfo.MyItemRecyclerViewAdapter.OnItemClickListener
 import com.example.snapup_android.viewInfo.dummy.TrainList
 
 
@@ -41,7 +41,7 @@ class ScheduleList : Fragment() {
                     else -> GridLayoutManager(context, columnCount)
                 }
                 adapter = MyItemRecyclerViewAdapter(TrainList.ITEMS)
-                (adapter as MyItemRecyclerViewAdapter).setOnItemClickLitener(object : OnItemClickLitener {
+                (adapter as MyItemRecyclerViewAdapter).setOnItemClickListener(object : OnItemClickListener {
                     override fun onItemClick(view: View?, position: Int) {
                         //点击事件 弹出详情
                         val dummy = (adapter as MyItemRecyclerViewAdapter).values[position]

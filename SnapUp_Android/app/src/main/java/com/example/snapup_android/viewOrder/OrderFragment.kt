@@ -10,7 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.snapup_android.R
-import com.example.snapup_android.viewOrder.MyOrderRecyclerViewAdapter.OnOrderClickLitener
+import com.example.snapup_android.viewOrder.MyOrderRecyclerViewAdapter.OnOrderClickListener
 import com.example.snapup_android.viewOrder.dummy.OrderList
 
 /**
@@ -42,7 +42,7 @@ class OrderFragment : Fragment() {
                     else -> GridLayoutManager(context, columnCount)
                 }
                 adapter = MyOrderRecyclerViewAdapter(OrderList.ITEMS)
-                (adapter as MyOrderRecyclerViewAdapter).setOnOrderClickLitener(object : OnOrderClickLitener {
+                (adapter as MyOrderRecyclerViewAdapter).setOnOrderClickListener(object : OnOrderClickListener {
                     override fun onItemClick(view: View?, position: Int) {
                         //点击事件 弹出详情
                         val dummy = (adapter as MyOrderRecyclerViewAdapter).values[position]
