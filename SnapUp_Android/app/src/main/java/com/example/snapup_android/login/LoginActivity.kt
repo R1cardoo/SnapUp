@@ -18,6 +18,7 @@ import android.widget.Toast
 import com.example.snapup_android.Homepage.HomepageActivity
 
 import com.example.snapup_android.R
+import kotlinx.android.synthetic.main.activity_login.register
 
 class LoginActivity : AppCompatActivity() {
 
@@ -31,9 +32,13 @@ class LoginActivity : AppCompatActivity() {
         val username = findViewById<EditText>(R.id.username)
         val password = findViewById<EditText>(R.id.password)
         val login = findViewById<Button>(R.id.login)
+        val register = findViewById<Button>(R.id.register)
         val loading = findViewById<ProgressBar>(R.id.loading)
-        val instance by lazy { this }
 
+        register.setOnClickListener {
+            val intent = Intent(this, RegisterActivity::class.java )
+            startActivity(intent)
+        }
         loginViewModel = ViewModelProvider(this, LoginViewModelFactory())
             .get(LoginViewModel::class.java)
 
@@ -92,12 +97,13 @@ class LoginActivity : AppCompatActivity() {
                 }
                 false
             }
-
-            login.setOnClickListener {
-                loading.visibility = View.VISIBLE
-                loginViewModel.login(username.text.toString(), password.text.toString())
-            }
         }
+        login.setOnClickListener {
+            loading.visibility = View.VISIBLE
+            loginViewModel.login(username.text.toString(), password.text.toString())
+        }
+
+
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {

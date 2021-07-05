@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SnapUp_Android">
-        <activity android:name=".viewInfo.TrainInfo"></activity>
+        <activity android:name=".login.RegisterActivity"></activity>
+        <activity android:name=".viewInfo.TrainInfo" />
         <activity
             android:name=".Homepage.HomepageActivity"
             android:label="@string/title_activity_homepage"
