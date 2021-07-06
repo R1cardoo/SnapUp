@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.snapup_android.R
-import com.example.snapup_android.viewInfo.MyItemRecyclerViewAdapter.OnItemClickListener
-import com.example.snapup_android.viewInfo.dummy.TrainList
+import com.example.snapup_android.viewInfo.MyScheduleRecyclerViewAdapter.OnItemClickListener
+import com.example.snapup_android.viewInfo.dummy.ScheduleList
 
 
 /**
@@ -32,7 +32,7 @@ class ScheduleList : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_schedule_list_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_schedule_item_list, container, false)
         // Set the adapter
         if (view is RecyclerView) {
             with(view) {
@@ -40,16 +40,16 @@ class ScheduleList : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MyItemRecyclerViewAdapter(TrainList.ITEMS)
-                (adapter as MyItemRecyclerViewAdapter).setOnItemClickListener(object : OnItemClickListener {
+                adapter = MyScheduleRecyclerViewAdapter(ScheduleList.ITEMS)
+                (adapter as MyScheduleRecyclerViewAdapter).setOnItemClickListener(object : OnItemClickListener {
                     override fun onItemClick(view: View?, position: Int) {
                         //点击事件 弹出详情
-                        val dummy = (adapter as MyItemRecyclerViewAdapter).values[position]
+                        val dummy = (adapter as MyScheduleRecyclerViewAdapter).values[position]
 
                         val bundle = Bundle()
                         //向bundle传递需要的字段
 
-                        val intent = Intent(context, TrainInfo::class.java).apply {
+                        val intent = Intent(context, ScheduleInfo::class.java).apply {
                             putExtras(bundle)
                         }
                         startActivity(intent)

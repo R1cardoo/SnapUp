@@ -31,7 +31,7 @@
         android:id="@+id/nav_info"
         android:name="com.example.snapup_android.viewInfo.ScheduleList"
         android:label="班次信息"
-        tools:layout="@layout/fragment_schedule_list" >
+        tools:layout="@layout/fragment_schedule_item" >
         <action
             android:id="@+id/action_nav_info_to_nav_home"
             app:destination="@id/nav_home" />

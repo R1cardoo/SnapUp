@@ -12,7 +12,7 @@
         android:theme="@style/Theme.SnapUp_Android">
         <activity android:name=".settings.SettingsActivity"></activity>
         <activity android:name=".login.RegisterActivity" />
-        <activity android:name=".viewInfo.TrainInfo" />
+        <activity android:name=".viewInfo.ScheduleInfo" />
         <activity android:name=".viewOrder.OrderInfo" />
         <activity
             android:name=".Homepage.HomepageActivity"

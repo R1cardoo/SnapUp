@@ -8,22 +8,22 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.snapup_android.R
-import com.example.snapup_android.viewInfo.dummy.TrainList.TrainInfo
+import com.example.snapup_android.viewInfo.dummy.ScheduleList.TrainInfo
 
 
 /**
  * [RecyclerView.Adapter] that can display a [TrainInfo].
  * TODO: Replace the implementation with code for your data type.
  */
-class MyItemRecyclerViewAdapter(
+class MyScheduleRecyclerViewAdapter(
     val values: List<TrainInfo>
-) : RecyclerView.Adapter<MyItemRecyclerViewAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<MyScheduleRecyclerViewAdapter.ViewHolder>() {
 
     private var mOnItemClickListener: OnItemClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.fragment_schedule_list, parent, false)
+            .inflate(R.layout.fragment_schedule_item, parent, false)
         return ViewHolder(view)
     }
     interface OnItemClickListener {

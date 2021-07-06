@@ -1,7 +1,5 @@
 package com.example.snapup_android.viewOrder.dummy
 
-import com.example.snapup_android.viewInfo.dummy.TrainList
-import com.example.snapup_android.viewInfo.dummy.TrainList.TrainInfo
 import java.util.ArrayList
 import java.util.HashMap
 

@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.activity_order_info.TrainTime
 import kotlinx.android.synthetic.main.activity_train_info.*
 import java.util.ArrayList
 
-class TrainInfo : AppCompatActivity() {
+class ScheduleInfo : AppCompatActivity() {
 
     private val TRAIN_ID = ""
     private val STARTING_STATION = ""

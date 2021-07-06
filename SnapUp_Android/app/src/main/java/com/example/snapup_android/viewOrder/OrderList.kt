@@ -16,7 +16,7 @@ import com.example.snapup_android.viewOrder.dummy.OrderList
 /**
  * A fragment representing a list of Items.
  */
-class OrderFragment : Fragment() {
+class OrderList : Fragment() {
 
     private var columnCount = 1
 
@@ -32,7 +32,7 @@ class OrderFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_item_list, container, false)
+        val view = inflater.inflate(R.layout.fragment_order_item_list, container, false)
 
         // Set the adapter
         if (view is RecyclerView) {
@@ -70,7 +70,7 @@ class OrderFragment : Fragment() {
         // TODO: Customize parameter initialization
         @JvmStatic
         fun newInstance(columnCount: Int) =
-            OrderFragment().apply {
+            OrderList().apply {
                 arguments = Bundle().apply {
                     putInt(ARG_COLUMN_COUNT, columnCount)
                 }
