@@ -43,6 +43,28 @@ export const asyncRouterMap = [
           }
         ]
       },
+
+      {
+        path: '/train',
+        redirect: '/train/lines',
+        component: RouteView,
+        meta: { title: 'menu.train', icon: 'control', permission: [ 'train' ] },
+        children: [
+          {
+            path: '/train/lines',
+            name: 'Lines',
+            component: () => import('@/views/train/Lines'),
+            meta: { title: 'menu.train.line', keepAlive: false, permission: [ 'train' ] }
+          },
+          {
+            path: '/train/credit',
+            name: 'Credit',
+            component: () => import('@/views/train/Credit'),
+            meta: { title: 'menu.train.credit', keepAlive: false, permission: [ 'train' ] }
+          }
+        ]
+      },
+
       // forms
       {
         path: '/form',
