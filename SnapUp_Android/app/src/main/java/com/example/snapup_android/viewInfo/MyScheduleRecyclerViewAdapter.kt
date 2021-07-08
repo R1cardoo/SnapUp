@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.snapup_android.R
-import com.example.snapup_android.viewInfo.dummy.ScheduleList.TrainInfo
+import com.example.snapup_android.viewInfo.content.ScheduleList.TrainInfo
 
 
 /**

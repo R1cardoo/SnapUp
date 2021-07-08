@@ -1,4 +1,4 @@
-package com.example.snapup_android.viewInfo.dummy
+package com.example.snapup_android.viewInfo.content
 
 import java.util.ArrayList
 import java.util.HashMap

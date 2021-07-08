@@ -11,7 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.example.snapup_android.R
 import com.example.snapup_android.viewOrder.MyOrderRecyclerViewAdapter.OnOrderClickListener
-import com.example.snapup_android.viewOrder.dummy.OrderList
+import com.example.snapup_android.viewOrder.content.OrderList
 
 /**
  * A fragment representing a list of Items.

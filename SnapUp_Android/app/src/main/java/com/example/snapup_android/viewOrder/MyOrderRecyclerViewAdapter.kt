@@ -8,7 +8,7 @@ import android.view.View.OnClickListener
 import android.widget.TextView
 import com.example.snapup_android.R
 
-import com.example.snapup_android.viewOrder.dummy.OrderList.OrderInfo
+import com.example.snapup_android.viewOrder.content.OrderList.OrderInfo
 
 /**
  * [RecyclerView.Adapter] that can display a [OrderInfo].

@@ -1,4 +1,4 @@
-package com.example.snapup_android.viewOrder.dummy
+package com.example.snapup_android.viewOrder.content
 
 import java.util.ArrayList
 import java.util.HashMap

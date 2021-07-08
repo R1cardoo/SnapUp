@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.snapup_android.R
 import com.example.snapup_android.viewInfo.MyScheduleRecyclerViewAdapter.OnItemClickListener
-import com.example.snapup_android.viewInfo.dummy.ScheduleList
+import com.example.snapup_android.viewInfo.content.ScheduleList
 
 
 /**
