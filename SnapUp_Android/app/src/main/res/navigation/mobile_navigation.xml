@@ -29,7 +29,7 @@
     </fragment>
     <fragment
         android:id="@+id/nav_info"
-        android:name="com.example.snapup_android.viewInfo.ScheduleList"
+        android:name="com.example.snapup_android.viewSchedule.ScheduleList"
         android:label="班次信息"
         tools:layout="@layout/fragment_schedule_item" >
         <action

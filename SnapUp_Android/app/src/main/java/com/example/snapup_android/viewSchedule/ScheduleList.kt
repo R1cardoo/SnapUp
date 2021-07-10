@@ -1,4 +1,4 @@
-package com.example.snapup_android.viewInfo
+package com.example.snapup_android.viewSchedule
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.snapup_android.R
-import com.example.snapup_android.viewInfo.MyScheduleRecyclerViewAdapter.OnItemClickListener
-import com.example.snapup_android.viewInfo.content.ScheduleList
+import com.example.snapup_android.viewSchedule.MyScheduleRecyclerViewAdapter.OnItemClickListener
+import com.example.snapup_android.viewSchedule.content.ScheduleList
 
 
 /**

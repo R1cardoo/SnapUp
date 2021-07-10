@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/list"
-        android:name="com.example.snapup_android.viewInfo.ScheduleList"
+        android:name="com.example.snapup_android.viewSchedule.ScheduleList"
         android:layout_width="0dp"
         android:layout_height="600dp"
         android:layout_marginStart="5dp"

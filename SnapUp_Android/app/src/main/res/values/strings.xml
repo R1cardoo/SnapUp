@@ -13,6 +13,7 @@
     <string name="action_sign_in">Sign in</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome !"</string>
+    <string name="edit_schedule">"编辑订单"</string>
     <string name="register_name">手机/邮箱<font color = '#FF0000'>*</font></string>
     <string name="register_password">密码<font color = '#FF0000'>*</font></string>
     <string name="register_identity">身份证号</string>

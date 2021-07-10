@@ -12,7 +12,7 @@
         android:theme="@style/Theme.SnapUp_Android">
         <activity android:name=".settings.SettingsActivity"></activity>
         <activity android:name=".login.RegisterActivity" />
-        <activity android:name=".viewInfo.ScheduleInfo" />
+        <activity android:name=".viewSchedule.ScheduleInfo" />
         <activity android:name=".viewOrder.OrderInfo" />
         <activity
             android:name=".Homepage.HomepageActivity"
@@ -24,7 +24,7 @@
             android:theme="@style/Theme.SnapUp_Android.NoActionBar" />
         <activity android:name=".completeOrder.CompleteOrderActivity" />
         <activity
-            android:name=".viewInfo.ViewInfoActivity"
+            android:name=".viewSchedule.ViewScheduleActivity"
             android:label="@string/title_activity_view_info"
             android:theme="@style/Theme.SnapUp_Android.NoActionBar" />
         <activity

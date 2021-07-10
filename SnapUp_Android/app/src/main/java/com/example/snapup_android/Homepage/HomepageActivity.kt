@@ -15,7 +15,7 @@ import com.example.snapup_android.R
 import com.example.snapup_android.feedback.FeedbackActivity
 import com.example.snapup_android.login.LoginActivity
 import com.example.snapup_android.settings.SettingsActivity
-import com.example.snapup_android.viewInfo.ViewInfoActivity
+import com.example.snapup_android.viewSchedule.ViewScheduleActivity
 import com.example.snapup_android.viewOrder.ViewOrderActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
@@ -57,7 +57,7 @@ class HomepageActivity : AppCompatActivity() {
                     drawerLayout.closeDrawers()
                 }
                 R.id.nav_info -> {
-                    val intent = Intent(this, ViewInfoActivity::class.java)
+                    val intent = Intent(this, ViewScheduleActivity::class.java)
                     startActivity(intent)
                 }
                 R.id.nav_order -> {

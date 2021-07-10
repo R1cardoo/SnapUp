@@ -1,18 +1,15 @@
-package com.example.snapup_android.viewInfo
+package com.example.snapup_android.viewSchedule
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentTransaction
 import com.example.snapup_android.R
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 
 
-class ViewInfoActivity : AppCompatActivity() {
+class ViewScheduleActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_view_info)
+        setContentView(R.layout.activity_view_schedule)
         setSupportActionBar(findViewById(R.id.toolbar))
 
         val scheduleList = ScheduleList.newInstance(5)

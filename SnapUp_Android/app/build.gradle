@@ -55,5 +55,6 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'com.jakewharton:butterknife:5.1.1'
     implementation 'com.google.code.gson:gson:2.2.4'
+    implementation 'com.weiwangcn.betterspinner:library:1.1.0'
     implementation 'com.github.bumptech.glide:glide:3.7.0'
 }
