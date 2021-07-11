@@ -10,7 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SnapUp_Android">
-        <activity android:name=".settings.SettingsActivity"></activity>
+        <activity android:name=".viewSchedule.TicketActivity"></activity>
+        <activity android:name=".settings.SettingsActivity" />
         <activity android:name=".login.RegisterActivity" />
         <activity android:name=".viewSchedule.ScheduleInfo" />
         <activity android:name=".viewOrder.OrderInfo" />

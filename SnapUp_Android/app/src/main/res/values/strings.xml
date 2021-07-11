@@ -14,9 +14,14 @@
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome !"</string>
     <string name="edit_schedule">"编辑订单"</string>
+    <string name="search1">始发站：</string>
+    <string name="search2">终点站：</string>
+    <string name="search3">时间：</string>
+    <string name="search4">座位：</string>
+    <string name="search">搜索订单</string>
     <string name="buy">提交订单</string>
-    <string name="register_name">手机/邮箱<font color = '#FF0000'>*</font></string>
-    <string name="register_password">密码<font color = '#FF0000'>*</font></string>
+    <string name="register_name">手机/邮箱<font color='#FF0000'>*</font></string>
+    <string name="register_password">密码<font color='#FF0000'>*</font></string>
     <string name="register_identity">身份证号</string>
     <string name="register_nickname">昵称</string>
     <string name="invalid_username">Not a valid username</string>
