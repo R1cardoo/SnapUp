@@ -110,8 +110,18 @@ class LoginActivity : AppCompatActivity() {
         val welcome = getString(R.string.welcome)
         val displayName = model.displayName
         // TODO : initiate successful logged in experience
-
+        val bundle = Bundle()
+        //输入真实数据
+        bundle.putString("username", "18071102")
+        bundle.putString("password", "123456")
+        bundle.putString("identity", "18071102")
+        bundle.putString("gender","male" )
+        bundle.putString("name", "ricardo")
+        bundle.putString("number", "13552643675")
+        bundle.putString("mail", "1127676571@qq.com")
+        bundle.putString("nickname","handsomeBoy" )
         val intent = Intent(this, HomepageActivity::class.java)
+        intent.putExtras(bundle)
         startActivity(intent)
 
         Toast.makeText(

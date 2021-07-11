@@ -24,7 +24,7 @@ class ViewScheduleActivity : AppCompatActivity() {
         setContentView(R.layout.activity_view_schedule)
         setSupportActionBar(findViewById(R.id.toolbar))
 
-        val bundle = intent.getBundleExtra("data")                          //这里包含了所有个人信息
+        val bundle = intent.extras                          //这里包含了所有个人信息
 
         val scheduleList = ScheduleList.newInstance(5)
 

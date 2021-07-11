@@ -22,7 +22,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
 import com.google.android.material.snackbar.Snackbar
-import java.io.Serializable
 
 
 class HomepageActivity : AppCompatActivity() {
@@ -68,22 +67,62 @@ class HomepageActivity : AppCompatActivity() {
                 }
                 R.id.nav_info -> {
                     val intent = Intent(this, ViewScheduleActivity::class.java)
-                    intent.putExtras(bundle!!)
+                    val bundle1 = Bundle()
+                    //输入真实数据
+                    bundle1.putString("username", "18071102")
+                    bundle1.putString("password", "123456")
+                    bundle1.putString("identity", "18071102")
+                    bundle1.putString("gender","male" )
+                    bundle1.putString("name", "ricardo")
+                    bundle1.putString("number", "13552643675")
+                    bundle1.putString("mail", "1127676571@qq.com")
+                    bundle1.putString("nickname","handsomeBoy" )
+                    intent.putExtras(bundle1)
                     startActivity(intent)
                 }
                 R.id.nav_order -> {
                     val intent = Intent(this, ViewOrderActivity::class.java)
-                    intent.putExtras(bundle!!)
+                    val bundle2 = Bundle()
+                    //输入真实数据
+                    bundle2.putString("username", "18071102")
+                    bundle2.putString("password", "123456")
+                    bundle2.putString("identity", "18071102")
+                    bundle2.putString("gender","male" )
+                    bundle2.putString("name", "ricardo")
+                    bundle2.putString("number", "13552643675")
+                    bundle2.putString("mail", "1127676571@qq.com")
+                    bundle2.putString("nickname","handsomeBoy" )
+                    intent.putExtras(bundle2)
                     startActivity(intent)
                 }
                 R.id.nav_feedback -> {
                     val intent = Intent(this, FeedbackActivity::class.java)
-                    intent.putExtras(bundle!!)
+                    val bundle3 = Bundle()
+                    //输入真实数据
+                    bundle3.putString("username", "18071102")
+                    bundle3.putString("password", "123456")
+                    bundle3.putString("identity", "18071102")
+                    bundle3.putString("gender","male" )
+                    bundle3.putString("name", "ricardo")
+                    bundle3.putString("number", "13552643675")
+                    bundle3.putString("mail", "1127676571@qq.com")
+                    bundle3.putString("nickname","handsomeBoy" )
+                    intent.putExtras(bundle3)
                     startActivity(intent)
                 }
                 R.id.nav_settings -> {
                     val intent = Intent(this , SettingsActivity::class.java)
-                    intent.putExtras(bundle!!)
+                    val bundle4 = Bundle()
+                    //输入真实数据
+                    bundle4.putString("username", "18071102")
+                    bundle4.putString("password", "123456")
+                    bundle4.putString("identity", "18071102")
+                    bundle4.putString("gender","male" )
+                    bundle4.putString("name", "ricardo")
+                    bundle4.putString("number", "13552643675")
+                    bundle4.putString("mail", "1127676571@qq.com")
+                    bundle4.putString("nickname","handsomeBoy" )
+                    intent.putExtras(bundle4)
                     startActivity(intent)
                 }
                 R.id.nav_quit -> {
