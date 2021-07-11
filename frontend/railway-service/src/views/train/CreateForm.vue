@@ -13,8 +13,11 @@
         <a-form-item v-show="model && model.id > 0" label="主键ID">
           <a-input v-decorator="['id', { initialValue: 0 }]" disabled />
         </a-form-item>
-        <a-form-item label="描述">
-          <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+        <a-form-item label="身份证号">
+          <a-input v-decorator="['identity', {rules: [{required: true, min: 15, max: 18, message: '请输入15或18位的身份证号码！'}]}]" />
+        </a-form-item>
+        <a-form-item label="姓名">
+          <a-input v-decorator="['name', {rules: [{required: true, min: 2, message: '请输入姓名！'}]}]" />
         </a-form-item>
       </a-form>
     </a-spin>
@@ -25,7 +28,7 @@
 import pick from 'lodash.pick'
 
 // 表单字段
-const fields = ['description', 'id']
+const fields = ['identity', 'name']
 
 export default {
   props: {

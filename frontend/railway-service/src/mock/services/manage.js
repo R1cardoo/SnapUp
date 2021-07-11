@@ -36,6 +36,36 @@ const serverList = (options) => {
   })
 }
 
+const creditList = (options) => {
+  const parameters = getQueryParameters(options)
+
+  const result = []
+  const pageNo = parseInt(parameters.pageNo)
+  const pageSize = parseInt(parameters.pageSize)
+  const totalPage = Math.ceil(totalCount / pageSize)
+  const key = (pageNo - 1) * pageSize
+  const next = (pageNo >= totalPage ? (totalCount % pageSize) : pageSize) + 1
+
+  for (let i = 1; i < next; i++) {
+    const tmpKey = key + i
+    result.push({
+      key: tmpKey,
+      id: tmpKey,
+      identity: Mock.mock('@integer(100000000000000000, 999999999999999999)'),
+      name: Mock.mock({ 'regexp': /[A-Za-z]{2,10}/ }).regexp,
+      editable: false
+    })
+  }
+
+  return builder({
+    pageSize: pageSize,
+    pageNo: pageNo,
+    totalCount: totalCount,
+    totalPage: totalPage,
+    data: result
+  })
+}
+
 const trainList = (options) => {
   const parameters = getQueryParameters(options)
 
@@ -148,6 +178,24 @@ const saveLine = (options) => {
       reason: 'Fail'
     })
   }
+}
+
+const saveCredit = () => {
+  return builder({
+    error: false,
+    reason: 'Success'
+  })
+  // return builder({
+  //   error: true,
+  //   reason: 'Fail'
+  // })
+}
+
+const deleteCredit = () => {
+  return builder({
+    error: false,
+    reason: 'Success'
+  })
 }
 
 const projects = () => {
@@ -362,8 +410,11 @@ const radar = () => {
 Mock.mock(/\/service/, 'get', serverList)
 Mock.mock(/\/train\/lines/, 'get', trainList)
 Mock.mock(/\/train\/stations/, 'get', stationList)
+Mock.mock(/\/train\/credit/, 'get', creditList)
 Mock.mock(/\/train\/line-station/, 'get', lineStation)
 Mock.mock(/\/train\/save-line/, 'post', saveLine)
+Mock.mock(/\/train\/save-credit/, 'post', saveCredit)
+Mock.mock(/\/train\/delete-credit/, 'post', deleteCredit)
 Mock.mock(/\/list\/search\/projects/, 'get', projects)
 Mock.mock(/\/workplace\/activity/, 'get', activity)
 Mock.mock(/\/workplace\/teams/, 'get', teams)
