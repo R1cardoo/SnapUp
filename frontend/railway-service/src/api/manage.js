@@ -4,6 +4,10 @@ const api = {
   user: '/user',
   role: '/role',
   service: '/service',
+  trainList: '/train/lines',
+  lineStation: '/train/line-station',
+  stationList: '/train/stations',
+  saveLine: '/train/save-line',
   permission: '/permission',
   permissionNoPager: '/permission/no-pager',
   orgTree: '/org/tree'
@@ -30,6 +34,38 @@ export function getRoleList (parameter) {
 export function getServiceList (parameter) {
   return request({
     url: api.service,
+    method: 'get',
+    params: parameter
+  })
+}
+
+export function getTrainList (parameter) {
+  return request({
+    url: api.trainList,
+    method: 'get',
+    params: parameter
+  })
+}
+
+export function getLineStation (parameter) {
+  return request({
+    url: api.lineStation,
+    method: 'get',
+    params: parameter
+  })
+}
+
+export function saveLine (parameter) {
+  return request({
+    url: api.saveLine,
+    method: 'post',
+    data: parameter
+  })
+}
+
+export function getStationList (parameter) {
+  return request({
+    url: api.stationList,
     method: 'get',
     params: parameter
   })
