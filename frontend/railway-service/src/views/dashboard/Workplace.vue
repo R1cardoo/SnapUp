@@ -9,20 +9,17 @@
           <div class="content-title">
             {{ timeFix }}，{{ user.name }}<span class="welcome-text">，{{ welcome }}</span>
           </div>
-          <div>前端工程师 | 蚂蚁金服 - 某某某事业群 - VUE平台</div>
+          <div>目前系统运行一切正常</div>
         </div>
       </div>
     </template>
     <template v-slot:extraContent>
       <div class="extra-content">
         <div class="stat-item">
-          <a-statistic title="项目数" :value="56" />
+          <a-statistic title="线路数" :value="56" />
         </div>
         <div class="stat-item">
-          <a-statistic title="团队内排名" :value="8" suffix="/ 24" />
-        </div>
-        <div class="stat-item">
-          <a-statistic title="项目访问" :value="2223" />
+          <a-statistic title="吞吐量" :value="2223" />
         </div>
       </div>
     </template>
@@ -30,34 +27,33 @@
     <div>
       <a-row :gutter="24">
         <a-col :xl="16" :lg="24" :md="24" :sm="24" :xs="24">
-          <a-card
-            class="project-list"
-            :loading="loading"
-            style="margin-bottom: 24px;"
-            :bordered="false"
-            title="进行中的项目"
-            :body-style="{ padding: 0 }">
-            <a slot="extra">全部项目</a>
-            <div>
-              <a-card-grid class="project-card-grid" :key="i" v-for="(item, i) in projects">
-                <a-card :bordered="false" :body-style="{ padding: 0 }">
-                  <a-card-meta>
-                    <div slot="title" class="card-title">
-                      <a-avatar size="small" :src="item.cover"/>
-                      <a>{{ item.title }}</a>
-                    </div>
-                    <div slot="description" class="card-description">
-                      {{ item.description }}
-                    </div>
-                  </a-card-meta>
-                  <div class="project-item">
-                    <a href="/#/">科学搬砖组</a>
-                    <span class="datetime">9小时前</span>
-                  </div>
-                </a-card>
-              </a-card-grid>
-            </div>
-          </a-card>
+          <!--          <a-card-->
+          <!--            class="project-list"-->
+          <!--            :loading="loading"-->
+          <!--            style="margin-bottom: 24px;"-->
+          <!--            :bordered="false"-->
+          <!--            title="进行中的项目"-->
+          <!--            :body-style="{ padding: 0 }">-->
+          <!--            <div>-->
+          <!--              <a-card-grid class="project-card-grid" :key="i" v-for="(item, i) in projects">-->
+          <!--                <a-card :bordered="false" :body-style="{ padding: 0 }">-->
+          <!--                  <a-card-meta>-->
+          <!--                    <div slot="title" class="card-title">-->
+          <!--                      <a-avatar size="small" :src="item.cover"/>-->
+          <!--                      <a>{{ item.title }}</a>-->
+          <!--                    </div>-->
+          <!--                    <div slot="description" class="card-description">-->
+          <!--                      {{ item.description }}-->
+          <!--                    </div>-->
+          <!--                  </a-card-meta>-->
+          <!--                  <div class="project-item">-->
+          <!--                    <a href="/#/">科学搬砖组</a>-->
+          <!--                    <span class="datetime">9小时前</span>-->
+          <!--                  </div>-->
+          <!--                </a-card>-->
+          <!--              </a-card-grid>-->
+          <!--            </div>-->
+          <!--          </a-card>-->
 
           <a-card :loading="loading" title="动态" :bordered="false">
             <a-list>
@@ -83,19 +79,17 @@
           :md="24"
           :sm="24"
           :xs="24">
-          <a-card title="快速开始 / 便捷导航" style="margin-bottom: 24px" :bordered="false" :body-style="{padding: 0}">
+          <a-card title="快速开始" style="margin-bottom: 24px" :bordered="false" :body-style="{padding: 0}">
             <div class="item-group">
-              <a>操作一</a>
-              <a>操作二</a>
-              <a>操作三</a>
-              <a>操作四</a>
-              <a>操作五</a>
-              <a>操作六</a>
-              <a-button size="small" type="primary" ghost icon="plus">添加</a-button>
+              <a href="/dashboard/workplace">系统工作台</a>
+              <a href="/dashboard/analysis">数据分析页</a>
+              <a href="/train/lines">线路管理</a>
+              <a href="/train/form">添加线路</a>
+              <a href="/passenger/credit">征信管理</a>
             </div>
           </a-card>
           <a-card
-            title="XX 指数"
+            title="铁路指数"
             style="margin-bottom: 24px"
             :loading="radarLoading"
             :bordered="false"
@@ -105,18 +99,18 @@
               <radar :data="radarData"/>
             </div>
           </a-card>
-          <a-card :loading="loading" title="团队" :bordered="false">
-            <div class="members">
-              <a-row>
-                <a-col :span="12" v-for="(item, index) in teams" :key="index">
-                  <a>
-                    <a-avatar size="small" :src="item.avatar"/>
-                    <span class="member">{{ item.name }}</span>
-                  </a>
-                </a-col>
-              </a-row>
-            </div>
-          </a-card>
+          <!--          <a-card :loading="loading" title="团队" :bordered="false">-->
+          <!--            <div class="members">-->
+          <!--              <a-row>-->
+          <!--                <a-col :span="12" v-for="(item, index) in teams" :key="index">-->
+          <!--                  <a>-->
+          <!--                    <a-avatar size="small" :src="item.avatar"/>-->
+          <!--                    <span class="member">{{ item.name }}</span>-->
+          <!--                  </a>-->
+          <!--                </a-col>-->
+          <!--              </a-row>-->
+          <!--            </div>-->
+          <!--          </a-card>-->
         </a-col>
       </a-row>
     </div>
@@ -197,8 +191,8 @@ export default {
     }),
     currentUser () {
       return {
-        name: 'Serati Ma',
-        avatar: 'https://gw.alipayobjects.com/zos/antfincdn/XAosXuNZyF/BiazfanxmamNRoxxVxka.png'
+        name: '铁路控制',
+        avatar: ''
       }
     },
     userInfo () {
@@ -251,7 +245,7 @@ export default {
           const dv = new DataSet.View().source(res.result)
           dv.transform({
             type: 'fold',
-            fields: ['个人', '团队', '部门'],
+            fields: ['高铁', '动车', '特快'],
             key: 'user',
             value: 'score'
           })
