@@ -237,6 +237,7 @@ export default {
     handleAdd () {
       this.mdl = null
       this.visible = true
+      this.$router.push({ path: '/train/form' })
     },
     handleEdit (record) {
       this.visible = true

@@ -353,6 +353,10 @@ const info = (options) => {
         'action': 'delete',
         'describe': '删除',
         'defaultCheck': false
+      }, {
+        'action': 'edit',
+        'describe': '编辑',
+        'defaultCheck': false
       }],
       'actionList': null,
       'dataAccess': null

@@ -162,10 +162,6 @@
           </a-alert>
         </div>
       </div>
-      <div class="setting-drawer-index-handle" @click="toggle" slot="handle">
-        <a-icon type="setting" v-if="!visible"/>
-        <a-icon type="close" v-else/>
-      </div>
     </a-drawer>
   </div>
 </template>

@@ -7,6 +7,9 @@ const api = {
   trainList: '/train/lines',
   lineStation: '/train/line-station',
   stationList: '/train/stations',
+  creditList: '/train/credit',
+  saveCredit: '/train/save-credit',
+  deleteCredit: '/train/delete-credit',
   saveLine: '/train/save-line',
   permission: '/permission',
   permissionNoPager: '/permission/no-pager',
@@ -63,9 +66,33 @@ export function saveLine (parameter) {
   })
 }
 
+export function saveCredit (parameter) {
+  return request({
+    url: api.saveCredit,
+    method: 'post',
+    data: parameter
+  })
+}
+
+export function deleteCredit (parameter) {
+  return request({
+    url: api.deleteCredit,
+    method: 'post',
+    data: parameter
+  })
+}
+
 export function getStationList (parameter) {
   return request({
     url: api.stationList,
+    method: 'get',
+    params: parameter
+  })
+}
+
+export function getCreditList (parameter) {
+  return request({
+    url: api.creditList,
     method: 'get',
     params: parameter
   })
