@@ -29,12 +29,6 @@ export const asyncRouterMap = [
             component: () => import('@/views/dashboard/Analysis'),
             meta: { title: 'menu.dashboard.analysis', keepAlive: false, permission: ['dashboard'] }
           },
-          // 外部链接
-          {
-            path: 'https://www.baidu.com/',
-            name: 'Monitor',
-            meta: { title: 'menu.dashboard.monitor', target: '_blank' }
-          },
           {
             path: '/dashboard/workplace',
             name: 'Workplace',
@@ -48,19 +42,13 @@ export const asyncRouterMap = [
         path: '/train',
         redirect: '/train/lines',
         component: RouteView,
-        meta: { title: 'menu.train', icon: 'control', permission: [ 'train' ] },
+        meta: { title: 'menu.train.line', icon: 'control', permission: [ 'train' ] },
         children: [
           {
             path: '/train/lines',
             name: 'Lines',
             component: () => import('@/views/train/Lines'),
             meta: { title: 'menu.train.line', keepAlive: false, permission: [ 'train' ] }
-          },
-          {
-            path: '/train/credit',
-            name: 'Credit',
-            component: () => import('@/views/train/Credit'),
-            meta: { title: 'menu.train.credit', keepAlive: false, permission: [ 'train' ] }
           },
           {
             path: '/train/form',
@@ -78,12 +66,27 @@ export const asyncRouterMap = [
           }
         ]
       },
+      {
+        path: '/passenger',
+        redirect: '/passenger/credit',
+        component: RouteView,
+        meta: { title: 'menu.train.credit', icon: 'control', permission: [ 'train' ] },
+        children: [
+          {
+            path: '/passenger/credit',
+            name: 'Credit',
+            component: () => import('@/views/train/Credit'),
+            meta: { title: 'menu.train.credit', permission: [ 'train' ] }
+          }
+        ]
+      },
 
       // forms
       {
         path: '/form',
         redirect: '/form/base-form',
         component: RouteView,
+        hidden: true,
         meta: { title: 'menu.form', icon: 'form', permission: ['form'] },
         children: [
           {
@@ -111,6 +114,7 @@ export const asyncRouterMap = [
         path: '/list',
         name: 'list',
         component: RouteView,
+        hidden: true,
         redirect: '/list/table-list',
         meta: { title: 'menu.list', icon: 'table', permission: ['table'] },
         children: [
@@ -168,6 +172,7 @@ export const asyncRouterMap = [
         path: '/profile',
         name: 'profile',
         component: RouteView,
+        hidden: true,
         redirect: '/profile/basic',
         meta: { title: 'menu.profile', icon: 'profile', permission: ['profile'] },
         children: [
@@ -191,6 +196,7 @@ export const asyncRouterMap = [
         path: '/result',
         name: 'result',
         component: RouteView,
+        hidden: true,
         redirect: '/result/success',
         meta: { title: 'menu.result', icon: 'check-circle-o', permission: ['result'] },
         children: [
@@ -214,6 +220,7 @@ export const asyncRouterMap = [
         path: '/exception',
         name: 'exception',
         component: RouteView,
+        hidden: true,
         redirect: '/exception/403',
         meta: { title: 'menu.exception', icon: 'warning', permission: ['exception'] },
         children: [
@@ -244,6 +251,7 @@ export const asyncRouterMap = [
         component: RouteView,
         redirect: '/account/center',
         name: 'account',
+        hidden: true,
         meta: { title: 'menu.account', icon: 'user', keepAlive: true, permission: ['user'] },
         children: [
           {
