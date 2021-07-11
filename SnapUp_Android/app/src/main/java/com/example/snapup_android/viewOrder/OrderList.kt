@@ -51,7 +51,7 @@ class OrderList : Fragment() {
                         //向bundle传递需要的字段
 
                         val intent = Intent(context, OrderInfo::class.java).apply {
-                            putExtras(bundle)
+                            putExtra("data", bundle)
                         }
                         startActivity(intent)
                     }

@@ -1,5 +1,6 @@
 package com.example.snapup_android.Homepage
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -21,15 +22,24 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
 import com.google.android.material.snackbar.Snackbar
+import java.io.Serializable
 
 
 class HomepageActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
+    public val BUNDLE_KEY = "this is a bundle key"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_homepage)
+        val i = intent
+        val bundle = intent.extras
+        //数据
+        //val nickname = bundle?.getString("nickname")
+        //val identity = bundle?.getString("identity")
+        val username = intent.getStringExtra("username")
+
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
@@ -58,18 +68,22 @@ class HomepageActivity : AppCompatActivity() {
                 }
                 R.id.nav_info -> {
                     val intent = Intent(this, ViewScheduleActivity::class.java)
+                    intent.putExtras(bundle!!)
                     startActivity(intent)
                 }
                 R.id.nav_order -> {
                     val intent = Intent(this, ViewOrderActivity::class.java)
+                    intent.putExtras(bundle!!)
                     startActivity(intent)
                 }
                 R.id.nav_feedback -> {
                     val intent = Intent(this, FeedbackActivity::class.java)
+                    intent.putExtras(bundle!!)
                     startActivity(intent)
                 }
                 R.id.nav_settings -> {
                     val intent = Intent(this , SettingsActivity::class.java)
+                    intent.putExtras(bundle!!)
                     startActivity(intent)
                 }
                 R.id.nav_quit -> {
@@ -82,9 +96,17 @@ class HomepageActivity : AppCompatActivity() {
         })
     }
 
-
-
-
+    fun startActivity(activity: Activity,model: Bundle) {
+        val intent = Intent()
+        intent.setClass(activity, HomepageActivity::class.java)
+        intent.putExtras(model)
+        activity.startActivity(intent)
+    }
+    override fun onNewIntent(intent: Intent)
+    {
+        super.onNewIntent(intent);
+        setIntent(intent);//设置新的intent
+    }
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.homepage, menu)

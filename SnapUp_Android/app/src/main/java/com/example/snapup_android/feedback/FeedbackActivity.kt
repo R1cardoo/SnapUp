@@ -15,6 +15,7 @@ class FeedbackActivity : AppCompatActivity() {
         setContentView(R.layout.activity_feedback)
         setSupportActionBar(findViewById(R.id.toolbar))
 
+        val bundle = intent.getBundleExtra("data")                      //仅包含个人信息，用来发送消息
 
         findViewById<Button>(R.id.Publish).setOnClickListener {  view ->
             //添加网络请求。

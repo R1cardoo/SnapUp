@@ -10,15 +10,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SnapUp_Android">
-        <activity android:name=".viewSchedule.TicketActivity"></activity>
-        <activity android:name=".settings.SettingsActivity" />
-        <activity android:name=".login.RegisterActivity" />
-        <activity android:name=".viewSchedule.ScheduleInfo" />
-        <activity android:name=".viewOrder.OrderInfo" />
+        <activity
+            android:name=".login.RegisterActivity"
+            android:launchMode="singleInstance"/>
         <activity
             android:name=".Homepage.HomepageActivity"
             android:label="@string/title_activity_homepage"
+            android:launchMode="singleInstance"
             android:theme="@style/Theme.SnapUp_Android.NoActionBar" />
+        <activity android:name=".viewSchedule.TicketActivity" />
+        <activity android:name=".settings.SettingsActivity" />
+        <activity android:name=".viewSchedule.ScheduleInfo" />
+        <activity android:name=".viewOrder.OrderInfo" />
         <activity
             android:name=".feedback.FeedbackActivity"
             android:label="@string/title_activity_feedback"

@@ -1,5 +1,7 @@
 package com.example.snapup_android.settings
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
@@ -10,47 +12,66 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.snapup_android.R
-import kotlinx.android.synthetic.main.activity_register.textView1
+import com.example.snapup_android.R.id
+import com.example.snapup_android.R.layout
+import kotlinx.android.synthetic.main.activity_login.username
 
 class SettingsActivity : AppCompatActivity() {
+    @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings)
+        setContentView(layout.activity_settings)
 
-        val edit = findViewById<Button>(R.id.Edit_Settings)
-        val uploadButton = findViewById<Button>(R.id.Upload_Settings)
-        val id = findViewById<EditText>(R.id.editText1)
-        val password = findViewById<EditText>(R.id.editText2)
-        val nickname = findViewById<EditText>(R.id.editText3)
-        val identity = findViewById<EditText>(R.id.editText4)
+        val bundle = intent.extras
 
-        id.setText("4008 000 000")       //从bundle中取出来
-        password.setText("123456bjut")
-        nickname.setText("froyo")
-        identity.setText("18071101")
+        val edit = findViewById<Button>(id.Edit_Settings)
+        val uploadButton = findViewById<Button>(id.Upload_Settings)
+
+        try {
+            val username = findViewById<EditText>(id.editText01)
+        }catch (e:Exception){
+            e.printStackTrace()
+        }
+
+        val password = findViewById<EditText>(id.editText02)
+        val nickname = findViewById<EditText>(id.editText03)
+        val identity = findViewById<EditText>(id.editText04)
+        val name = findViewById<EditText>(id.editText05)
+        val number = findViewById<EditText>(id.editText06)
+        val mail = findViewById<EditText>(id.editText07)
+        val gender = findViewById<EditText>(id.editText08)
+
+        username.setText(bundle?.getString("username"))       //从bundle中取出来
+        password.setText(bundle?.getString("password"))
+        nickname.setText(bundle?.getString("nickname"))
+        identity.setText(bundle?.getString("identity"))
+        name.setText(bundle?.getString("name"))       //从bundle中取出来
+        number.setText(bundle?.getString("number"))
+        mail.setText(bundle?.getString("mail"))
+        gender  .setText(bundle?.getString("gender"))
 
         edit.setOnClickListener {
-            id.isEnabled= true
+            username.isEnabled= true
             password.isEnabled= true
             nickname.isEnabled= true
             identity.isEnabled= true
 
-            id.inputType = TYPE_CLASS_TEXT
+            username.inputType = TYPE_CLASS_TEXT
             password.inputType = TYPE_CLASS_TEXT
             nickname.inputType = TYPE_CLASS_TEXT
             identity.inputType = TYPE_CLASS_NUMBER
         }
-        id.afterTextChanged {
-            if(id.length()>5 && password.length()>5) uploadButton.isEnabled = true
+        username.afterTextChanged {
+            if(username.length()>5 && password.length()>5) uploadButton.isEnabled = true
         }
         password.afterTextChanged {
-            if(id.length()>5 && password.length()>5) uploadButton.isEnabled = true
+            if(username.length()>5 && password.length()>5) uploadButton.isEnabled = true
         }
-        id.afterTextChanged {
-            if(id.length()>5 && password.length()>5) uploadButton.isEnabled = true
+        username.afterTextChanged {
+            if(username.length()>5 && password.length()>5) uploadButton.isEnabled = true
         }
         password.afterTextChanged {
-            if(id.length()>5 && password.length()>5) uploadButton.isEnabled = true
+            if(username.length()>5 && password.length()>5) uploadButton.isEnabled = true
         }
 
 
@@ -64,7 +85,11 @@ class SettingsActivity : AppCompatActivity() {
         }
 
     }
-
+    override fun onNewIntent(intent: Intent)
+    {
+        super.onNewIntent(intent);
+        setIntent(intent);//设置新的intent
+    }
     /**
      * Extension function to simplify setting an afterTextChanged action to EditText components.
      */
