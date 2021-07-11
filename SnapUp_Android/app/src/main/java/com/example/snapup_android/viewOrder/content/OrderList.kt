@@ -36,14 +36,14 @@ object OrderList {
     }
 
     private fun createDummyItem(position: Int): OrderInfo {
-        return OrderInfo("ABC$position", "ItemBegin $position", "ItemDestination $position","1：00——2：00")
+        return OrderInfo("ABC$position", "ItemBegin $position", "ItemDestination $position","1：00——2：00", "代理抢票中")
     }
 
 
     /**
      * A dummy item representing a piece of content.
      */
-    data class OrderInfo(val TrainId: String, val BeginningStation: String, val Destination: String,val Time: String) {
+    data class OrderInfo(val TrainId: String, val BeginningStation: String, val Destination: String,val Time: String, val state: String) {
         override fun toString(): String = "$BeginningStation——$Destination"
     }
 }

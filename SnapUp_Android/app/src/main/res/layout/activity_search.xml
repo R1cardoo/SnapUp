@@ -130,12 +130,6 @@
         android:layout_marginTop="5dp"
         app:cardCornerRadius="4dp">
 
-        <Button
-            android:id="@+id/search"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:text="@string/search"/>
 
     </com.google.android.material.card.MaterialCardView>
 

@@ -1,7 +1,6 @@
 package com.example.snapup_android.viewOrder
 
 import android.annotation.SuppressLint
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Toast
@@ -9,9 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.snapup_android.R
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_order_info.*
 import java.util.ArrayList
 
@@ -22,6 +19,7 @@ class OrderInfo: AppCompatActivity() {
     private val TERMINUS = ""
     private val TIME = ""
     private val NAME = ""
+    private val STATE = ""
     val STOPOVERS : List<String> = ArrayList() //经停站
 
     @SuppressLint("SetTextI18n")
@@ -34,6 +32,7 @@ class OrderInfo: AppCompatActivity() {
         val terminus = intent.getStringExtra(TERMINUS)?: "i am terminus"
         val time = intent.getStringExtra(TIME)?: "i am time"
         val passengerName = intent.getStringExtra(NAME)?: "zqx"
+        val state = intent.getStringExtra(STATE)?:"代理抢票中"
         //val stopovers = intent.getStringArrayListExtra()
 
 
@@ -46,6 +45,7 @@ class OrderInfo: AppCompatActivity() {
         TrainDestination.text = "终点站：$terminus"
         TrainTime.text = "发车时间： $time"
         PassengerName.text = "乘客姓名： $passengerName"
+        proxy.text = "状态：$state"
 
 
         findViewById<FloatingActionButton>(R.id.order_info_fab).setOnClickListener { view ->

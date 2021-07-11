@@ -65,6 +65,14 @@
                     android:textStyle="bold"
                     android:layout_height="wrap_content"
                     android:text="trainTime"/>
+                <TextView
+                    android:id="@+id/ProxyState"
+                    android:layout_width="wrap_content"
+                    android:textColor="#8A2BE2"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:layout_height="wrap_content"
+                    android:text=""/>
 
 
             </LinearLayout>

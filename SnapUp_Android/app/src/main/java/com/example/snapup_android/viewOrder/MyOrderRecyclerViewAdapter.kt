@@ -33,6 +33,7 @@ class MyOrderRecyclerViewAdapter(
         holder.beginToDestination.text = "${item.BeginningStation}——${item.Destination}"
         holder.time.text = item.Time
         holder.trainId.text = item.TrainId
+        holder.proxyState.text = item.state
         if (mOnOrderClickListener != null) {
             holder.itemView.setOnClickListener(OnClickListener { view -> mOnOrderClickListener!!.onItemClick(view, position) })
         }
@@ -49,6 +50,7 @@ class MyOrderRecyclerViewAdapter(
         val beginToDestination: TextView = view.findViewById(R.id.BeginToDestination)
         val time: TextView = view.findViewById(R.id.Time)
         val trainId: TextView = view.findViewById(R.id.TrainId)
+        val proxyState: TextView = view.findViewById(R.id.ProxyState)
 
         override fun toString(): String {
             return super.toString() + " '" + beginToDestination.text + "'"

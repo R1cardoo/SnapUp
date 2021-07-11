@@ -61,11 +61,13 @@ class TicketActivity : AppCompatActivity() {
                 .setMessage("价格是")    //补充价格
                 .setPositiveButton("提交",
                     DialogInterface.OnClickListener { dialog, id ->
-                        // 支付
+                        // 支付网络请求
+                        Toast.makeText(this,"支付成功",Toast.LENGTH_SHORT).show()
                     })
                 .setNegativeButton("取消",
                     DialogInterface.OnClickListener { dialog, id ->
                         // 取消
+                        Toast.makeText(this,"取消支付",Toast.LENGTH_SHORT).show()
                     })
             // Create the AlertDialog object and return it
             builder.create().show()
