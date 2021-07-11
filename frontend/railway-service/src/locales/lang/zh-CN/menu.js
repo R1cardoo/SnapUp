@@ -8,6 +8,7 @@ export default {
     'menu.train': '火车页',
     'menu.train.line': '火车线路',
     'menu.train.credit': '乘客征信',
+    'menu.train.form': '线路修改',
     'menu.form': '表单页',
     'menu.form.basic-form': '基础表单',
     'menu.form.step-form': '分步表单',

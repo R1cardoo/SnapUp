@@ -61,6 +61,20 @@ export const asyncRouterMap = [
             name: 'Credit',
             component: () => import('@/views/train/Credit'),
             meta: { title: 'menu.train.credit', keepAlive: false, permission: [ 'train' ] }
+          },
+          {
+            path: '/train/form',
+            name: 'Form',
+            hidden: true,
+            component: () => import('@/views/train/AdvancedForm'),
+            meta: { title: 'menu.train.form', hiddenHeaderContent: true, permission: [ 'train' ] }
+          },
+          {
+            path: '/train/form/:id',
+            name: 'Form',
+            hidden: true,
+            component: () => import('@/views/train/AdvancedForm'),
+            meta: { title: 'menu.train.form', hiddenHeaderContent: true, permission: [ 'train' ] }
           }
         ]
       },

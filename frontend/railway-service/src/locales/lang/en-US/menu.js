@@ -8,6 +8,7 @@ export default {
     'menu.train': 'Train',
     'menu.train.line': 'Train Lines',
     'menu.train.credit': 'Passenger Credit',
+    'menu.train.form': 'Modify Lines',
     'menu.form': 'Form',
     'menu.form.basic-form': 'Basic Form',
     'menu.form.step-form': 'Step Form',
