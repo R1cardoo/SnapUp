@@ -198,11 +198,20 @@ export default {
       loadData: parameter => {
         const requestParameters = Object.assign({}, parameter, this.queryParam)
         delete requestParameters.status
-        requestParameters.departTime = (requestParameters.departTime) ? requestParameters.departTime._i.substring(0, 5) : null
-        requestParameters.arriveTime = (requestParameters.arriveTime) ? requestParameters.arriveTime._i.substring(0, 5) : null
+        if (requestParameters.departTime) {
+          requestParameters.departTime = requestParameters.departTime._d.toTimeString().substring(0, 5)
+        } else {
+          delete requestParameters.departTime
+        }
+        if (requestParameters.arriveTime) {
+          requestParameters.arriveTime = requestParameters.arriveTime._d.toTimeString().substring(0, 5)
+        } else {
+          delete requestParameters.arriveTime
+        }
         console.log('loadData request parameters:', requestParameters)
         return getTrainList(requestParameters)
           .then(res => {
+            console.log(res)
             return res.result
           })
       },
