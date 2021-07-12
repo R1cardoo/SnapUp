@@ -1,6 +1,6 @@
 <template>
   <page-header-wrapper>
-    <a-card class="card" title="仓库管理" :bordered="false">
+    <a-card class="card" title="列车管理" :bordered="false">
       <line-form ref="repository" :showSubmit="false" :train-no="lineNo" />
     </a-card>
 
@@ -100,7 +100,8 @@ export default {
     LineForm
   },
   beforeMount () {
-    getLineStation().then(res => {
+    getLineStation({ lineNo: this.lineNo }).then(res => {
+      console.log(res)
       let temp = res.result
       temp = temp.reduce((acc, cur, i) => {
         acc.push({ ...cur, 'editable': false, 'key': `${i + 1}` })
@@ -181,10 +182,10 @@ export default {
     },
     saveRow (record) {
       this.memberLoading = true
-      const { key, name, workId, department } = record
-      if (!name || !workId || !department) {
+      const { key, stationName, arrive, depart } = record
+      if (!stationName || !arrive || !depart) {
         this.memberLoading = false
-        this.$message.error('请填写完整成员信息。')
+        this.$message.error('请填写完整信息。')
         return
       }
       // 模拟网络请求、卡顿 800ms
