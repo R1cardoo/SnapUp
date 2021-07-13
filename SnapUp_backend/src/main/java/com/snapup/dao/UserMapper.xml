@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapup.dao.UserMapper">
+
+    <insert id="createUser" parameterType="User">
+        insert into snapup.user(username, identity_id, gender, `name`, tele, mail, pwd, nickname)
+        values(#{username}, #{identity_id}, #{gender}, #{name}, #{tele}, #{mail}, #{pwd}, #{nickname})
+    </insert>
+
+    <update id="updateUser" parameterType="User">
+        update snapup.user
+        set username = #{username},gender = #{gender},`name` = #{name}, tele = #{tele},mail = #{mail},pwd = #{pwd},nickname = #{nickname}
+        where identity_id = #{identity_id}
+    </update>
+
+    <select id="findUserByUsername" resultType="User">
+        select * from snapup.user
+        where username = #{username}
+    </select>
+
+
+</mapper>

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+   http://www.springframework.org/schema/beans/spring-beans.xsd
+   http://www.springframework.org/schema/context
+   http://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 扫描service相关的bean -->
+    <context:component-scan base-package="com.snapup.service" />
+
+    <!--ServiceImpl注入到IOC容器中-->
+    <bean id="userServiceImpl" class="com.snapup.service.UserServiceImpl">
+        <property name="userMapper" ref="userMapper"/>
+    </bean>
+
+    <bean id="stationServiceImpl" class="com.snapup.service.StationServiceImpl">
+        <property name="stationMapper" ref="stationMapper"/>
+    </bean>
+    <bean id="stationOnLineServiceImpl" class="com.snapup.service.StationOnLineServiceImpl">
+        <property name="stationOnLineMapper" ref="stationOnLineMapper"/>
+        <property name="stationMapper" ref="stationMapper"/>
+    </bean>
+    <bean id="trainSerialServiceImpl" class="com.snapup.service.TrainSerialServiceImpl">
+        <property name="trainSerialMapper" ref="trainSerialMapper"/>
+    </bean>
+    <bean id="trainRunServiceImpl" class="com.snapup.service.TrainRunServiceImpl">
+        <property name="trainRunMapper" ref="trainRunMapper"/>
+    </bean>
+    <bean id="seatServiceImpl" class="com.snapup.service.SeatServiceImpl">
+        <property name="seatMapper" ref="seatMapper"/>
+        <property name="trainRunService" ref="trainRunServiceImpl"/>
+    </bean>
+    <bean id="usr_train_search_impl" class="com.snapup.service.Usr_train_search_impl">
+        <property name="stationService" ref="stationServiceImpl"/>
+        <property name="stationOnLineService" ref="stationOnLineServiceImpl"/>
+    </bean>
+    <bean id="ticketServiceImpl" class="com.snapup.service.TicketServiceImpl">
+        <property name="ticketMapper" ref="ticketMapper"/>
+        <property name="stationMapper" ref="stationMapper"/>
+        <property name="trainSerialMapper" ref="trainSerialMapper"/>
+        <property name="trainRunMapper" ref="trainRunMapper"/>
+        <property name="seatMapper" ref="seatMapper"/>
+        <property name="stationOnLineService" ref="stationOnLineServiceImpl"/>
+    </bean>
+
+    <bean id="restrictedUsrService" class="com.snapup.service.RestrictedUsrServiceImpl">
+        <property name="restrictedUsrMapper" ref="restrictedUsrMapper"/>
+    </bean>
+    <bean id="passengerService" class="com.snapup.service.PassengerServiceImpl">
+        <property name="passengerMapper" ref="passengerMapper"/>
+        <property name="userMapper" ref="userMapper"/>
+    </bean>
+    <!-- 配置事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!-- 注入数据库连接池 -->
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+
+</beans>
