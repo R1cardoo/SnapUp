@@ -13,6 +13,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.snapup_android.R
+import com.example.snapup_android.User
 import com.example.snapup_android.feedback.FeedbackActivity
 import com.example.snapup_android.login.LoginActivity
 import com.example.snapup_android.settings.SettingsActivity
@@ -31,16 +32,6 @@ class HomepageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_homepage)
-        val bundle = intent.extras
-        //数据
-        val username = bundle?.getString("username")
-        val password = bundle?.getString("password")
-        val identity = bundle?.getString("identity")
-        val gender = bundle?.getString("gender")
-        val name = bundle?.getString("name")
-        val number = bundle?.getString("number")
-        val mail = bundle?.getString("mail")
-        val nickname = bundle?.getString("nickname")
 
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -69,63 +60,19 @@ class HomepageActivity : AppCompatActivity() {
                     drawerLayout.closeDrawers()
                 }
                 R.id.nav_info -> {
-                    val bundle1 = Bundle()
-                    //输入真实数据
-                    bundle1.putString("username", username)
-                    bundle1.putString("password", password)
-                    bundle1.putString("identity", identity)
-                    bundle1.putString("gender", gender   )
-                    bundle1.putString("name", name)
-                    bundle1.putString("number", number)
-                    bundle1.putString("mail", mail)
-                    bundle1.putString("nickname", nickname)
                     val intent1 = Intent(this, ViewScheduleActivity::class.java)
-                    intent1.putExtras(bundle1)
                     startActivity(intent1)
                 }
                 R.id.nav_order -> {
-                    val bundle2 = Bundle()
-                    //输入真实数据
-                    bundle2.putString("username", username)
-                    bundle2.putString("password", password)
-                    bundle2.putString("identity", identity)
-                    bundle2.putString("gender", gender   )
-                    bundle2.putString("name", name)
-                    bundle2.putString("number", number)
-                    bundle2.putString("mail", mail)
-                    bundle2.putString("nickname", nickname)
                     val intent2 = Intent(this, ViewOrderActivity::class.java)
-                    intent2.putExtras(bundle2)
                     startActivity(intent2)
                 }
                 R.id.nav_feedback -> {
-                    val bundle3 = Bundle()
-                    //输入真实数据
-                    bundle3.putString("username", username)
-                    bundle3.putString("password", password)
-                    bundle3.putString("identity", identity)
-                    bundle3.putString("gender", gender   )
-                    bundle3.putString("name", name)
-                    bundle3.putString("number", number)
-                    bundle3.putString("mail", mail)
-                    bundle3.putString("nickname", nickname)
                     val intent3 = Intent(this, FeedbackActivity::class.java)
-                    intent3.putExtras(bundle3)
                     startActivity(intent3)
                 }
                 R.id.nav_settings -> {
-                    val bundle4 = Bundle()
-                    //输入真实数据
-                    bundle4.putString("username", username)
-                    bundle4.putString("password", password)
-                    bundle4.putString("identity", identity)
-                    bundle4.putString("gender", gender   )
-                    bundle4.putString("name", name)
-                    bundle4.putString("number", number)
-                    bundle4.putString("mail", mail)
-                    bundle4.putString("nickname", nickname)
                     val intent4 = Intent(this , SettingsActivity::class.java)
-                    intent4.putExtras(bundle4)
                     startActivity(intent4)
                 }
                 R.id.nav_quit -> {

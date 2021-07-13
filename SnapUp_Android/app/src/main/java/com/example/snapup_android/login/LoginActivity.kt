@@ -18,6 +18,7 @@ import android.widget.Toast
 import com.example.snapup_android.Homepage.HomepageActivity
 
 import com.example.snapup_android.R
+import com.example.snapup_android.User
 import kotlinx.android.synthetic.main.activity_login.register
 
 class LoginActivity : AppCompatActivity() {
@@ -108,22 +109,20 @@ class LoginActivity : AppCompatActivity() {
 
     private fun updateUiWithUser(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome)
-        val displayName = model.displayName
         // TODO : initiate successful logged in experience
         val bundle = Bundle()
         //输入真实数据
-        bundle.putString("username", "18071102")
-        bundle.putString("password", "123456")
-        bundle.putString("identity", "18071102")
-        bundle.putString("gender","male" )
-        bundle.putString("name", "ricardo")
-        bundle.putString("number", "13552643675")
-        bundle.putString("mail", "1127676571@qq.com")
-        bundle.putString("nickname","beautifulBoy" )
+        User.nickname = "handsomeBoy"
+        User.mail = "1127676571@qq.com"
+        User.number = "13552643675"
+        User.name = "ricardo"
+        User.gender = "male"
+        User.identity = "18071102"
+        User.password = "123456"
+        User.username = "makabaka"
         val intent = Intent(this, HomepageActivity::class.java)
-        intent.putExtras(bundle)
         startActivity(intent)
-
+        val displayName = User.nickname
         Toast.makeText(
             applicationContext,
             "$welcome $displayName",

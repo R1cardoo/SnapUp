@@ -11,22 +11,13 @@ import android.widget.EditText
 import android.widget.Toast
 import com.example.snapup_android.R.id
 import com.example.snapup_android.R.layout
+import com.example.snapup_android.User
 
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_settings)
 
-        val bundle = intent.extras
-        //数据
-        val username = bundle?.getString("username")
-        val password = bundle?.getString("password")
-        val identity = bundle?.getString("identity")
-        val gender = bundle?.getString("gender")
-        val name = bundle?.getString("name")
-        val number = bundle?.getString("number")
-        val mail = bundle?.getString("mail")
-        val nickname = bundle?.getString("nickname")
 
         val edit = findViewById<Button>(id.Edit_Settings)
         val uploadButton = findViewById<Button>(id.Upload_Settings)
@@ -40,14 +31,14 @@ class SettingsActivity : AppCompatActivity() {
         val mailView = findViewById<EditText>(id.editText07)
         val genderView = findViewById<EditText>(id.editText08)
 
-        usernameView.setText(username)       //从bundle中取出来
-        passwordView.setText(password)
-        nicknameView.setText(nickname)
-        identityView.setText(identity)
-        nameView.setText(name)       //从bundle中取出来
-        numberView.setText(number)
-        mailView.setText(mail)
-        genderView.setText(gender)
+        usernameView.setText(User.username)       //从bundle中取出来
+        passwordView.setText(User.password)
+        nicknameView.setText(User.nickname)
+        identityView.setText(User.identity)
+        nameView.setText(User.name)       //从bundle中取出来
+        numberView.setText(User.number)
+        mailView.setText(User.mail)
+        genderView.setText(User.gender)
 
         edit.setOnClickListener {
             usernameView.isEnabled= true

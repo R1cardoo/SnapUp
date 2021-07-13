@@ -12,17 +12,6 @@ class ViewOrderActivity : AppCompatActivity() {
         setContentView(R.layout.activity_view_order)
         setSupportActionBar(findViewById(R.id.toolbar))
 
-        val bundle = intent.extras
-        //数据
-        User.username = bundle?.getString("username")!!
-        User.password = bundle?.getString("password")!!
-        User.identity = bundle?.getString("identity")!!
-        User.gender = bundle?.getString("gender")!!
-        User.name = bundle?.getString("name")!!
-        User.number = bundle?.getString("number")!!
-        User.mail = bundle?.getString("mail")!!
-        User.nickname = bundle?.getString("nickname")!!
-
         val orderList = OrderList.newInstance("nothing")
     }
 }
