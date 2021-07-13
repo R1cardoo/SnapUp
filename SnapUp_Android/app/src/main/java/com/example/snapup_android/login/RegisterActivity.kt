@@ -17,16 +17,18 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(R.layout.activity_register)
 
         val registerButton = findViewById<Button>(R.id.register_button)
-        val id = findViewById<EditText>(R.id.editText1)
+        val numberOrMail = findViewById<EditText>(R.id.editText1)
         val password = findViewById<EditText>(R.id.editText2)
         val nickname = findViewById<EditText>(R.id.editText3)
         val identity = findViewById<EditText>(R.id.editText4)
+        val name = findViewById<EditText>(R.id.editText5)
+        val gender = findViewById<EditText>(R.id.editText6)
 
-        id.afterTextChanged {
-            if(id.length()>5 && password.length()>5) registerButton.isEnabled = true
+        numberOrMail.afterTextChanged {
+            if(numberOrMail.length()>10 && password.length()>5) registerButton.isEnabled = true
         }
         password.afterTextChanged {
-            if(id.length()>5 && password.length()>5) registerButton.isEnabled = true
+            if(numberOrMail.length()>10 && password.length()>5) registerButton.isEnabled = true
         }
         registerButton.setOnClickListener {
             //网络请求，是否成功？？？ 返回完整信息
@@ -34,7 +36,7 @@ class RegisterActivity : AppCompatActivity() {
             if (isSuccess){
 
                 val bundle = Bundle()
-                //输入真实数据
+                //输入真实数据网球请求返回的数据。
                 bundle.putString("username", "18071102")
                 bundle.putString("password", "123456")
                 bundle.putString("identity", "18071102")
@@ -44,10 +46,9 @@ class RegisterActivity : AppCompatActivity() {
                 bundle.putString("mail", "1127676571@qq.com")
                 bundle.putString("nickname","handsomeBoy" )
 
-                //val intent = Intent(this, HomepageActivity::class.java)
-                //intent.putExtras(bundle)
-                //this.startActivity(intent)
-                HomepageActivity().startActivity(this, bundle)
+                val intent = Intent(this, HomepageActivity::class.java)
+                intent.putExtras(bundle)
+                this.startActivity(intent)
                 Toast.makeText(this,"you have registered successfully",Toast.LENGTH_SHORT).show()
             }
 

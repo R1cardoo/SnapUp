@@ -20,7 +20,7 @@
     <string name="search4">座位：</string>
     <string name="search">搜索订单</string>
     <string name="buy">提交订单</string>
-    <string name="register_name">手机/邮箱<font color='#FF0000'>*</font></string>
+    <string name="register_mail">手机/邮箱<font color='#FF0000'>*</font></string>
     <string name="register_password">密码<font color='#FF0000'>*</font></string>
     <string name="register_identity">身份证号</string>
     <string name="register_nickname">昵称</string>

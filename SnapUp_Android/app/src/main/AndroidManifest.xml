@@ -11,12 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SnapUp_Android">
         <activity
-            android:name=".login.RegisterActivity"
-            android:launchMode="singleInstance"/>
+            android:name=".login.RegisterActivity"/>
         <activity
             android:name=".Homepage.HomepageActivity"
             android:label="@string/title_activity_homepage"
-            android:launchMode="singleInstance"
             android:theme="@style/Theme.SnapUp_Android.NoActionBar" />
         <activity android:name=".viewSchedule.TicketActivity" />
         <activity android:name=".settings.SettingsActivity" />
@@ -38,7 +36,6 @@
         <activity android:name=".login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

@@ -9,8 +9,18 @@ class ViewOrderActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_view_order)
-        val bundle = intent.extras
         setSupportActionBar(findViewById(R.id.toolbar))
+
+        val bundle = intent.extras
+        //数据
+        val username = bundle?.getString("username")
+        val password = bundle?.getString("password")
+        val identity = bundle?.getString("identity")
+        val gender = bundle?.getString("gender")
+        val name = bundle?.getString("name")
+        val number = bundle?.getString("number")
+        val mail = bundle?.getString("mail")
+        val nickname = bundle?.getString("nickname")
 
         val orderFragment = OrderList.newInstance(5)
     }

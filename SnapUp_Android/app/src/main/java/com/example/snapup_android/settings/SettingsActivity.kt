@@ -5,15 +5,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
-import android.text.InputType.TYPE_CLASS_NUMBER
-import android.text.InputType.TYPE_CLASS_TEXT
 import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import com.example.snapup_android.R.id
 import com.example.snapup_android.R.layout
-import kotlinx.android.synthetic.main.activity_login.username
 
 class SettingsActivity : AppCompatActivity() {
     @SuppressLint("WrongViewCast")
@@ -22,62 +19,71 @@ class SettingsActivity : AppCompatActivity() {
         setContentView(layout.activity_settings)
 
         val bundle = intent.extras
+        //数据
+        val username = bundle?.getString("username")
+        val password = bundle?.getString("password")
+        val identity = bundle?.getString("identity")
+        val gender = bundle?.getString("gender")
+        val name = bundle?.getString("name")
+        val number = bundle?.getString("number")
+        val mail = bundle?.getString("mail")
+        val nickname = bundle?.getString("nickname")
 
         val edit = findViewById<Button>(id.Edit_Settings)
         val uploadButton = findViewById<Button>(id.Upload_Settings)
 
-        val username = findViewById<EditText>(id.editText01)
-        val password = findViewById<EditText>(id.editText02)
-        val nickname = findViewById<EditText>(id.editText03)
-        val identity = findViewById<EditText>(id.editText04)
-        val name = findViewById<EditText>(id.editText05)
-        val number = findViewById<EditText>(id.editText06)
-        val mail = findViewById<EditText>(id.editText07)
-        val gender = findViewById<EditText>(id.editText08)
+        val usernameView = findViewById<EditText>(id.editText01)
+        val passwordView = findViewById<EditText>(id.editText02)
+        val nicknameView = findViewById<EditText>(id.editText03)
+        val identityView = findViewById<EditText>(id.editText04)
+        val nameView = findViewById<EditText>(id.editText05)
+        val numberView = findViewById<EditText>(id.editText06)
+        val mailView = findViewById<EditText>(id.editText07)
+        val genderView = findViewById<EditText>(id.editText08)
 
-        username.setText(intent.getStringExtra("username"))       //从bundle中取出来
-        password.setText(intent.getStringExtra("password"))
-        nickname.setText(intent.getStringExtra("nickname"))
-        identity.setText(intent.getStringExtra("identity"))
-        name.setText(intent.getStringExtra("name"))       //从bundle中取出来
-        number.setText(intent.getStringExtra("number"))
-        mail.setText(intent.getStringExtra("mail"))
-        gender.setText(intent.getStringExtra("gender"))
+        usernameView.setText(username)       //从bundle中取出来
+        passwordView.setText(password)
+        nicknameView.setText(nickname)
+        identityView.setText(identity)
+        nameView.setText(name)       //从bundle中取出来
+        numberView.setText(number)
+        mailView.setText(mail)
+        genderView.setText(gender)
 
         edit.setOnClickListener {
-            username.isEnabled= true
-            password.isEnabled= true
-            nickname.isEnabled= true
-            identity.isEnabled= true
-            name.isEnabled= true
-            number.isEnabled= true
-            mail.isEnabled= true
-            gender.isEnabled= true
+            usernameView.isEnabled= true
+            passwordView.isEnabled= true
+            nicknameView.isEnabled= true
+            identityView.isEnabled= true
+            nameView.isEnabled= true
+            numberView.isEnabled= true
+            mailView.isEnabled= true
+            genderView.isEnabled= true
 
         }
-        username.afterTextChanged {
-            if(username.length()>5 && password.length()>5) uploadButton.isEnabled = true
+        usernameView.afterTextChanged {
+            if(usernameView.length()>5 && passwordView.length()>5) uploadButton.isEnabled = true
         }
-        password.afterTextChanged {
-            if(username.length()>5 && password.length()>5) uploadButton.isEnabled = true
+        passwordView.afterTextChanged {
+            if(usernameView.length()>5 && passwordView.length()>5) uploadButton.isEnabled = true
         }
-        nickname.afterTextChanged {
-            if(username.length()>5 && password.length()>5) uploadButton.isEnabled = true
+        nicknameView.afterTextChanged {
+            if(usernameView.length()>5 && passwordView.length()>5) uploadButton.isEnabled = true
         }
-        identity.afterTextChanged {
-            if(username.length()>5 && password.length()>5) uploadButton.isEnabled = true
+        identityView.afterTextChanged {
+            if(usernameView.length()>5 && passwordView.length()>5) uploadButton.isEnabled = true
         }
-        name.afterTextChanged {
-            if(username.length()>5 && password.length()>5) uploadButton.isEnabled = true
+        nameView.afterTextChanged {
+            if(usernameView.length()>5 && passwordView.length()>5) uploadButton.isEnabled = true
         }
-        number.afterTextChanged {
-            if(username.length()>5 && password.length()>5) uploadButton.isEnabled = true
+        numberView.afterTextChanged {
+            if(usernameView.length()>5 && passwordView.length()>5) uploadButton.isEnabled = true
         }
-        mail.afterTextChanged {
-            if(username.length()>5 && password.length()>5) uploadButton.isEnabled = true
+        mailView.afterTextChanged {
+            if(usernameView.length()>5 && passwordView.length()>5) uploadButton.isEnabled = true
         }
-        gender.afterTextChanged {
-            if(username.length()>5 && password.length()>5) uploadButton.isEnabled = true
+        genderView.afterTextChanged {
+            if(usernameView.length()>5 && passwordView.length()>5) uploadButton.isEnabled = true
         }
 
         uploadButton.setOnClickListener {
@@ -86,15 +92,15 @@ class SettingsActivity : AppCompatActivity() {
             if(isSuccess) {
                 //修改成功，刷新信息
                 Toast.makeText(this, "you updated your information successfully", Toast.LENGTH_SHORT).show()
+                usernameView.isEnabled= false
+                passwordView.isEnabled= false
+                nicknameView.isEnabled= false
+                identityView.isEnabled= false
+                nameView.isEnabled= false
+                numberView.isEnabled= false
+                mailView.isEnabled= false
+                genderView.isEnabled= false
             }else {
-                username.isEnabled= false
-                password.isEnabled= false
-                nickname.isEnabled= false
-                identity.isEnabled= false
-                name.isEnabled= false
-                number.isEnabled= false
-                mail.isEnabled= false
-                gender.isEnabled= false
                 Toast.makeText(this, "your information is illegal", Toast.LENGTH_SHORT).show()
             }
         }
