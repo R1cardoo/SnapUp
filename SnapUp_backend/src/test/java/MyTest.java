@@ -103,6 +103,6 @@ public class MyTest {
         object.addProperty("identity", "110105199905140634");
         object.addProperty("name", "张三");
         object.addProperty("id", 0);
-        //System.out.println(c.usr(object));
+        //System.out.println(c.save_credit(object));
     }
 }

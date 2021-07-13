@@ -16,9 +16,13 @@
         where identity_id = #{identity_id}
     </select>
 
-    <delete id="updateRestrictedUsr" parameterType="int">
+    <delete id="deleteRestrictedUsr" parameterType="java.lang.String">
         delete from snapup.restricted_usr where identity_id=#{identity_id}
     </delete>
+
+    <select id="findAllRestrictedUsr" resultType="RestrictedUsr">
+        select * from snapup.restricted_usr
+    </select>
 
 
 </mapper>
