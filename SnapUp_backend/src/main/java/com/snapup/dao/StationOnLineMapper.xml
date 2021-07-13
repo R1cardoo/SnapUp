@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapup.dao.StationOnLineMapper">
+
+    <select id="findStationOnLineByStation" resultType="Station_on_line">
+        select * from snapup.station_on_line
+        where station_code = #{station_code}
+    </select>
+
+    <select id="findStationByRunCode" resultType="Station_on_line">
+        select * from snapup.station_on_line
+        where run_code = #{run_code}
+        order by station_idx asc
+    </select>
+
+</mapper>
