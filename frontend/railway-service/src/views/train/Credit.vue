@@ -5,12 +5,12 @@
         <a-form layout="inline">
           <a-row :gutter="48">
             <a-col :md="8" :sm="24">
-              <a-form-item label="规则编号">
+              <a-form-item label="身份证号">
                 <a-input v-model="queryParam.id" placeholder=""/>
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="24">
-              <a-form-item label="使用状态">
+              <a-form-item label="姓名">
                 <a-input v-model="queryParam.name" placeholder=""/>
               </a-form-item>
             </a-col>
@@ -145,7 +145,7 @@ export default {
             })
           } else {
             // 新增
-            saveCredit().then(res => {
+            saveCredit(values).then(res => {
               const result = res.result
               if (result.error) {
                 $notification['error']({
@@ -178,6 +178,8 @@ export default {
         return acc
       }, [])
       deleteCredit(deleteIdentities).then(res => {
+        console.log(deleteIdentities)
+        console.log(res)
         const result = res.result
         if (result.error) {
           $notification['error']({
