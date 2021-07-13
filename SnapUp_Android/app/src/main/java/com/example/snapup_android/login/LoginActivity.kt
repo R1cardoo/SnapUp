@@ -34,7 +34,6 @@ class LoginActivity : AppCompatActivity() {
         val password = findViewById<EditText>(R.id.password)
         val login = findViewById<Button>(R.id.login)
         val register = findViewById<Button>(R.id.register)
-        val loading = findViewById<ProgressBar>(R.id.loading)
 
         register.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java )
@@ -60,7 +59,6 @@ class LoginActivity : AppCompatActivity() {
         loginViewModel.loginResult.observe(this@LoginActivity, Observer {
             val loginResult = it ?: return@Observer
 
-            loading.visibility = View.GONE
             if (loginResult.error != null) {
                 showLoginFailed(loginResult.error)
             }
@@ -100,7 +98,6 @@ class LoginActivity : AppCompatActivity() {
             }
         }
         login.setOnClickListener {
-            loading.visibility = View.VISIBLE
             loginViewModel.login(username.text.toString(), password.text.toString())
         }
 
@@ -111,7 +108,7 @@ class LoginActivity : AppCompatActivity() {
         val welcome = getString(R.string.welcome)
         // TODO : initiate successful logged in experience
         val bundle = Bundle()
-        //输入真实数据
+        //点击事件里 调用后端方法
         User.nickname = "handsomeBoy"
         User.mail = "1127676571@qq.com"
         User.number = "13552643675"

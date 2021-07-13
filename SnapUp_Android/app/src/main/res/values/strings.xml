@@ -39,4 +39,6 @@
     <string name="menu_home">Home</string>
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
+    <string name="password_login">密码：</string>
+    <string name="username_login">用户名：</string>
 </resources>

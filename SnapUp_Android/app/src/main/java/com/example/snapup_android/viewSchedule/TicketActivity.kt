@@ -1,9 +1,7 @@
 package com.example.snapup_android.viewSchedule
 
-import android.content.DialogInterface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
@@ -65,18 +63,17 @@ class TicketActivity : AppCompatActivity() {
             val builder = AlertDialog.Builder(this)
             builder.setTitle("支付")
                 .setMessage("价格是")    //补充价格
-                .setPositiveButton("提交",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        // 支付网络请求
-                        Toast.makeText(this,"支付成功",Toast.LENGTH_SHORT).show()
-                    })
-                .setNegativeButton("取消",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        // 取消
-                        Toast.makeText(this,"取消支付",Toast.LENGTH_SHORT).show()
-                    })
-            // Create the AlertDialog object and return it
-            builder.create().show()
+                .setPositiveButton("提交"
+                ) { dialog, id ->
+                    // 支付网络请求
+                    Toast.makeText(this,"支付成功",Toast.LENGTH_SHORT).show()
+                }
+                .setNegativeButton("取消"
+                ) { dialog, id ->
+                    // 取消
+                    Toast.makeText(this,"取消支付",Toast.LENGTH_SHORT).show()
+                }
+                .create().show()
         }
 
     }

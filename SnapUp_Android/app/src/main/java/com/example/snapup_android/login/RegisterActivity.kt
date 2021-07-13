@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.snapup_android.Homepage.HomepageActivity
 import com.example.snapup_android.R
+import com.example.snapup_android.User
 
 class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,25 +35,22 @@ class RegisterActivity : AppCompatActivity() {
             //网络请求，是否成功？？？ 返回完整信息
             val isSuccess = true
             if (isSuccess){
+                User.username = numberOrMail.text.toString()
+                User.password =  password.text.toString()
+                User.identity = identity.text.toString()
+                User.gender =  gender.text.toString()
+                User.name = name.text.toString()
+                User.nickname =  nickname.toString()
 
-                val bundle = Bundle()
-                //输入真实数据网球请求返回的数据。
-                bundle.putString("username", numberOrMail.text.toString())
-                bundle.putString("password", password.text.toString())
-                bundle.putString("identity", identity.text.toString())
-                bundle.putString("gender", gender.text.toString())
-                bundle.putString("name", name.text.toString())
                 if(numberOrMail.text.toString().contains('@')){
-                    bundle.putString("mail", numberOrMail.text.toString())
-                    bundle.putString("number", "")
+                    User.mail = numberOrMail.text.toString()
+                    User.number =  ""
                 }else{
-                    bundle.putString("number", numberOrMail.text.toString())
-                    bundle.putString("mail", "")
+                    User.number = numberOrMail.text.toString()
+                    User.mail =  ""
                 }
-                bundle.putString("nickname", nickname.text.toString() )
 
                 val intent = Intent(this, HomepageActivity::class.java)
-                intent.putExtras(bundle)
                 this.startActivity(intent)
                 Toast.makeText(this,"you have registered successfully",Toast.LENGTH_SHORT).show()
             }

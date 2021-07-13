@@ -9,7 +9,7 @@ import java.util.HashMap
  *
  * TODO: Replace all uses of this class before publishing your app.
  */
-object ScheduleList {
+object ScheduleContentList {
 
     /**
      * An array
@@ -25,9 +25,9 @@ object ScheduleList {
     private const val COUNT = 25
 
     init {
-        // Add some sample items.
+        // 不要乱生成了，到时候可以注释init块，通过循环 addItem讲后端传过来的数据存到ScheduleContentList中
         for (i in 1..COUNT) {
-            addItem(createDummyItem(i))
+            addItem(createScheduleItem(i))
         }
     }
 
@@ -36,7 +36,7 @@ object ScheduleList {
         ITEM_MAP[item.TrainId] = item
     }
 
-    private fun createDummyItem(position: Int): TrainInfo {
+    private fun createScheduleItem(position: Int): TrainInfo {
         return TrainInfo("ABC$position", "ItemBegin $position", "ItemDestination $position","1：00——2：00")
     }
 

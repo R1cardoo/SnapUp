@@ -1,6 +1,5 @@
 package com.example.snapup_android.settings
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

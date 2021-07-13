@@ -126,6 +126,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="15dp"
                 android:layout_marginLeft="15dp"
+                android:id="@+id/order_Station"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="5dp"
                 app:cardCornerRadius="4dp">
@@ -165,7 +166,24 @@
                 app:cardCornerRadius="4dp">
 
                 <TextView
-                    android:id="@+id/proxy"
+                    android:id="@+id/SeatKind"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp"
+                app:cardCornerRadius="4dp">
+
+                <TextView
+                    android:id="@+id/Proxy"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp" />

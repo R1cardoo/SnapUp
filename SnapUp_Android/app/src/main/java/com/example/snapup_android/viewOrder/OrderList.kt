@@ -1,6 +1,5 @@
 package com.example.snapup_android.viewOrder
 
-import android.content.ContentProvider.CallingIdentity
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -13,7 +12,7 @@ import android.view.ViewGroup
 import com.example.snapup_android.R
 import com.example.snapup_android.User
 import com.example.snapup_android.viewOrder.MyOrderRecyclerViewAdapter.OnOrderClickListener
-import com.example.snapup_android.viewOrder.content.OrderList
+import com.example.snapup_android.viewOrder.content.OrderContentList
 import java.util.ArrayList
 
 /**
@@ -25,6 +24,8 @@ class OrderList : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        //在这里调用 通过User请求一下order list
+
 
     }
 
@@ -41,13 +42,16 @@ class OrderList : Fragment() {
                     columnCount <= 1 -> LinearLayoutManager(context)
                     else -> GridLayoutManager(context, columnCount)
                 }
-                adapter = MyOrderRecyclerViewAdapter(OrderList.ITEMS)
+                adapter = MyOrderRecyclerViewAdapter(OrderContentList.ITEMS)
                 (adapter as MyOrderRecyclerViewAdapter).setOnOrderClickListener(object : OnOrderClickListener {
                     override fun onItemClick(view: View?, position: Int) {
                         //点击事件 弹出详情
-                        val dummy = (adapter as MyOrderRecyclerViewAdapter).values[position]
+                        //val dummy = (adapter as MyOrderRecyclerViewAdapter).values[position]
                         val stopovers = ArrayList<String>()
-                        stopovers.add("sample")
+                        stopovers.add("sample1")
+                        stopovers.add("sample2")
+                        stopovers.add("sample3")
+                        stopovers.add("sample4")
 
                         val bundle = Bundle()
                         //向bundle传递需要的字段
@@ -57,6 +61,7 @@ class OrderList : Fragment() {
                         bundle.putString("TERMINUS", "a terminus")
                         bundle.putString("TIME", "a time")
                         bundle.putStringArrayList("STOPOVERS", stopovers)
+                        bundle.putString("SEAT_KIND", "a seat kind")
                         bundle.putString("NAME", User.name)
                         bundle.putString("STATE", "已支付")
 

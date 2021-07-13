@@ -5,9 +5,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.Button
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.snapup_android.R
+import com.google.android.material.card.MaterialCardView
 import kotlinx.android.synthetic.main.activity_schedule_info.*
 
 
@@ -40,6 +42,12 @@ class ScheduleInfo : AppCompatActivity() {
             //传参点击事件
             val intent = Intent(this, TicketActivity::class.java)
             startActivity(intent)
+        }
+        findViewById<MaterialCardView>(R.id.StationCard).setOnClickListener {
+            AlertDialog.Builder(this)
+                .setTitle("经停站")
+                .setMessage("经停站为$stopovers。")
+                .create().show()
         }
     }
 

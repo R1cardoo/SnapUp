@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.snapup_android.R
 import com.example.snapup_android.User
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_order_info.*
 import java.util.ArrayList
@@ -28,7 +29,8 @@ class OrderInfo: AppCompatActivity() {
         val time = intent.getStringExtra("TIME")?: "i am time"
         val stopovers = intent.getStringArrayListExtra("STOPOVERS")//经停站
         val passengerName = intent.getStringExtra("NAME")?: "zqx"
-        val state = intent.getStringExtra("STATE")?:"代理抢票中"
+        val seatKind = intent.getStringExtra("SEAT_KIND")?: "一等座"
+        val state = intent.getStringExtra("STATE")?:"已支付"
         //val stopovers = intent.getStringArrayListExtra()
 
 
@@ -37,16 +39,24 @@ class OrderInfo: AppCompatActivity() {
         Glide.with(this).load(trainId).into(OrderImageView)
 
         TrainId.text = "车次号： $trainId"
-        TrainBeginningStation.text = "始发站：$startingStation"
-        TrainDestination.text = "终点站：$terminus"
+        TrainBeginningStation.text = "始发站： $startingStation"
+        TrainDestination.text = "终点站： $terminus"
         TrainTime.text = "发车时间： $time"
         PassengerName.text = "乘客姓名： $passengerName"
-        StationList.text = "经停站：$stopovers ..."
-        proxy.text = "状态：$state"
+        if(stopovers!!.size <3) StationList.text = "经停站： $stopovers ..."
+            else StationList.text = "经停站： $startingStation ... $terminus"
+        Proxy.text = "状态： $state"
+        SeatKind.text = "座椅类型： $seatKind"
 
 
         findViewById<FloatingActionButton>(R.id.order_info_fab).setOnClickListener { view ->
             showCheckBoxDialog()
+        }
+        findViewById<MaterialCardView>(R.id.order_Station).setOnClickListener {
+            AlertDialog.Builder(this)
+                .setTitle("经停站")
+                .setMessage("经停站为$stopovers。")
+                .create().show()
         }
     }
 

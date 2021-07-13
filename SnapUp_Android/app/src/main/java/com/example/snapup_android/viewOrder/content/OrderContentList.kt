@@ -9,7 +9,7 @@ import java.util.HashMap
  *
  * TODO: Replace all uses of this class before publishing your app.
  */
-object OrderList {
+object OrderContentList {
 
     /**
      * An array of sample (dummy) items.
@@ -24,18 +24,18 @@ object OrderList {
     private const val COUNT = 25
 
     init {
-        // Add some sample items.
-        for (i in 1..OrderList.COUNT) {
-            addItem(createDummyItem(i))
+        // 不要乱生成了，到时候可以注释init块，通过循环 addItem讲后端传过来的数据存到OrderContentList中
+        for (i in 1..COUNT) {
+            addItem(createOrderItem(i))
         }
     }
 
     private fun addItem(item: OrderInfo) {
-        OrderList.ITEMS.add(item)
-        OrderList.ITEM_MAP[item.TrainId] = item
+        ITEMS.add(item)
+        ITEM_MAP[item.TrainId] = item
     }
 
-    private fun createDummyItem(position: Int): OrderInfo {
+    private fun createOrderItem(position: Int): OrderInfo {
         return OrderInfo("ABC$position", "ItemBegin $position", "ItemDestination $position","1：00——2：00", "代理抢票中")
     }
 

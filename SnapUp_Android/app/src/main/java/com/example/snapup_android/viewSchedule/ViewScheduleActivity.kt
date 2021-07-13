@@ -1,6 +1,5 @@
 package com.example.snapup_android.viewSchedule
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -32,8 +31,8 @@ class ViewScheduleActivity : AppCompatActivity() {
     }
     private fun showCheckBoxDialog(){
         //把选项加入list
-        val stationList: Array<String> = arrayOf("北京市", "东城区", "西城区", "朝阳区", "海淀区", "通州区", "北京工业大学", "11号楼", "A406")      //输入途经站
-        val timeList: Array<String> = arrayOf("1月1日", "1月3日", "1月8", "1月15日", "2月5日", "2月7日")
+        val stationList: Array<String> = arrayOf("北京南站", "北京西站", "上海站", "天津站", "河北站", "新疆站", "成都站", "杭州站", "深圳站")      //输入途经站
+        val timeList: Array<String> = arrayOf("1月1日", "1月3日", "1月8日", "1月15日", "2月5日", "2月7日")
         val seatList: Array<String> = arrayOf("一等座", "二等座")
         val view = LayoutInflater.from(this).inflate(R.layout.activity_search,null)
         val adapterStation = ArrayAdapter<String>(this, layout.activity_search, stationList)
@@ -77,18 +76,18 @@ class ViewScheduleActivity : AppCompatActivity() {
                 .setTitle("搜索车次")
                 .setIcon(R.mipmap.ic_launcher_round)
                 .setView(view)
-                .setPositiveButton("提交",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        // 搜索网络请求，如果为空，添加到
-                        val empty = true
-                        if(empty) Toast.makeText(this, "将当前搜索添加到代理抢票", Toast.LENGTH_SHORT).show()
-                            else Toast.makeText(this,"跳转搜索",Toast.LENGTH_SHORT).show()
-                    })
-                .setNegativeButton("取消",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        // 取消
-                        Toast.makeText(this,"取消",Toast.LENGTH_SHORT).show()
-                    })
+                .setPositiveButton("提交"
+                ) { dialog, id ->
+                    // 搜索网络请求，如果为空，添加到
+                    val empty = true
+                    if(empty) Toast.makeText(this, "将当前搜索添加到代理抢票", Toast.LENGTH_SHORT).show()
+                    else Toast.makeText(this,"跳转搜索",Toast.LENGTH_SHORT).show()
+                }
+                .setNegativeButton("取消"
+                ) { dialog, id ->
+                    // 取消
+                    Toast.makeText(this,"取消",Toast.LENGTH_SHORT).show()
+                }
                 .create().show()
         }catch (e: Exception){
             e.printStackTrace()
