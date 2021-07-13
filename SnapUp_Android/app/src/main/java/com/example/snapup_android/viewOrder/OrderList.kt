@@ -1,5 +1,6 @@
 package com.example.snapup_android.viewOrder
 
+import android.content.ContentProvider.CallingIdentity
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,8 +11,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.snapup_android.R
+import com.example.snapup_android.User
 import com.example.snapup_android.viewOrder.MyOrderRecyclerViewAdapter.OnOrderClickListener
 import com.example.snapup_android.viewOrder.content.OrderList
+import java.util.ArrayList
 
 /**
  * A fragment representing a list of Items.
@@ -23,9 +26,6 @@ class OrderList : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        arguments?.let {
-            columnCount = it.getInt(ARG_COLUMN_COUNT)
-        }
     }
 
     override fun onCreateView(
@@ -46,9 +46,19 @@ class OrderList : Fragment() {
                     override fun onItemClick(view: View?, position: Int) {
                         //点击事件 弹出详情
                         val dummy = (adapter as MyOrderRecyclerViewAdapter).values[position]
+                        val stopovers = ArrayList<String>()
+                        stopovers.add("sample")
 
                         val bundle = Bundle()
                         //向bundle传递需要的字段
+
+                        bundle.putString("TRAIN_ID","a station id" )
+                        bundle.putString("STARTING_STATION", "a starting station" )
+                        bundle.putString("TERMINUS", "a terminus")
+                        bundle.putString("TIME", "a time")
+                        bundle.putStringArrayList("STOPOVERS", stopovers)
+                        bundle.putString("NAME", User.name)
+                        bundle.putString("STATE", "已支付")
 
                         val intent = Intent(context, OrderInfo::class.java).apply {
                             putExtras(bundle)
@@ -64,15 +74,13 @@ class OrderList : Fragment() {
 
     companion object {
 
-        // TODO: Customize parameter argument names
-        const val ARG_COLUMN_COUNT = "column-count"
-
         // TODO: Customize parameter initialization
         @JvmStatic
-        fun newInstance(columnCount: Int) =
+        fun newInstance(username: String?) =
             OrderList().apply {
                 arguments = Bundle().apply {
-                    putInt(ARG_COLUMN_COUNT, columnCount)
+                    putString("username", username)
+
                 }
             }
     }

@@ -13,7 +13,6 @@ import com.example.snapup_android.R.id
 import com.example.snapup_android.R.layout
 
 class SettingsActivity : AppCompatActivity() {
-    @SuppressLint("WrongViewCast")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_settings)

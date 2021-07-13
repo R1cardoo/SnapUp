@@ -119,7 +119,7 @@ class LoginActivity : AppCompatActivity() {
         bundle.putString("name", "ricardo")
         bundle.putString("number", "13552643675")
         bundle.putString("mail", "1127676571@qq.com")
-        bundle.putString("nickname","handsomeBoy" )
+        bundle.putString("nickname","beautifulBoy" )
         val intent = Intent(this, HomepageActivity::class.java)
         intent.putExtras(bundle)
         startActivity(intent)

@@ -3,6 +3,7 @@ package com.example.snapup_android.viewOrder
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.snapup_android.R
+import com.example.snapup_android.User
 
 class ViewOrderActivity : AppCompatActivity() {
 
@@ -13,15 +14,15 @@ class ViewOrderActivity : AppCompatActivity() {
 
         val bundle = intent.extras
         //数据
-        val username = bundle?.getString("username")
-        val password = bundle?.getString("password")
-        val identity = bundle?.getString("identity")
-        val gender = bundle?.getString("gender")
-        val name = bundle?.getString("name")
-        val number = bundle?.getString("number")
-        val mail = bundle?.getString("mail")
-        val nickname = bundle?.getString("nickname")
+        User.username = bundle?.getString("username")!!
+        User.password = bundle?.getString("password")!!
+        User.identity = bundle?.getString("identity")!!
+        User.gender = bundle?.getString("gender")!!
+        User.name = bundle?.getString("name")!!
+        User.number = bundle?.getString("number")!!
+        User.mail = bundle?.getString("mail")!!
+        User.nickname = bundle?.getString("nickname")!!
 
-        val orderFragment = OrderList.newInstance(5)
+        val orderList = OrderList.newInstance("nothing")
     }
 }

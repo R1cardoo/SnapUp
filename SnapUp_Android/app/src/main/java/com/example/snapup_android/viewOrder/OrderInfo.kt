@@ -8,31 +8,27 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
 import com.example.snapup_android.R
+import com.example.snapup_android.User
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_order_info.*
 import java.util.ArrayList
 
 class OrderInfo: AppCompatActivity() {
     //TO Add more fields about an order
-    private val TRAIN_ID = ""
-    private val STARTING_STATION = ""
-    private val TERMINUS = ""
-    private val TIME = ""
-    private val NAME = ""
-    private val STATE = ""
-    val STOPOVERS : List<String> = ArrayList() //经停站
+
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order_info)
 
-        val trainId = intent.getStringExtra(TRAIN_ID) ?: "ABC123"
-        val startingStation = intent.getStringExtra(STARTING_STATION)?: "i am starting station"
-        val terminus = intent.getStringExtra(TERMINUS)?: "i am terminus"
-        val time = intent.getStringExtra(TIME)?: "i am time"
-        val passengerName = intent.getStringExtra(NAME)?: "zqx"
-        val state = intent.getStringExtra(STATE)?:"代理抢票中"
+        val trainId = intent.getStringExtra("TRAIN_ID") ?: "ABC123"
+        val startingStation = intent.getStringExtra("STARTING_STATION")?: "i am starting station"
+        val terminus = intent.getStringExtra("TERMINUS")?: "i am terminus"
+        val time = intent.getStringExtra("TIME")?: "i am time"
+        val stopovers = intent.getStringArrayListExtra("STOPOVERS")//经停站
+        val passengerName = intent.getStringExtra("NAME")?: "zqx"
+        val state = intent.getStringExtra("STATE")?:"代理抢票中"
         //val stopovers = intent.getStringArrayListExtra()
 
 
@@ -45,6 +41,7 @@ class OrderInfo: AppCompatActivity() {
         TrainDestination.text = "终点站：$terminus"
         TrainTime.text = "发车时间： $time"
         PassengerName.text = "乘客姓名： $passengerName"
+        StationList.text = "经停站：$stopovers ..."
         proxy.text = "状态：$state"
 
 

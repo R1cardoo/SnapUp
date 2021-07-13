@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.snapup_android.R
+import com.example.snapup_android.viewOrder.OrderList
 import com.example.snapup_android.viewSchedule.MyScheduleRecyclerViewAdapter.OnItemClickListener
 import com.example.snapup_android.viewSchedule.content.ScheduleList
+import java.util.ArrayList
 
 
 /**
@@ -43,11 +45,19 @@ class ScheduleList : Fragment() {
                 adapter = MyScheduleRecyclerViewAdapter(ScheduleList.ITEMS)
                 (adapter as MyScheduleRecyclerViewAdapter).setOnItemClickListener(object : OnItemClickListener {
                     override fun onItemClick(view: View?, position: Int) {
-                        //点击事件 弹出详情
+                        //点击事件 弹出详情请求详细信息
+
                         val dummy = (adapter as MyScheduleRecyclerViewAdapter).values[position]
 
+                        val stopovers = ArrayList<String>()
+                        stopovers.add("sample")
                         val bundle = Bundle()
-                        //向bundle传递需要的字段
+                        //向bundle填入方法返回的信息
+                        bundle.putString("TRAIN_ID","a station id" )
+                        bundle.putString("STARTING_STATION", "a starting station" )
+                        bundle.putString("TERMINUS", "a terminus")
+                        bundle.putString("TIME", "a time")
+                        bundle.putStringArrayList("STOPOVERS", stopovers)
 
                         val intent = Intent(context, ScheduleInfo::class.java).apply {
                             putExtras(bundle)

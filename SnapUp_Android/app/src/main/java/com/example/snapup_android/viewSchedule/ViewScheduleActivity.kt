@@ -42,13 +42,19 @@ class ViewScheduleActivity : AppCompatActivity() {
         }
     }
     private fun showCheckBoxDialog(){
-        val stationList: Array<String> = arrayOf("北京市", "东城区",  "西城区","朝阳区","海淀区","通州区","北京工业大学","11号楼","A406")      //输入途经站
-
+        //把选项加入list
+        val stationList: Array<String> = arrayOf("北京市", "东城区", "西城区", "朝阳区", "海淀区", "通州区", "北京工业大学", "11号楼", "A406")      //输入途经站
+        val timeList: Array<String> = arrayOf("1月1日", "1月3日", "1月8", "1月15日", "2月5日", "2月7日")
+        val seatList: Array<String> = arrayOf("一等座", "二等座")
         val view = LayoutInflater.from(this).inflate(R.layout.activity_search,null)
-        val adapter = ArrayAdapter<String>(this, layout.activity_search, stationList)
-        adapter.setDropDownViewResource(R.layout.activity_search)
+        val adapterStation = ArrayAdapter<String>(this, layout.activity_search, stationList)
+        adapterStation.setDropDownViewResource(R.layout.activity_search)
+        val adapterTime = ArrayAdapter<String>(this, layout.activity_search, timeList)
+        adapterTime.setDropDownViewResource(R.layout.activity_search)
+        val adapterSeat = ArrayAdapter<String>(this, layout.activity_search, seatList)
+        adapterSeat.setDropDownViewResource(R.layout.activity_search)
 
-        view.findViewById<NiceSpinner>(id.start_Station).setAdapter(adapter)
+        view.findViewById<NiceSpinner>(id.start_Station).setAdapter(adapterStation)
         view.findViewById<NiceSpinner>(id.start_Station).onSpinnerItemSelectedListener = OnSpinnerItemSelectedListener{ _: NiceSpinner, view: View, _: Int, _: Long ->
             fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 val selectedItem: String = parent.getItemAtPosition(position).toString()
@@ -56,21 +62,21 @@ class ViewScheduleActivity : AppCompatActivity() {
             }
         }
 
-        view.findViewById<NiceSpinner>(id.terminus).setAdapter(adapter)
+        view.findViewById<NiceSpinner>(id.terminus).setAdapter(adapterStation)
         view.findViewById<NiceSpinner>(id.terminus).onSpinnerItemSelectedListener = OnSpinnerItemSelectedListener{ _: NiceSpinner, view: View, _: Int, _: Long ->
             fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 val selectedItem: String = parent.getItemAtPosition(position).toString()
                 Toast.makeText(baseContext, selectedItem, Toast.LENGTH_SHORT).show()
             }
         }
-        view.findViewById<NiceSpinner>(id.time).setAdapter(adapter)
+        view.findViewById<NiceSpinner>(id.time).setAdapter(adapterTime)
         view.findViewById<NiceSpinner>(id.time).onSpinnerItemSelectedListener = OnSpinnerItemSelectedListener{ _: NiceSpinner, view: View, _: Int, _: Long ->
             fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 val selectedItem: String = parent.getItemAtPosition(position).toString()
                 Toast.makeText(baseContext, selectedItem, Toast.LENGTH_SHORT).show()
             }
         }
-        view.findViewById<NiceSpinner>(id.seat_kind).setAdapter(adapter)
+        view.findViewById<NiceSpinner>(id.seat_kind).setAdapter(adapterSeat)
         view.findViewById<NiceSpinner>(id.seat_kind).onSpinnerItemSelectedListener = OnSpinnerItemSelectedListener{ _: NiceSpinner, view: View, _: Int, _: Long ->
             fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
                 val selectedItem: String = parent.getItemAtPosition(position).toString()

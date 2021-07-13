@@ -37,14 +37,19 @@ class RegisterActivity : AppCompatActivity() {
 
                 val bundle = Bundle()
                 //输入真实数据网球请求返回的数据。
-                bundle.putString("username", "18071102")
-                bundle.putString("password", "123456")
-                bundle.putString("identity", "18071102")
-                bundle.putString("gender","male" )
-                bundle.putString("name", "ricardo")
-                bundle.putString("number", "13552643675")
-                bundle.putString("mail", "1127676571@qq.com")
-                bundle.putString("nickname","handsomeBoy" )
+                bundle.putString("username", numberOrMail.text.toString())
+                bundle.putString("password", password.text.toString())
+                bundle.putString("identity", identity.text.toString())
+                bundle.putString("gender", gender.text.toString())
+                bundle.putString("name", name.text.toString())
+                if(numberOrMail.text.toString().contains('@')){
+                    bundle.putString("mail", numberOrMail.text.toString())
+                    bundle.putString("number", "")
+                }else{
+                    bundle.putString("number", numberOrMail.text.toString())
+                    bundle.putString("mail", "")
+                }
+                bundle.putString("nickname", nickname.text.toString() )
 
                 val intent = Intent(this, HomepageActivity::class.java)
                 intent.putExtras(bundle)
@@ -65,7 +70,7 @@ class RegisterActivity : AppCompatActivity() {
     /**
      * Extension function to simplify setting an afterTextChanged action to EditText components.
      */
-    fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
+    private fun EditText.afterTextChanged(afterTextChanged: (String) -> Unit) {
         this.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(editable: Editable?) {
                 afterTextChanged.invoke(editable.toString())
