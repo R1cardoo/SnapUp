@@ -4,6 +4,8 @@ package com.snapup.service;
 import com.snapup.dao.RestrictedUsrMapper;
 import com.snapup.pojo.RestrictedUsr;
 
+import java.util.List;
+
 public class RestrictedUsrServiceImpl implements RestrictedUsrService{
     private RestrictedUsrMapper restrictedUsrMapper;
 
@@ -23,5 +25,8 @@ public class RestrictedUsrServiceImpl implements RestrictedUsrService{
 
     public int deleteRestrictedUsr(RestrictedUsr restrictedUsr) {
         return restrictedUsrMapper.deleteRestrictedUsr(restrictedUsr);
+    }
+    public List<RestrictedUsr> findAllRestrictedUsr() {
+        return restrictedUsrMapper.findAllRestrictedUsr();
     }
 }

@@ -35,4 +35,8 @@
         where run_code = #{run_code}
     </select>
 
+    <select id="findAllTrainSerial" resultType="TrainSerial">
+        select * from snapup.train_serial
+    </select>
+
 </mapper>

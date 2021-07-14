@@ -86,4 +86,19 @@ public class StationOnLineServiceImpl implements StationOnLineService{
         }
         return stations;
     }
+
+    public List<Station> getPassStation(String run_code, String depart_station_name, String arrival_station_name) {
+        List<Station_on_line> allStationOnLines = stationOnLineMapper.findStationByRunCode(run_code);
+        List<Station> passStations = new ArrayList<Station>();
+        Station depart_station = stationMapper.findStationByName(depart_station_name);
+        Station arrival_station = stationMapper.findStationByName(arrival_station_name);
+        int depart_station_idx = stationOnLineMapper.findStationIdx(run_code, depart_station.getCode());
+        int arrival_station_idx = stationOnLineMapper.findStationIdx(run_code, arrival_station.getCode());
+        for(Station_on_line station_on_line: allStationOnLines){
+            if(depart_station_idx <= station_on_line.getStation_idx() && station_on_line.getStation_idx() <= arrival_station_idx){
+                passStations.add(stationMapper.findStationByCode(station_on_line.getStation_code()));
+            }
+        }
+        return passStations;
+    }
 }
