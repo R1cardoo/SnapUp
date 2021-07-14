@@ -2,6 +2,7 @@ package com.snapup.controller;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.mysql.cj.exceptions.StreamingNotifiable;
 import com.snapup.pojo.RestrictedUsr;
 import com.snapup.pojo.Station;
 import com.snapup.pojo.TrainRun;
@@ -381,7 +382,9 @@ public class Control {
         return res;
     }
 
-//    public JsonObject search_lines(
+//    @RequestMapping("/api/train/lines")
+//    @ResponseBody
+//    public JsonObject line-station(
 //            @RequestParam(value="pageNo") int page_no,
 //            @RequestParam(value="pageSize") int page_size,
 //            @RequestParam(value="trainNo", required = false) String train_no,
@@ -391,4 +394,57 @@ public class Control {
 //            @RequestParam(value="departTime", required = false) String depart_time,
 //            @RequestParam(value="arriveTime", required = false) String arrive_time
 //    )
+
+    @RequestMapping("/api/train/save-line")
+    @ResponseBody
+    public JsonObject save_line(JsonObject jo) {
+        JsonObject res = new JsonObject();
+        Boolean flag = jo.get("create").getAsBoolean();
+        if (flag) {         /* 新建线路 */
+            String lineInfo = jo.get("lineInfo").getAsString();
+            JsonArray ja = jo.get("lineStation").getAsJsonArray();
+            for (int i = 0; i < ja.size(); i++) {
+                
+            }
+        } else {            /* 修改线路 */
+
+        }
+        return res;
+    }
+
+    @RequestMapping("/api/train/line-station")
+    @ResponseBody
+    public JsonObject search_line_station(
+            @RequestParam(value="lineNo", required = false) String run_code
+    ) {
+        JsonObject jo = new JsonObject();
+        jo.addProperty("message", "");
+        jo.addProperty("timestamp", "1626065105209");
+        JsonArray ja = new JsonArray();
+
+        if (run_code != null && !run_code.equals("")) {
+            List<TrainRun> all_train = trainRunService.getAllTrainRun();
+            for (int i = 0; i < all_train.size(); i++) {
+                if (run_code.equals(all_train.get(i).getRun_code())) {
+                    List<Station> all_station  =  stationOnLineService.getAllStation(all_train.get(i).getRun_code());
+                    for (int j = 0; j < all_station.size(); j++) {
+                        JsonObject temp = new JsonObject();
+                        String st_name = all_station.get(j).getName();
+                        temp.addProperty("stationName", st_name);
+                        Date st_date = timeTableService.getDepartTime(all_train.get(i).getRun_code(), stationService.getStationByName(st_name).getCode());
+                        Date ed_date = timeTableService.getArrivalTime(all_train.get(i).getRun_code(), stationService.getStationByName(st_name).getCode());
+                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+                        temp.addProperty("arrive", sdf.format(st_date));
+                        temp.addProperty("depart", sdf.format(ed_date));
+                        ja.add(temp);
+                    }
+                    jo.add("result", ja);
+                }
+            }
+        } else {
+            jo.add("result", ja);
+        }
+        jo.addProperty("code", 0);
+        return jo;
+    }
 }
