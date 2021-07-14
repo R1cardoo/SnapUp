@@ -70,16 +70,7 @@
 
       <div class="table-operator">
         <a-button type="primary" icon="plus" @click="handleAdd">新建</a-button>
-        <a-dropdown v-action:edit v-if="selectedRowKeys.length > 0">
-          <a-menu slot="overlay">
-            <a-menu-item key="1"><a-icon type="delete" />删除</a-menu-item>
-            <!-- lock | unlock -->
-            <a-menu-item key="2"><a-icon type="lock" />锁定</a-menu-item>
-          </a-menu>
-          <a-button style="margin-left: 8px">
-            批量操作 <a-icon type="down" />
-          </a-button>
-        </a-dropdown>
+        <a-button type="secondary" icon="clock-circle" @click="handleArrange" v-if="selectedRowKeys.length > 0">安排车次</a-button>
       </div>
 
       <s-table
@@ -88,6 +79,7 @@
         rowKey="key"
         :columns="columns"
         :data="loadData"
+        :rowSelection="rowSelection"
         showPagination="auto"
       >
         <span slot="serial" slot-scope="text, record, index">
@@ -115,7 +107,7 @@
 // 线路：车次编号；列车类型；车厢数量与座位数量；车站数量-车站列表；各站出发与到达时间
 import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
-import { getRoleList, getTrainList } from '@/api/manage'
+import { arrangeLine, getRoleList, getTrainList } from '@/api/manage'
 
 const columns = [
   {
@@ -288,7 +280,7 @@ export default {
               // 刷新表格
               this.$refs.table.refresh()
 
-              this.$message.info('新增成功')
+              this.$message.info('安排车次成功')
             })
           }
         } else {
@@ -308,6 +300,39 @@ export default {
       } else {
         this.$message.error(`${record.no} 订阅失败，规则已关闭`)
       }
+    },
+    handleArrange () {
+      const { $notification } = this
+      const arrangeNo = this.selectedRows.reduce((acc, cur, i) => {
+        acc.push(cur.trainNo)
+        return acc
+      }, [])
+      arrangeLine(arrangeNo).then(res => {
+        console.log(arrangeNo)
+        console.log(res)
+        const result = res.result
+        if (result.error) {
+          $notification['error']({
+            message: '错误',
+            description: result.reason
+          })
+        } else {
+          $notification['success']({
+            message: '成功',
+            description: result.reason
+          })
+          this.confirmLoading = false
+          this.selectedRows.splice(0, this.selectedRows.length)
+          this.selectedRowKeys.splice(0, this.selectedRowKeys.length)
+          // 刷新表格
+          this.$refs.table.refresh()
+        }
+      }).catch(() => {
+        $notification['error']({
+          message: '错误',
+          description: '发送请求异常'
+        })
+      })
     },
     onSelectChange (selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys
