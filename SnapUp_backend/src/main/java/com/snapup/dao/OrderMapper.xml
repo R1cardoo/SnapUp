@@ -6,13 +6,13 @@
 <mapper namespace="com.snapup.dao.OrderMapper">
 
     <insert id="createOrder" parameterType="Order">
-        insert into snapup.order(purchase_time, ticket_id, coach_id, seat_id, run_serial, depart_station_idx, arrival_station_idx, passenger_id, username, price)
-        values(#{purchase_time}, #{ticket_id}, #{coach_id}, #{seat_id}, #{run_serial}, #{depart_station_idx}, #{arrival_station_idx}, #{passenger_id}, #{username}, #{price})
+        insert into snapup.order(purchase_time, ticket_id, coach_id, seat_id, seat_type, run_serial, depart_station_idx, arrival_station_idx, passenger_id, username, price)
+        values(#{purchase_time}, #{ticket_id}, #{coach_id}, #{seat_id}, #{seat_type}, #{run_serial}, #{depart_station_idx}, #{arrival_station_idx}, #{passenger_id}, #{username}, #{price})
     </insert>
 
     <update id="updateOrder" parameterType="Order">
         update snapup.order
-        set purchase_time = #{purchase_time},ticket_id = #{ticket_id},coach_id = #{coach_id}, seat_id = #{seat_id},run_serial = #{run_serial},depart_station_idx = #{depart_station_idx},arrival_station_idx = #{arrival_station_idx}, passenger_id=#{passenger_id}, username=#{username}, price=#{price}
+        set purchase_time = #{purchase_time},ticket_id = #{ticket_id},coach_id = #{coach_id}, seat_id = #{seat_id},#{seat_type}=seat_type, run_serial = #{run_serial},depart_station_idx = #{depart_station_idx},arrival_station_idx = #{arrival_station_idx}, passenger_id=#{passenger_id}, username=#{username}, price=#{price}
         where ticket_id = #{ticket_id}
     </update>
 
@@ -26,9 +26,14 @@
         where username = #{username}
     </select>
 
+    <select id="findOrder" resultType="Order">
+        select * from snapup.order
+        where username = #{username} and run_serial = #{run_serial} and passenger_id = #{passenger_id}
+    </select>
 
     <delete id="deleteOrder" parameterType="int">
-        delete from snapup.order where ticket_id=#{ticket_id}
+        delete from snapup.order
+        where username = #{username} and run_serial = #{run_serial} and passenger_id = #{passenger_id}
     </delete>
 
 

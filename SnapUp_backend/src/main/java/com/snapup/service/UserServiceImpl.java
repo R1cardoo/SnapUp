@@ -9,11 +9,13 @@ public class UserServiceImpl implements UserService{
         this.userMapper = userMapper;
     }
 
-    public void registerUser(String username, String identity_id, char gender, String name, String tele, String mail, String pwd, String nickname) {
+    public boolean registerUser(String username, String identity_id, char gender, String name, String tele, String mail, String pwd, String nickname) {
         if (userMapper.findUserByUsername(username) == null){
             User user = new User(username, identity_id, gender, name, tele, mail, pwd, nickname);
             userMapper.createUser(user);
+            return true;
         }
+        return false;
     }
 
     public boolean isRegistered(String username) {
@@ -41,5 +43,9 @@ public class UserServiceImpl implements UserService{
             return user.getPwd();
         }
         return null;
+    }
+
+    public boolean updateUserInfo(User user) {
+        return userMapper.updateUser(user);
     }
 }

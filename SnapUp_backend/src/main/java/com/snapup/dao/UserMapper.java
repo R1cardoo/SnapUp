@@ -8,5 +8,5 @@ public interface UserMapper {
     //通过用户ID查询用户
     public User findUserByUsername(String username);
     //更新一个用户
-    public void updateUser(User user);
+    public boolean updateUser(User user);
 }

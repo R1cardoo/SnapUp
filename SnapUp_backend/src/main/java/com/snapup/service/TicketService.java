@@ -1,5 +1,9 @@
 package com.snapup.service;
 
+import com.snapup.pojo.SeatTicket;
+
+import java.util.List;
+
 public interface TicketService {
     double EARTH_RADIUS = 6378.137; //地球半径(单位：千米)
     //真正的初始化：
@@ -19,6 +23,8 @@ public interface TicketService {
     //退票：
     public int returnTicket(int run_serial, String depart_station_code,
                          String arrival_station_code, char seat_type);
+    //根据列车流水，出发站和目标站查询座位类型，座位价格，余票
+    public List<SeatTicket> findSeatTicket(int run_serial, String depart_station_code, String arrival_station_code);
 
     //计算票价：
     public float tickets_price_produce(char train_type, char seat_type,float latitude_x,

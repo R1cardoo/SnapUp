@@ -16,4 +16,7 @@ public interface StationOnLineService {
     public String getEndStation(String run_code);
     //查询一个车次的所有途径站点
     public List<Station> getAllStation(String run_code);
+    //查询经停站：
+    public List<Station> getPassStation(String run_code, String depart_station_name, String arrival_station_name);
+
 }
