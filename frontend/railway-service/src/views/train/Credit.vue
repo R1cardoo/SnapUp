@@ -92,6 +92,12 @@ export default {
       // 加载数据方法 必须为 Promise 对象
       loadData: parameter => {
         const requestParameters = Object.assign({}, parameter, this.queryParam)
+        if (requestParameters.id === '') {
+          delete requestParameters.id
+        }
+        if (requestParameters.name === '') {
+          delete requestParameters.name
+        }
         console.log('loadData request parameters:', requestParameters)
         return getCreditList(requestParameters)
           .then(res => {

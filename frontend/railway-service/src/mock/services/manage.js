@@ -36,76 +36,76 @@ const serverList = (options) => {
   })
 }
 
-const creditList = (options) => {
-  const parameters = getQueryParameters(options)
+// const creditList = (options) => {
+//   const parameters = getQueryParameters(options)
+//
+//   const result = []
+//   const pageNo = parseInt(parameters.pageNo)
+//   const pageSize = parseInt(parameters.pageSize)
+//   const totalPage = Math.ceil(totalCount / pageSize)
+//   const key = (pageNo - 1) * pageSize
+//   const next = (pageNo >= totalPage ? (totalCount % pageSize) : pageSize) + 1
+//
+//   for (let i = 1; i < next; i++) {
+//     const tmpKey = key + i
+//     result.push({
+//       key: tmpKey,
+//       id: tmpKey,
+//       identity: Mock.mock('@integer(100000000000000000, 999999999999999999)'),
+//       name: Mock.mock({ 'regexp': /[A-Za-z]{2,10}/ }).regexp,
+//       editable: false
+//     })
+//   }
+//
+//   return builder({
+//     pageSize: pageSize,
+//     pageNo: pageNo,
+//     totalCount: totalCount,
+//     totalPage: totalPage,
+//     data: result
+//   })
+// }
 
-  const result = []
-  const pageNo = parseInt(parameters.pageNo)
-  const pageSize = parseInt(parameters.pageSize)
-  const totalPage = Math.ceil(totalCount / pageSize)
-  const key = (pageNo - 1) * pageSize
-  const next = (pageNo >= totalPage ? (totalCount % pageSize) : pageSize) + 1
-
-  for (let i = 1; i < next; i++) {
-    const tmpKey = key + i
-    result.push({
-      key: tmpKey,
-      id: tmpKey,
-      identity: Mock.mock('@integer(100000000000000000, 999999999999999999)'),
-      name: Mock.mock({ 'regexp': /[A-Za-z]{2,10}/ }).regexp,
-      editable: false
-    })
-  }
-
-  return builder({
-    pageSize: pageSize,
-    pageNo: pageNo,
-    totalCount: totalCount,
-    totalPage: totalPage,
-    data: result
-  })
-}
-
-const trainList = (options) => {
-  const parameters = getQueryParameters(options)
-
-  const result = []
-  const pageNo = parseInt(parameters.pageNo)
-  const pageSize = parseInt(parameters.pageSize)
-  const totalPage = Math.ceil(totalCount / pageSize)
-  const key = (pageNo - 1) * pageSize
-  const next = (pageNo >= totalPage ? (totalCount % pageSize) : pageSize) + 1
-
-  for (let i = 1; i < next; i++) {
-    const tmpKey = key + i
-    const trainNo = Mock.mock({ 'regexp': /[A-Z]/ }).regexp + Mock.mock('@integer(1, 999)')
-    result.push({
-      key: tmpKey,
-      id: tmpKey,
-      trainNo: trainNo,
-      stationInfo: Mock.mock({ 'array|1': ['北京西', '南京', '南京南', '宋城路', '绿博园', '新郑机场', '南阳寨', '黄河景区',
-          '武陟', '修武西', '白城', '成都东', '东莞', '东莞东', '惠州', '济宁', '南充', '日照', '山海关', '汕头', '松原', '乌兰浩特',
-          '乌鲁木齐南', '乌鲁木齐', '岚山西', '日照西', '锦州', '锦州南'] }).array + ' - ' + Mock.mock({ 'array|1': ['北京西',
-          '南京', '南京南', '宋城路', '绿博园', '新郑机场', '南阳寨', '黄河景区', '武陟', '修武西', '白城', '成都东', '东莞', '东莞东',
-          '惠州', '济宁', '南充', '日照', '山海关', '汕头', '松原', '乌兰浩特', '乌鲁木齐南', '乌鲁木齐', '岚山西', '日照西', '锦州',
-          '锦州南'] }).array,
-      trainType: trainNo[0],
-      stationNum: Mock.mock('@integer(1, 20)'),
-      departTime: Mock.mock('@time("HH:mm")'),
-      arriveTime: Mock.mock('@time("HH:mm")'),
-      status: Mock.mock('@integer(0, 2)'),
-      editable: false
-    })
-  }
-
-  return builder({
-    pageSize: pageSize,
-    pageNo: pageNo,
-    totalCount: totalCount,
-    totalPage: totalPage,
-    data: result
-  })
-}
+// const trainList = (options) => {
+//   const parameters = getQueryParameters(options)
+//
+//   const result = []
+//   const pageNo = parseInt(parameters.pageNo)
+//   const pageSize = parseInt(parameters.pageSize)
+//   const totalPage = Math.ceil(totalCount / pageSize)
+//   const key = (pageNo - 1) * pageSize
+//   const next = (pageNo >= totalPage ? (totalCount % pageSize) : pageSize) + 1
+//
+//   for (let i = 1; i < next; i++) {
+//     const tmpKey = key + i
+//     const trainNo = Mock.mock({ 'regexp': /[A-Z]/ }).regexp + Mock.mock('@integer(1, 999)')
+//     result.push({
+//       key: tmpKey,
+//       id: tmpKey,
+//       trainNo: trainNo,
+//       stationInfo: Mock.mock({ 'array|1': ['北京西', '南京', '南京南', '宋城路', '绿博园', '新郑机场', '南阳寨', '黄河景区',
+//           '武陟', '修武西', '白城', '成都东', '东莞', '东莞东', '惠州', '济宁', '南充', '日照', '山海关', '汕头', '松原', '乌兰浩特',
+//           '乌鲁木齐南', '乌鲁木齐', '岚山西', '日照西', '锦州', '锦州南'] }).array + ' - ' + Mock.mock({ 'array|1': ['北京西',
+//           '南京', '南京南', '宋城路', '绿博园', '新郑机场', '南阳寨', '黄河景区', '武陟', '修武西', '白城', '成都东', '东莞', '东莞东',
+//           '惠州', '济宁', '南充', '日照', '山海关', '汕头', '松原', '乌兰浩特', '乌鲁木齐南', '乌鲁木齐', '岚山西', '日照西', '锦州',
+//           '锦州南'] }).array,
+//       trainType: trainNo[0],
+//       stationNum: Mock.mock('@integer(1, 20)'),
+//       departTime: Mock.mock('@time("HH:mm")'),
+//       arriveTime: Mock.mock('@time("HH:mm")'),
+//       status: Mock.mock('@integer(0, 2)'),
+//       editable: false
+//     })
+//   }
+//
+//   return builder({
+//     pageSize: pageSize,
+//     pageNo: pageNo,
+//     totalCount: totalCount,
+//     totalPage: totalPage,
+//     data: result
+//   })
+// }
 
 const stationList = () => {
   return builder(['北京西', '南京', '南京南', '宋城路', '绿博园', '新郑机场', '南阳寨', '黄河景区', '武陟', '修武西', '白城',
@@ -145,58 +145,58 @@ const stationList = () => {
     '天津西', '天津', '林芝', '贡嘎', '扎囊', '山南', '桑日', '加查', '朗县', '米林', '岗嘎'])
 }
 
-const lineStation = () => {
-  return builder([
-    {
-      stationName: '北京西',
-      arrive: '19:50',
-      depart: '19:50'
-    },
-    {
-      stationName: '浦东',
-      arrive: '22:30',
-      depart: '22:40'
-    },
-    {
-      stationName: '广州北',
-      arrive: '02:10',
-      depart: '02:10'
-    }
-  ])
-}
+// const lineStation = () => {
+//   return builder([
+//     {
+//       stationName: '北京西',
+//       arrive: '19:50',
+//       depart: '19:50'
+//     },
+//     {
+//       stationName: '浦东',
+//       arrive: '22:30',
+//       depart: '22:40'
+//     },
+//     {
+//       stationName: '广州北',
+//       arrive: '02:10',
+//       depart: '02:10'
+//     }
+//   ])
+// }
 
-const saveLine = (options) => {
-  const parameters = JSON.parse(options.body)
-  if (parameters.create) {
-    return builder({
-      error: false,
-      reason: 'Success'
-    })
-  } else {
-    return builder({
-      error: true,
-      reason: 'Fail'
-    })
-  }
-}
+// const saveLine = (options) => {
+//   const parameters = JSON.parse(options.body)
+//   if (parameters.create) {
+//     return builder({
+//       error: false,
+//       reason: 'Success'
+//     })
+//   } else {
+//     return builder({
+//       error: true,
+//       reason: 'Fail'
+//     })
+//   }
+// }
 
-const saveCredit = () => {
-  return builder({
-    error: false,
-    reason: 'Success'
-  })
-  // return builder({
-  //   error: true,
-  //   reason: 'Fail'
-  // })
-}
+// const saveCredit = () => {
+//   return builder({
+//     error: false,
+//     reason: 'Success'
+//   })
+//   // return builder({
+//   //   error: true,
+//   //   reason: 'Fail'
+//   // })
+// }
 
-const deleteCredit = () => {
-  return builder({
-    error: false,
-    reason: 'Success'
-  })
-}
+// const deleteCredit = () => {
+//   return builder({
+//     error: false,
+//     reason: 'Success'
+//   })
+// }
 
 const projects = () => {
   return builder({
@@ -408,13 +408,13 @@ const radar = () => {
 }
 
 Mock.mock(/\/service/, 'get', serverList)
-Mock.mock(/\/train\/lines/, 'get', trainList)
+// Mock.mock(/\/train\/lines/, 'get', trainList)
 Mock.mock(/\/train\/stations/, 'get', stationList)
-Mock.mock(/\/train\/credit/, 'get', creditList)
-Mock.mock(/\/train\/line-station/, 'get', lineStation)
-Mock.mock(/\/train\/save-line/, 'post', saveLine)
-Mock.mock(/\/train\/save-credit/, 'post', saveCredit)
-Mock.mock(/\/train\/delete-credit/, 'post', deleteCredit)
+// Mock.mock(/\/train\/credit/, 'get', creditList)
+// Mock.mock(/\/train\/line-station/, 'get', lineStation)
+// Mock.mock(/\/train\/save-line/, 'post', saveLine)
+// Mock.mock(/\/train\/save-credit/, 'post', saveCredit)
+// Mock.mock(/\/train\/delete-credit/, 'post', deleteCredit)
 Mock.mock(/\/list\/search\/projects/, 'get', projects)
 Mock.mock(/\/workplace\/activity/, 'get', activity)
 Mock.mock(/\/workplace\/teams/, 'get', teams)
