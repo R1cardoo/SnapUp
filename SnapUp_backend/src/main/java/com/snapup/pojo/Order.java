@@ -15,6 +15,7 @@ public class Order {
     private String ticket_id;
     private int coach_id;
     private int seat_id;
+    private char seat_type;
     private int run_serial;
     private int depart_station_idx;
     private int arrival_station_idx;

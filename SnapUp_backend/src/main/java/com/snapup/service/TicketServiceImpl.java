@@ -11,6 +11,12 @@ public class TicketServiceImpl implements TicketService {
     private TrainSerialMapper trainSerialMapper;
     private TrainRunMapper trainRunMapper;
     private SeatMapper seatMapper;
+    private StationOnLineMapper stationOnLineMapper;
+
+    public void setStationOnLineMapper(StationOnLineMapper stationOnLineMapper) {
+        this.stationOnLineMapper = stationOnLineMapper;
+    }
+
     private StationOnLineService stationOnLineService;
 
     public void setStationOnLineService(StationOnLineService stationOnLineService) {
@@ -77,8 +83,8 @@ public class TicketServiceImpl implements TicketService {
 
         }
     }
-
-    public int addTicket(int run_serial, String depart_station_code, String arrival_station_code, char seat_type) {
+    //票数减一
+    public int subTicket(int run_serial, String depart_station_code, String arrival_station_code, char seat_type) {
         String[] coordinate1 = stationMapper.findStationByCode(depart_station_code).getAddress().split(" ");
         String[] coordinate2 = stationMapper.findStationByCode(arrival_station_code).getAddress().split(" ");
         List<SeatTicket> ticketList = ticketMapper.findSeatTicket(run_serial, depart_station_code, arrival_station_code);
@@ -101,8 +107,8 @@ public class TicketServiceImpl implements TicketService {
         ticketMapper.updateTicketRemain(new Ticket(run_serial, depart_station_code, arrival_station_code, seat_type, price, remain));
         return 0;
     }
-
-    public int subTicket(int run_serial, String depart_station_code, String arrival_station_code, char seat_type) {
+    //票数加一
+    public int addTicket(int run_serial, String depart_station_code, String arrival_station_code, char seat_type) {
         String[] coordinate1 = stationMapper.findStationByCode(depart_station_code).getAddress().split(" ");
         String[] coordinate2 = stationMapper.findStationByCode(arrival_station_code).getAddress().split(" ");
         List<SeatTicket> ticketList = ticketMapper.findSeatTicket(run_serial, depart_station_code, arrival_station_code);
@@ -115,7 +121,7 @@ public class TicketServiceImpl implements TicketService {
             }
         }
         int max_seat_num = seatMapper.findSeatNum(trainRun.getRun_code(), seat_type);
-        System.out.println(max_seat_num);
+        //System.out.println(max_seat_num);
         if(remain == max_seat_num)
             return 1;
         remain++;
@@ -127,11 +133,47 @@ public class TicketServiceImpl implements TicketService {
     }
 
     public int buyTicket(int run_serial, String depart_station_code, String arrival_station_code, char seat_type) {
+        TrainRun trainRun = trainRunMapper.findTrainRunByCode(trainSerialMapper.findTrainSerialBySerialNum(run_serial).getRun_code());
+        List<Station> stations = stationOnLineService.getAllStation(trainRun.getRun_code());
+        int depart_station_idx = stationOnLineMapper.findStationIdx(trainRun.getRun_code(), depart_station_code);
+        int arrival_station_idx = stationOnLineMapper.findStationIdx(trainRun.getRun_code(), arrival_station_code);
+        for(int i=0;i<stations.size()-1;i++){
+            for(int j=i+1;j<stations.size();j++){
+                //System.out.println(stations.get(i).toString()+"->"+stations.get(j));
+                int idx1 = stationOnLineMapper.findStationIdx(trainRun.getRun_code(), stations.get(i).getCode());
+                int idx2 = stationOnLineMapper.findStationIdx(trainRun.getRun_code(), stations.get(j).getCode());
+                //只有两站同时在departStation和arrivalStation的一侧，不需要减票
+                if((idx1<=depart_station_idx && idx2<=depart_station_idx) || (idx1>=arrival_station_idx && idx2>=arrival_station_idx));
+                else{
+                    subTicket(run_serial, stations.get(i).getCode(), stations.get(j).getCode(), seat_type);
+                }
+            }
+        }
         return 0;
     }
 
     public int returnTicket(int run_serial, String depart_station_code, String arrival_station_code, char seat_type) {
+        TrainRun trainRun = trainRunMapper.findTrainRunByCode(trainSerialMapper.findTrainSerialBySerialNum(run_serial).getRun_code());
+        List<Station> stations = stationOnLineService.getAllStation(trainRun.getRun_code());
+        int depart_station_idx = stationOnLineMapper.findStationIdx(trainRun.getRun_code(), depart_station_code);
+        int arrival_station_idx = stationOnLineMapper.findStationIdx(trainRun.getRun_code(), arrival_station_code);
+        for(int i=0;i<stations.size()-1;i++){
+            for(int j=i+1;j<stations.size();j++){
+                //System.out.println(stations.get(i).toString()+"->"+stations.get(j));
+                int idx1 = stationOnLineMapper.findStationIdx(trainRun.getRun_code(), stations.get(i).getCode());
+                int idx2 = stationOnLineMapper.findStationIdx(trainRun.getRun_code(), stations.get(j).getCode());
+                //只有两站同时在departStation和arrivalStation的一侧，不需要加票
+                if((idx1<=depart_station_idx && idx2<=depart_station_idx) || (idx1>=arrival_station_idx && idx2>=arrival_station_idx));
+                else{
+                    addTicket(run_serial, stations.get(i).getCode(), stations.get(j).getCode(), seat_type);
+                }
+            }
+        }
         return 0;
+    }
+
+    public List<SeatTicket> findSeatTicket(int run_serial, String depart_station_code, String arrival_station_code) {
+        return ticketMapper.findSeatTicket(run_serial, depart_station_code, arrival_station_code);
     }
     //更新票价：在初始化的时候、购票者购票or退票的时候
 

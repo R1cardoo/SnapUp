@@ -15,5 +15,9 @@
         where run_code = #{run_code}
         order by station_idx asc
     </select>
+    <select id="findStationIdx" resultType="int">
+        select station_idx from snapup.station_on_line
+        where run_code = #{run_code} and station_code = #{station_code}
+    </select>
 
 </mapper>
