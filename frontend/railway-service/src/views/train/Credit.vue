@@ -203,6 +203,11 @@ export default {
           // 刷新表格
           this.$refs.table.refresh()
         }
+      }).catch(() => {
+        $notification['error']({
+          message: '错误',
+          description: '发送请求异常'
+        })
       })
     },
     onSelectChange (selectedRowKeys, selectedRows) {

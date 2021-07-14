@@ -5,6 +5,7 @@ const api = {
   role: '/role',
   service: '/service',
   trainList: '/train/lines',
+  arrangeLine: '/train/arrange-line',
   lineStation: '/train/line-station',
   stationList: '/train/stations',
   creditList: '/train/credit',
@@ -61,6 +62,14 @@ export function getLineStation (parameter) {
 export function saveLine (parameter) {
   return request({
     url: api.saveLine,
+    method: 'post',
+    data: parameter
+  })
+}
+
+export function arrangeLine (parameter) {
+  return request({
+    url: api.arrangeLine,
     method: 'post',
     data: parameter
   })
