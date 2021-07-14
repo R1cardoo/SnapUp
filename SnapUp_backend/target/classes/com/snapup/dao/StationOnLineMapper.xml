@@ -19,5 +19,9 @@
         select station_idx from snapup.station_on_line
         where run_code = #{run_code} and station_code = #{station_code}
     </select>
+    <select id="findStationCode" resultType="String">
+        select station_code from snapup.station_on_line
+        where run_code = #{run_code} and station_idx = #{station_idx}
+    </select>
 
 </mapper>

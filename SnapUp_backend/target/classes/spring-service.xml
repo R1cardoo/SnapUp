@@ -52,10 +52,32 @@
         <property name="passengerMapper" ref="passengerMapper"/>
         <property name="userMapper" ref="userMapper"/>
     </bean>
+    <bean id="orderService" class="com.snapup.service.OrderServiceImpl">
+        <property name="orderMapper" ref="orderMapper"/>
+        <property name="stationOnLineMapper" ref="stationOnLineMapper"/>
+        <property name="stationService" ref="stationServiceImpl"/>
+        <property name="trainRunMapper" ref="trainRunMapper"/>
+        <property name="trainSerialMapper" ref="trainSerialMapper"/>
+        <property name="ticketMapper" ref="ticketMapper"/>
+        <property name="ticketService" ref="ticketServiceImpl"/>
+        <property name="trainRunService" ref="trainRunServiceImpl"/>
+    </bean>
+    <bean id="timeTableService" class="com.snapup.service.TimeTableServiceImpl">
+        <property name="timeTableMapper" ref="timeTableMapper"/>
+    </bean>
     <!-- 配置事务管理器 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <!-- 注入数据库连接池 -->
         <property name="dataSource" ref="dataSource" />
     </bean>
 
+<!--    &lt;!&ndash; 扫描service相关的bean &ndash;&gt;-->
+<!--    <context:component-scan base-package="com.snapup.util" />-->
+<!--    <bean id="trainDictionary" class="com.snapup.util.TrainDictionary">-->
+<!--        <property name="restrictedUsrService" ref="restrictedUsrService" />-->
+<!--        <property name="trainRunService" ref="trainRunServiceImpl" />-->
+<!--        <property name="stationOnLineService" ref="stationOnLineServiceImpl" />-->
+<!--        <property name="timeTableService" ref="timeTableService" />-->
+<!--        <property name="stationService" ref="stationServiceImpl" />-->
+<!--    </bean>-->
 </beans>

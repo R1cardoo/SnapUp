@@ -101,4 +101,9 @@ public class StationOnLineServiceImpl implements StationOnLineService{
         }
         return passStations;
     }
+
+    public String getOneStation(String run_code, int station_idx) {
+        return stationOnLineMapper.findStationCode(run_code, station_idx);
+    }
+
 }

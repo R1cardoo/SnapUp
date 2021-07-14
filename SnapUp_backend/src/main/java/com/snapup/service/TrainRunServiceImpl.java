@@ -1,6 +1,9 @@
 package com.snapup.service;
 
 import com.snapup.dao.TrainRunMapper;
+import com.snapup.pojo.TrainRun;
+
+import java.util.List;
 
 public class TrainRunServiceImpl implements TrainRunService{
     private TrainRunMapper trainRunMapper;
@@ -23,5 +26,8 @@ public class TrainRunServiceImpl implements TrainRunService{
 
     public int getSeatNum(String run_code) {
         return trainRunMapper.findTrainRunByCode(run_code).getSeat_num();
+    }
+    public List<TrainRun> getAllTrainRun(){
+        return trainRunMapper.findAllTrainRun();
     }
 }

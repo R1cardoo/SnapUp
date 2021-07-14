@@ -8,6 +8,8 @@
         select * from snapup.train_run
         where run_code = #{run_code}
     </select>
-
+    <select id="findAllTrainRun" resultType="TrainRun">
+        select * from snapup.train_run
+    </select>
 
 </mapper>

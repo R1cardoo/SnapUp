@@ -53,10 +53,11 @@ public class MyTest {
     public void TestTrainRun(){
         ApplicationContext ctx = new ClassPathXmlApplicationContext("applicationContext.xml");
         TrainRunServiceImpl trainRunService = (TrainRunServiceImpl)ctx.getBean("trainRunServiceImpl");
-        System.out.println("c1001的火车类型："+trainRunService.getTrainType("c1001"));
-        System.out.println("c1001的车箱数："+trainRunService.getCoachNum("c1001"));
-        System.out.println("c1001的座位数："+trainRunService.getSeatNum("c1001"));
-        System.out.println("c1001的线路站点数："+trainRunService.getStationNum("c1001"));
+        //System.out.println("c1001的火车类型："+trainRunService.getTrainType("c1001"));
+        //System.out.println("c1001的车箱数："+trainRunService.getCoachNum("c1001"));
+        //System.out.println("c1001的座位数："+trainRunService.getSeatNum("c1001"));
+        //System.out.println("c1001的线路站点数："+trainRunService.getStationNum("c1001"));
+        System.out.println(trainRunService.getAllTrainRun());
     }
     @Test
     public void TestSeat(){

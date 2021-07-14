@@ -2,6 +2,7 @@ package com.snapup.service;
 
 import com.snapup.pojo.Station;
 import com.snapup.pojo.TrainRun;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,6 +15,8 @@ public interface StationOnLineService {
     public String getStartStation(String run_code);
     //查询一个车次的终点站
     public String getEndStation(String run_code);
+    // 返回第idx个站的code
+    public String getOneStation(String run_code, int station_idx);
     //查询一个车次的所有途径站点
     public List<Station> getAllStation(String run_code);
     //查询经停站：
