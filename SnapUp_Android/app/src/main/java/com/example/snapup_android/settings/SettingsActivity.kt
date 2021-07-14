@@ -8,9 +8,9 @@ import android.text.TextWatcher
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.example.snapup_android.MyService
 import com.example.snapup_android.R.id
 import com.example.snapup_android.R.layout
-import com.example.snapup_android.User
 
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,14 +30,14 @@ class SettingsActivity : AppCompatActivity() {
         val mailView = findViewById<EditText>(id.editText07)
         val genderView = findViewById<EditText>(id.editText08)
 
-        usernameView.setText(User.username)       //从bundle中取出来
-        passwordView.setText(User.password)
-        nicknameView.setText(User.nickname)
-        identityView.setText(User.identity)
-        nameView.setText(User.name)       //从bundle中取出来
-        numberView.setText(User.number)
-        mailView.setText(User.mail)
-        genderView.setText(User.gender)
+        usernameView.setText(MyService.user.username)       //从bundle中取出来
+        passwordView.setText(MyService.user.password)
+        nicknameView.setText(MyService.user.nickname)
+        identityView.setText(MyService.user.identity)
+        nameView.setText(MyService.user.name)       //从bundle中取出来
+        numberView.setText(MyService.user.number)
+        mailView.setText(MyService.user.mail)
+        genderView.setText(MyService.user.gender)
 
         edit.setOnClickListener {
             usernameView.isEnabled= true
@@ -77,7 +77,15 @@ class SettingsActivity : AppCompatActivity() {
 
         uploadButton.setOnClickListener {
             //提交修改！！如果合法跳转，不合法toast
-            val isSuccess = true
+            MyService.user.username =usernameView.text.toString()
+            MyService.user.password =passwordView.text.toString()
+            MyService.user.identity =identityView.text.toString()
+            MyService.user.nickname =nicknameView.text.toString()
+            MyService.user.gender =genderView.text.toString()
+            MyService.user.name =nameView.text.toString()
+            MyService.user.mail =mailView.text.toString()
+            MyService.user.number =numberView.text.toString()
+            val isSuccess = MyService.getUserService().updateUserInfo(MyService.user)
             if(isSuccess) {
                 //修改成功，刷新信息
                 Toast.makeText(this, "you updated your information successfully", Toast.LENGTH_SHORT).show()

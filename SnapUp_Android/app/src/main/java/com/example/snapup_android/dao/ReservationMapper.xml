@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.snapup_android.dao.ReservationMapper">
+
+    <insert id="createReservation" parameterType="Reservation">
+        insert into snapup.reservation(run_serial, coach_idx, seat_idx, seat_booked)
+        values(#{run_serial}, #{coach_idx}, #{seat_idx}, #{seat_booked})
+    </insert>
+
+    <update id="updateReservation" parameterType="Reservation">
+        update snapup.reservation
+        set seat_booked = #{seat_booked}
+        where run_serial = #{run_serial} and coach_idx = #{coach_idx} and seat_idx = #{seat_idx}
+    </update>
+
+    <select id="findReservationBySerial" resultType="Reservation">
+        select * from snapup.reservation
+        where run_serial = #{run_serial}
+    </select>
+
+    <select id="checkBooked" resultType="boolean">
+        select seat_booked from snapup.reservation
+        where run_serial = #{run_serial} and coach_idx = #{coach_idx} and seat_idx = #{seat_idx}
+    </select>
+
+</mapper>

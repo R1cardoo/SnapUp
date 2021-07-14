@@ -9,17 +9,17 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Button
 import android.widget.EditText
-import android.widget.ProgressBar
 import android.widget.Toast
+import java.util.*
 import com.example.snapup_android.Homepage.HomepageActivity
+import com.example.snapup_android.MyService
 
 import com.example.snapup_android.R
-import com.example.snapup_android.User
-import kotlinx.android.synthetic.main.activity_login.register
+import com.example.snapup_android.pojo.User
+import com.example.snapup_android.service.UserService
 
 class LoginActivity : AppCompatActivity() {
 
@@ -34,6 +34,7 @@ class LoginActivity : AppCompatActivity() {
         val password = findViewById<EditText>(R.id.password)
         val login = findViewById<Button>(R.id.login)
         val register = findViewById<Button>(R.id.register)
+
 
         register.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java )
@@ -97,29 +98,21 @@ class LoginActivity : AppCompatActivity() {
                 false
             }
         }
+
         login.setOnClickListener {
-            loginViewModel.login(username.text.toString(), password.text.toString())
+            MyService.user = MyService.getUserService().getUserInstance(username.text.toString(), password.text.toString())
+            if(MyService.user !=null) {
+                loginViewModel.login(username.text.toString(), password.text.toString())
+            }
         }
-
-
     }
 
     private fun updateUiWithUser(model: LoggedInUserView) {
         val welcome = getString(R.string.welcome)
-        // TODO : initiate successful logged in experience
-        val bundle = Bundle()
-        //点击事件里 调用后端方法
-        User.nickname = "handsomeBoy"
-        User.mail = "1127676571@qq.com"
-        User.number = "13552643675"
-        User.name = "ricardo"
-        User.gender = "male"
-        User.identity = "18071102"
-        User.password = "123456"
-        User.username = "makabaka"
+        
         val intent = Intent(this, HomepageActivity::class.java)
         startActivity(intent)
-        val displayName = User.nickname
+        val displayName = MyService.user.nickname
         Toast.makeText(
             applicationContext,
             "$welcome $displayName",

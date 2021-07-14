@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.snapup_android.dao.ValueAddedMapper">
+
+    <insert id="createValueAdded" parameterType="ValueAdded">
+        insert into snapup.value_added(username, run_serial, mcd, `umbrella`, insurance)
+        values(#{username}, #{run_serial}, #{mcd}, #{umbrella}, #{insurance})
+    </insert>
+
+    <update id="updateValueAdded" parameterType="ValueAdded">
+        update snapup.value_added
+        set mcd = #{mcd},umbrella = #{umbrella},`insurance` = #{insurance}
+        where username = #{username} and run_serial = #{run_serial}
+    </update>
+
+    <select id="findValueAdded" resultType="ValueAdded">
+        select * from snapup.value_added
+        where username = #{username} and run_serial = #{run_serial}
+    </select>
+
+
+</mapper>

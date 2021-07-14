@@ -9,8 +9,8 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.snapup_android.Homepage.HomepageActivity
+import com.example.snapup_android.MyService
 import com.example.snapup_android.R
-import com.example.snapup_android.User
 
 class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,24 +32,13 @@ class RegisterActivity : AppCompatActivity() {
             if(numberOrMail.length()>10 && password.length()>5) registerButton.isEnabled = true
         }
         registerButton.setOnClickListener {
-            //网络请求，是否成功？？？ 返回完整信息
-            val isSuccess = true
+            //网络请求，是否成功？？？ 返回完整信息(String username, String identity_id, char gender, String name, String tele, String mail, String pwd, String nickname)
+            val isSuccess = MyService.getUserService().registerUser(numberOrMail.text.toString(),identity.text.toString(),'a',name.text.toString(),
+                numberOrMail.text.toString(),numberOrMail.text.toString(),password.text.toString(),nickname.text.toString())
             if (isSuccess){
-                User.username = numberOrMail.text.toString()
-                User.password =  password.text.toString()
-                User.identity = identity.text.toString()
-                User.gender =  gender.text.toString()
-                User.name = name.text.toString()
-                User.nickname =  nickname.toString()
-
                 if(numberOrMail.text.toString().contains('@')){
-                    User.mail = numberOrMail.text.toString()
-                    User.number =  ""
                 }else{
-                    User.number = numberOrMail.text.toString()
-                    User.mail =  ""
                 }
-
                 val intent = Intent(this, HomepageActivity::class.java)
                 this.startActivity(intent)
                 Toast.makeText(this,"you have registered successfully",Toast.LENGTH_SHORT).show()

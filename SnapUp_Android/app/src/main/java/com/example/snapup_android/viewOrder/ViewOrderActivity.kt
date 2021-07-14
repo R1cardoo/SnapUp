@@ -3,7 +3,6 @@ package com.example.snapup_android.viewOrder
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.snapup_android.R
-import com.example.snapup_android.User
 
 class ViewOrderActivity : AppCompatActivity() {
 

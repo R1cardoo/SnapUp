@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.snapup_android.R
-import com.example.snapup_android.User
 import com.example.snapup_android.viewOrder.MyOrderRecyclerViewAdapter.OnOrderClickListener
 import com.example.snapup_android.viewOrder.content.OrderContentList
 import java.util.ArrayList

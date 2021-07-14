@@ -11,6 +11,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.snapup_android.MyService
 import com.example.snapup_android.R
 import com.example.snapup_android.feedback.FeedbackActivity
 import com.example.snapup_android.login.LoginActivity
@@ -58,18 +59,23 @@ class HomepageActivity : AppCompatActivity() {
                     drawerLayout.closeDrawers()
                 }
                 R.id.nav_info -> {
+
                     val intent1 = Intent(this, ViewScheduleActivity::class.java)
                     startActivity(intent1)
                 }
                 R.id.nav_order -> {
+                    MyService.orderList = MyService.getOrderService().findAllUserOrder(MyService.user.username)
+                    //将orderList传入
                     val intent2 = Intent(this, ViewOrderActivity::class.java)
                     startActivity(intent2)
                 }
                 R.id.nav_feedback -> {
+
                     val intent3 = Intent(this, FeedbackActivity::class.java)
                     startActivity(intent3)
                 }
                 R.id.nav_settings -> {
+
                     val intent4 = Intent(this , SettingsActivity::class.java)
                     startActivity(intent4)
                 }
