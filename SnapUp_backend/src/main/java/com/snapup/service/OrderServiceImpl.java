@@ -4,6 +4,7 @@ import com.snapup.dao.*;
 import com.snapup.pojo.Order;
 import com.snapup.pojo.SeatTicket;
 import com.snapup.pojo.TrainRun;
+import com.snapup.pojo.ValueAdded;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -119,5 +120,27 @@ public class OrderServiceImpl implements OrderService{
 
         }
         return null;
+    }
+
+    public boolean checkValid(String username, int run_serial) {
+        if(orderMapper.findOrder(run_serial, username, username) == null){
+            return false;
+        }
+        return true;
+    }
+    public void updateOrder(ValueAdded valueAdded) {
+        Order order = orderMapper.findOrder(valueAdded.getRun_serial(), valueAdded.getUsername(), valueAdded.getUsername());
+        float price = order.getPrice();
+        if(valueAdded.isMcd()){
+            price += 30.0;
+        }
+        if(valueAdded.isInsurance()){
+            price += 30;
+        }
+        if(valueAdded.isUmbrella()){
+            price += 20;
+        }
+        order.setPrice(price);
+        orderMapper.updateOrder(order);
     }
 }

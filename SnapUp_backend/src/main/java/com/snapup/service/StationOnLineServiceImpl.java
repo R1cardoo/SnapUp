@@ -56,6 +56,29 @@ public class StationOnLineServiceImpl implements StationOnLineService{
         return resultTrainLines;
     }
 
+    public List<String> getTrainLineByDepartStation(String depart_station_code) {
+        List<String> resultTrainLines = new ArrayList<String>();
+        List<Station_on_line> depart_stations = stationOnLineMapper.findStationOnLineByStation(depart_station_code);
+        for (Station_on_line sol : depart_stations) {
+            if (sol.getStation_idx() == 1) {
+                resultTrainLines.add(sol.getRun_code());
+            }
+        }
+        return resultTrainLines;
+    }
+
+    public List<String> getTrainLineByArriveStation(String arrive_station_code) {
+        List<String> resultTrainLines = new ArrayList<String>();
+        List<Station_on_line> arrive_stations = stationOnLineMapper.findStationOnLineByStation(arrive_station_code);
+        for (Station_on_line sol : arrive_stations) {
+            String trainRunCode = sol.getRun_code();
+            if (sol.getStation_idx() == 1) {
+                resultTrainLines.add(sol.getRun_code());
+            }
+        }
+        return resultTrainLines;
+    }
+
     public String getStartStation(String run_code) {
         List<Station_on_line> stations = stationOnLineMapper.findStationByRunCode(run_code);
         for(Station_on_line station: stations){
@@ -67,7 +90,6 @@ public class StationOnLineServiceImpl implements StationOnLineService{
     }
 
     public String getEndStation(String run_code) {
-
         List<Station_on_line> stations = stationOnLineMapper.findStationByRunCode(run_code);
         int station_num = stations.size();
         for(Station_on_line station: stations){

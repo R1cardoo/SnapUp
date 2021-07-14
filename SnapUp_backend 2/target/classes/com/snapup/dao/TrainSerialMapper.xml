@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.snapup.dao.TrainSerialMapper">
+    <insert id="createTrainSerial" parameterType="TrainSerial">
+        insert into snapup.train_serial(`date`, run_code)
+        values(#{date}, #{run_code})
+    </insert>
+
+
+    <delete id="deleteTrainSerial" parameterType="int">
+        delete from snapup.train_serial where serial=#{serial}
+    </delete>
+
+    <select id="findTrainSerial" resultType="TrainSerial">
+        select * from snapup.train_serial
+        where `date` = #{date} and `run_code`=#{run_code}
+    </select>
+
+    <select id="findTrainSerialBySerialNum" resultType="TrainSerial">
+        select * from snapup.train_serial
+        where serial = #{run_serial}
+    </select>
+
+
+    <select id="findTrainSerialByTime" resultType="TrainSerial">
+        select * from snapup.train_serial
+        where `date` = #{date}
+    </select>
+
+    <select id="findTrainSerialByTrainRun" resultType="TrainSerial">
+        select * from snapup.train_serial
+        where run_code = #{run_code}
+    </select>
+
+    <select id="findAllTrainSerial" resultType="TrainSerial">
+        select * from snapup.train_serial
+    </select>
+
+</mapper>

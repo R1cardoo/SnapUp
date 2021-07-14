@@ -39,4 +39,8 @@
         select * from snapup.train_serial
     </select>
 
+    <select id="getAllTrainRunCode" resultType="java.lang.String">
+        select distinct run_code from snapup.train_serial
+    </select>
+
 </mapper>

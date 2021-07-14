@@ -1,6 +1,7 @@
 package com.snapup.service;
 
 import com.snapup.pojo.TrainInfo;
+import com.snapup.pojo.TrainRun;
 import com.snapup.pojo.TrainSerial;
 
 import java.util.Date;
@@ -15,5 +16,7 @@ public interface TrainSerialService {
     public TrainInfo getTrainInfo(int run_serial);
     //根据一系列车次号生成一系列流水号 //铁总接口
     public void generateTrainSerial(List<String> run_codes, int days, Date startDay);
+
+    public List<TrainRun> getAllTrainRun();
 
 }

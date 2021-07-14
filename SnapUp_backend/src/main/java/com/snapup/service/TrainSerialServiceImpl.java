@@ -2,11 +2,15 @@ package com.snapup.service;
 
 
 
+import com.snapup.dao.TrainRunMapper;
 import com.snapup.dao.TrainSerialMapper;
 import com.snapup.pojo.TrainInfo;
+import com.snapup.pojo.TrainRun;
 import com.snapup.pojo.TrainSerial;
 
 import java.sql.Time;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +19,11 @@ public class TrainSerialServiceImpl implements TrainSerialService{
     private StationOnLineService stationOnLineService;
     private StationService stationService;
     private TimeTableService timeTableService;
+    private TrainRunMapper trainRunMapper;
+
+    public void setTrainRunMapper(TrainRunMapper trainRunMapper) {
+        this.trainRunMapper = trainRunMapper;
+    }
 
     public void setTimeTableService(TimeTableService timeTableService) {
         this.timeTableService = timeTableService;
@@ -55,6 +64,23 @@ public class TrainSerialServiceImpl implements TrainSerialService{
     }
 
     public void generateTrainSerial(List<String> run_codes, int days, Date startDay) {
-
+        for(String run_code: run_codes){
+            Date day = startDay;
+            for(int i=0;i<days;i++){
+                createTrainSerial(day, run_code);
+                Calendar c = Calendar.getInstance();
+                c.setTime(day);
+                c.add(Calendar.DAY_OF_MONTH, 1);
+                day = c.getTime();
+            }
+        }
+    }
+    public List<TrainRun> getAllTrainRun(){
+        List<String> run_codes = trainSerialMapper.getAllTrainRunCode();
+        List<TrainRun> trainRuns = new ArrayList<TrainRun>();
+        for(String run_code:run_codes){
+            trainRuns.add(trainRunMapper.findTrainRunByCode(run_code));
+        }
+        return trainRuns;
     }
 }

@@ -20,5 +20,6 @@ public interface TrainSerialMapper {
     public List<TrainSerial> findTrainSerialByTrainRun(String run_code);
     //返回所有的行车班次流水：
     public List<TrainSerial> findAllTrainSerial();
-
+    //返回所有的车次：
+    public List<String> getAllTrainRunCode();
 }

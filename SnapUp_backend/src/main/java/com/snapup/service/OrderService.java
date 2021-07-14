@@ -1,6 +1,7 @@
 package com.snapup.service;
 
 import com.snapup.pojo.Order;
+import com.snapup.pojo.ValueAdded;
 
 import java.util.List;
 
@@ -17,4 +18,8 @@ public interface OrderService {
     public float createOrder(int run_serial, String depart_station_name, String arrival_station_name, char seat_type, String username);
     //生成车厢和座位信息：
     public List<Integer>generateCoachAndSeat(int run_serial, char seat_type);
+    //查看是否已经订单
+    public boolean checkValid(String username, int run_serial);
+    //根据增值服务更新订单
+    public void updateOrder(ValueAdded valueAdded);
 }

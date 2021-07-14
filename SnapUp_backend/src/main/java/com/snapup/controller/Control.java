@@ -337,7 +337,7 @@ public class Control {
                 jot.addProperty("editable", false);
                 jot.addProperty("stationInfo", trainRunDepartName + " - " + trainRunArriveName);
                 jot.addProperty("stationNum", allN);
-                jot.addProperty("status", 0);
+                jot.addProperty("status", 1);
                 jot.addProperty("trainNo", trainRunCode);
                 jot.addProperty("trainType", trainRunType);
                 data.add(jot);
@@ -381,4 +381,14 @@ public class Control {
         return res;
     }
 
+//    public JsonObject search_lines(
+//            @RequestParam(value="pageNo") int page_no,
+//            @RequestParam(value="pageSize") int page_size,
+//            @RequestParam(value="trainNo", required = false) String train_no,
+//            @RequestParam(value="trainType", required = false) Character train_type,
+//            @RequestParam(value="departStation", required = false) String depart_station,
+//            @RequestParam(value="arriveStation", required = false) String arrive_station,
+//            @RequestParam(value="departTime", required = false) String depart_time,
+//            @RequestParam(value="arriveTime", required = false) String arrive_time
+//    )
 }

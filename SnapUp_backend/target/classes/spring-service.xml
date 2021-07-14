@@ -24,9 +24,16 @@
     </bean>
     <bean id="trainSerialServiceImpl" class="com.snapup.service.TrainSerialServiceImpl">
         <property name="trainSerialMapper" ref="trainSerialMapper"/>
+        <property name="stationService" ref="stationServiceImpl"/>
+        <property name="stationOnLineService" ref="stationOnLineServiceImpl"/>
+        <property name="timeTableService" ref="timeTableService"/>
+        <property name="trainRunMapper" ref="trainRunMapper"/>
     </bean>
     <bean id="trainRunServiceImpl" class="com.snapup.service.TrainRunServiceImpl">
         <property name="trainRunMapper" ref="trainRunMapper"/>
+        <property name="stationOnLineService" ref="stationOnLineServiceImpl"/>
+        <property name="timeTableService" ref="timeTableService"/>
+        <property name="stationService" ref="stationServiceImpl"/>
     </bean>
     <bean id="seatServiceImpl" class="com.snapup.service.SeatServiceImpl">
         <property name="seatMapper" ref="seatMapper"/>
@@ -42,6 +49,7 @@
         <property name="trainSerialMapper" ref="trainSerialMapper"/>
         <property name="trainRunMapper" ref="trainRunMapper"/>
         <property name="seatMapper" ref="seatMapper"/>
+        <property name="stationOnLineMapper" ref="stationOnLineMapper"/>
         <property name="stationOnLineService" ref="stationOnLineServiceImpl"/>
     </bean>
 
@@ -65,11 +73,19 @@
     <bean id="timeTableService" class="com.snapup.service.TimeTableServiceImpl">
         <property name="timeTableMapper" ref="timeTableMapper"/>
     </bean>
+    <bean id="valueAddedService" class="com.snapup.service.ValueAddedServiceImpl">
+        <property name="valueAddedMapper" ref="valueAddedMapper"/>
+        <property name="orderService" ref="orderService"/>
+    </bean>
+    <bean id="feedBackService" class="com.snapup.service.FeedBackServiceImpl">
+        <property name="feedBackMapper" ref="feedBackMapper"/>
+    </bean>
     <!-- 配置事务管理器 -->
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <!-- 注入数据库连接池 -->
         <property name="dataSource" ref="dataSource" />
     </bean>
+
 
 <!--    &lt;!&ndash; 扫描service相关的bean &ndash;&gt;-->
 <!--    <context:component-scan base-package="com.snapup.util" />-->
