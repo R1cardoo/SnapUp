@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.example.snapup_android.MyService
 import com.example.snapup_android.R
 import com.example.snapup_android.R.id
 import com.example.snapup_android.R.layout
@@ -19,9 +20,9 @@ class TicketActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ticket)
 
-        val stationList: Array<String> = arrayOf("北京市", "东城区", "西城区", "朝阳区", "海淀区", "通州区", "北京工业大学", "11号楼", "A406")      //输入途经站
-        val timeList: Array<String> = arrayOf("1月1日", "1月3日", "1月8", "1月15日", "2月5日", "2月7日")
-        val seatList: Array<String> = arrayOf("一等座", "二等座")
+        val stationList: ArrayList<String> = MyService.stationList    //输入途经站
+        val timeList: ArrayList<String> = arrayOf("7月17日","7月18日", "7月19日", "7月20日","7月21日", "7月22日") as ArrayList<String>
+        val seatList: ArrayList<String> = arrayOf("一等座", "二等座") as ArrayList<String>
 
         val adapterStation = ArrayAdapter<String>(this, layout.activity_ticket, stationList)
         adapterStation.setDropDownViewResource(layout.activity_search)

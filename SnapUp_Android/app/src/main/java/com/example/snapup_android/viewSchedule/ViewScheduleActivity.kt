@@ -8,9 +8,11 @@ import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import com.example.snapup_android.MyService
 import com.example.snapup_android.R
 import com.example.snapup_android.R.id
 import com.example.snapup_android.R.layout
+import com.example.snapup_android.pojo.ValueAdded
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.angmarch.views.NiceSpinner
 import org.angmarch.views.OnSpinnerItemSelectedListener
@@ -78,7 +80,6 @@ class ViewScheduleActivity : AppCompatActivity() {
                 .setView(view)
                 .setPositiveButton("提交"
                 ) { dialog, id ->
-                    // 搜索网络请求，如果为空，添加到
                     val empty = true
                     if(empty) Toast.makeText(this, "将当前搜索添加到代理抢票", Toast.LENGTH_SHORT).show()
                     else Toast.makeText(this,"跳转搜索",Toast.LENGTH_SHORT).show()

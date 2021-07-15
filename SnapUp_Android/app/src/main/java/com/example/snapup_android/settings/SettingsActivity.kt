@@ -37,7 +37,9 @@ class SettingsActivity : AppCompatActivity() {
         nameView.setText(MyService.user.name)       //从bundle中取出来
         numberView.setText(MyService.user.number)
         mailView.setText(MyService.user.mail)
-        genderView.setText(MyService.user.gender)
+        if(MyService.user.gender == 'a') genderView.setText("male")
+        else genderView.setText("female")
+
 
         edit.setOnClickListener {
             usernameView.isEnabled= true
@@ -81,7 +83,8 @@ class SettingsActivity : AppCompatActivity() {
             MyService.user.password =passwordView.text.toString()
             MyService.user.identity =identityView.text.toString()
             MyService.user.nickname =nicknameView.text.toString()
-            MyService.user.gender =genderView.text.toString()
+            if(genderView.text.toString() == "male")  MyService.user.gender = 'a'
+            else MyService.user.gender = 'b'
             MyService.user.name =nameView.text.toString()
             MyService.user.mail =mailView.text.toString()
             MyService.user.number =numberView.text.toString()

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.snapup_android.MyService
 import com.example.snapup_android.R
 import com.example.snapup_android.viewOrder.MyOrderRecyclerViewAdapter.OnOrderClickListener
 import com.example.snapup_android.viewOrder.content.OrderContentList
@@ -61,7 +62,7 @@ class OrderList : Fragment() {
                         bundle.putString("TIME", "a time")
                         bundle.putStringArrayList("STOPOVERS", stopovers)
                         bundle.putString("SEAT_KIND", "a seat kind")
-                        bundle.putString("NAME", User.name)
+                        bundle.putString("NAME", MyService.user.name)
                         bundle.putString("STATE", "已支付")
 
                         val intent = Intent(context, OrderInfo::class.java).apply {

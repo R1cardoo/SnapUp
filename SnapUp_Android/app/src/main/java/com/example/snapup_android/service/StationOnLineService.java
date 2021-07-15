@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface StationOnLineService {
     //购票者可以输入旅程信息，返回线路：
+    public List<String> getTrainLine(String run_code);
+
     public List<String> getTrainLine(String depart_station_code, String arrival_station_code);
     //购票者可以输入旅程信息，返回线路，包括中间站:
     public List<String> getTrainLine2(String depart_station_code, String arrival_station_code);

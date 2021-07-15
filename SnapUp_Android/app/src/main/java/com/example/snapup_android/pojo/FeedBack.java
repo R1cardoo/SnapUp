@@ -8,8 +8,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class FeedBack {
-    private int feedback_id;
-    private String username;
-    private String tele;
-    private String comment;
+    public int feedback_id;
+    public String username;
+    public String tele;
+    public String comment;
 }

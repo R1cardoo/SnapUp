@@ -20,10 +20,10 @@ public class StationOnLineServiceImpl implements StationOnLineService{
         this.stationOnLineMapper = stationOnLineMapper;
     }
 
-    public List<String> getTrainLine(String depart_station_code, String arrival_station_code) {
+    public List<String> getTrainLine(String run_code) {
         List<String> resultTrainLines = new ArrayList<String>();
-        List<Station_on_line> depart_stations = stationOnLineMapper.findStationOnLineByStation(depart_station_code);
-        List<Station_on_line> arrival_stations = stationOnLineMapper.findStationOnLineByStation(arrival_station_code);
+        List<Station_on_line> depart_stations = stationOnLineMapper.findStationOnLineByStation(getStartStation(run_code));
+        List<Station_on_line> arrival_stations = stationOnLineMapper.findStationOnLineByStation(getEndStation(run_code));
         for(Station_on_line station_on_line_start: depart_stations){
             for(Station_on_line station_on_line_end: arrival_stations){
                 if(station_on_line_start.getRun_code().equals(station_on_line_end.getRun_code()) &&
@@ -35,7 +35,24 @@ public class StationOnLineServiceImpl implements StationOnLineService{
                 }
             }
         }
+        return resultTrainLines;
+    }
 
+    public List<String> getTrainLine(String depart_station_code, String arrival_station_code) {
+        List<String> resultTrainLines = new ArrayList<String>();
+        List<Station_on_line> depart_stations = stationOnLineMapper.findStationOnLineByStation(depart_station_code);
+        List<Station_on_line> arrival_stations = stationOnLineMapper.findStationOnLineByStation(arrival_station_code);
+        for(Station_on_line station_on_line_start: depart_stations){
+            for(Station_on_line station_on_line_end: arrival_stations){
+                if(station_on_line_start.getRun_code().equals(station_on_line_end.getRun_code()) &&
+                        station_on_line_start.getStation_idx() < station_on_line_end.getStation_idx() &&
+                        station_on_line_start.getStation_code().equals(getStartStation(station_on_line_start.getRun_code())) &&
+                        station_on_line_end.getStation_code().equals(getEndStation(station_on_line_end.getRun_code()))){
+                    resultTrainLines.add(station_on_line_end.getRun_code());
+
+                }
+            }
+        }
         return resultTrainLines;
     }
 

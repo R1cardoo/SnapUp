@@ -43,7 +43,7 @@ object MyService {
     var user = User()
     var trainInfo = TrainInfo()
     var valueAdded = ValueAdded()
-
+    lateinit var stationList : ArrayList<String>
     lateinit var orderList : List<Order>
     init{
 

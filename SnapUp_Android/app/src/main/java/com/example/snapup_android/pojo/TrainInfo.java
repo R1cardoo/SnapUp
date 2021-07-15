@@ -10,11 +10,11 @@ import java.sql.Time;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TrainInfo {
-    private String num_code;
-    private Time startTime;
-    private Time endTime;
-    private String depart_station_name;
-    private String arrival_station_name;
+    public String num_code;
+    public Time startTime;
+    public Time endTime;
+    public String depart_station_name;
+    public String arrival_station_name;
 
     public TrainInfo(){}
     public TrainInfo(String code, Time time, Time time1, String name, String name1) {

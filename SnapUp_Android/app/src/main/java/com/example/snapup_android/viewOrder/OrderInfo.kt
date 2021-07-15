@@ -7,7 +7,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
+import com.example.snapup_android.MyService
 import com.example.snapup_android.R
+import com.example.snapup_android.pojo.ValueAdded
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_order_info.*
@@ -84,7 +86,13 @@ class OrderInfo: AppCompatActivity() {
                     Toast.makeText(this, checkBoxItems[which] + "  未选中", Toast.LENGTH_SHORT).show();
                 }
             }
-            .setPositiveButton("good") {dialog, i ->
+            .setPositiveButton("Confirm") {dialog, i ->
+                var a = ValueAdded()
+                a.isUmbrella = isCheck[0]
+                a.isInsurance = isCheck[2]
+                a.isMcd = isCheck[1]
+
+                MyService.getValueAddedService().createValueAdded(a)
                 dialog.dismiss()
         }.create().show()
     }

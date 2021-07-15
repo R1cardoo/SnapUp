@@ -10,9 +10,11 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.snapup_android.MyService
+import com.example.snapup_android.MyService.trainInfo
 import com.example.snapup_android.R
 import com.example.snapup_android.viewSchedule.MyScheduleRecyclerViewAdapter.OnItemClickListener
 import com.example.snapup_android.viewSchedule.content.ScheduleContentList
+import com.mysql.cj.protocol.a.MysqlBinaryValueDecoder
 import java.util.ArrayList
 
 
@@ -47,17 +49,19 @@ class ScheduleList : Fragment() {
                     override fun onItemClick(view: View?, position: Int) {
                         //点击事件 弹出详情请求详细信息 runcode是 ScheduleContentList里的一条数据
                         val runCode = "1"
-                        MyService.trainInfo = MyService.getTrainRunService().getTrainInfo(runCode)
+                        trainInfo = MyService.getTrainRunService().getTrainInfo(runCode)
 
-                        val stopovers = ArrayList<String>()
-                        stopovers.add("sample")
+                        val stopovers = MyService.getStationOnLineService().getTrainLine(runCode) as ArrayList<String>
+                        MyService.stationList = stopovers
+
                         val bundle = Bundle()
                         //向bundle填入方法返回的信息
-                        bundle.putString("TRAIN_ID","a station id" )
-                        bundle.putString("STARTING_STATION", "a starting station" )
-                        bundle.putString("TERMINUS", "a terminus")
-                        bundle.putString("TIME", "a time")
+                        bundle.putString("TRAIN_ID", trainInfo.num_code )
+                        bundle.putString("STARTING_STATION", trainInfo.depart_station_name )
+                        bundle.putString("TERMINUS", trainInfo.arrival_station_name)
+                        bundle.putString("TIME", trainInfo.startTime.toString())
                         bundle.putStringArrayList("STOPOVERS", stopovers)
+
 
                         val intent = Intent(context, ScheduleInfo::class.java).apply {
                             putExtras(bundle)
