@@ -341,10 +341,26 @@ public class Control {
 
         int is_legal = 0;       /*  0: 合法
                                  *  1: 站点名字不合法
-                                 *
+                                 *  2: 录入时间不合法
+                                 *  3: 新建线路存在
+                                 *  4: 包含0个站点
                                  */
-        //TODO：先判断所有数据是否合法
-
+        //先判断所有数据是否合法
+        if (flag) {
+            List<TrainRun> all_train = trainRunService.getAllTrainRun();
+            for (int i = 0; i < all_train.size(); i++) {
+                if (all_train.get(i).getRun_code().equals(lineInfo)) {
+                    is_legal = 3;
+                }
+                if (is_legal == 0 && ja.size() == 0) {
+                    is_legal = 4;       /* 包含站点为0 */
+                }
+            }
+        } else {
+            if (is_legal == 0 && ja.size() == 0) {
+                is_legal = 4;       /* 包含站点为0 */
+            }
+        }
         for (int i = 0; i < ja.size(); i++) {
             JsonObject tt = ja.get(i).getAsJsonObject();
             String station_name = tt.get("stationName").getAsString();  /* 车站名字 */
@@ -418,6 +434,14 @@ public class Control {
             } else if (is_legal == 2) {
                 result.addProperty("error", true);
                 result.addProperty("reason","录入时间不合法");
+                res.add("result", result);
+            } else if (is_legal == 3) {
+                result.addProperty("error", true);
+                result.addProperty("reason","输入线路存在");
+                res.add("result", result);
+            } else if (is_legal == 4) {
+                result.addProperty("error", true);
+                result.addProperty("reason","输入站点数量为零");
                 res.add("result", result);
             }
         }
