@@ -6,6 +6,7 @@ import com.mysql.cj.exceptions.StreamingNotifiable;
 import com.snapup.pojo.RestrictedUsr;
 import com.snapup.pojo.Station;
 import com.snapup.pojo.TrainRun;
+import com.snapup.pojo.TrainSerial;
 import com.snapup.service.*;
 import com.snapup.util.TrainPOJO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,10 @@ public class Control {
     @Autowired
     @Qualifier("stationServiceImpl")
     private StationService stationService;
+
+    @Autowired
+    @Qualifier("trainSerialServiceImpl")
+    private TrainSerialService trainSerialService;
 
 
     @RequestMapping("/api/train/save-credit")
@@ -228,6 +233,15 @@ public class Control {
         JsonObject result = new JsonObject();
         JsonArray data = new JsonArray();
 
+        String timesstamp = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+        DateFormat fmt =new SimpleDateFormat("yyyy-MM-dd");
+        Date today = null;
+        try {
+            today = fmt.parse(timesstamp);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
         /* 标志量 */
         boolean train_no_flag = (train_no != null && !train_no.equals(""));
         boolean train_type_flag = (train_type != null);
@@ -312,7 +326,25 @@ public class Control {
                 jot.addProperty("editable", false);
                 jot.addProperty("stationInfo", trainRunDepartStation.getName() + " - " + trainRunArriveStation.getName());
                 jot.addProperty("stationNum", trainRunStationNum);
-                jot.addProperty("status", 1);
+                //TODO : 根据流水表车次安排，返回对应车次状态
+                List<TrainSerial> trainSerials = trainSerialService.getCenterTrainSerial(trainRun.getRun_code());
+                if (trainSerials != null) {
+                    boolean status = false;
+                    for (int j = 0; j < trainSerials.size(); j++) {
+                        Date date = trainSerials.get(j).getDate();
+                        if (today.equals(date)) {
+                            status = true;
+                        }
+                    }
+                    if (status) {       /* 今天安排该车次 */
+                        jot.addProperty("status", 1);
+                    } else {            /* 今天未安排该车次 */
+                        jot.addProperty("status", 0);
+                    }
+                } else {                /* 今天未安排该车次 */
+                    jot.addProperty("status", 0);
+                }
+
                 jot.addProperty("trainNo", trainRunCode);
                 jot.addProperty("trainType", trainRun.getType());
                 data.add(jot);
@@ -483,5 +515,31 @@ public class Control {
         }
         jo.addProperty("code", 0);
         return jo;
+    }
+
+    @RequestMapping("/api/train/arrange-line")
+    @ResponseBody
+    public JsonObject arrange_line(@RequestBody JsonArray ja) {
+        JsonObject res = new JsonObject();
+        String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+        DateFormat fmt =new SimpleDateFormat("yyyy-MM-dd");
+        Date today = null;
+        try {
+            today = fmt.parse(timeStamp);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        List<String> run_code = new ArrayList<String>();
+        for (int i = 0; i < ja.size(); i++) {
+            String arrange_train = ja.get(i).getAsString();
+            run_code.add(arrange_train);
+        }
+        trainSerialService.generateTrainSerial(run_code, 3, today);
+        JsonObject result = new JsonObject();
+        result.addProperty("error", false);
+        result.addProperty("reason", "成功安排车次");
+        res.add("result", result);
+
+        return res;
     }
 }

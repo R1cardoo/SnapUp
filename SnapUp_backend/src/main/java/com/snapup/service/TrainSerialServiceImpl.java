@@ -83,4 +83,8 @@ public class TrainSerialServiceImpl implements TrainSerialService{
         }
         return trainRuns;
     }
+
+    public List<TrainSerial> getCenterTrainSerial(String run_code) {
+        return trainSerialMapper.findTrainSerialByTrainRun(run_code);
+    }
 }
