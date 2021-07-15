@@ -1,0 +1,99 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.snapup_android"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="21"
+8-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml
+9        android:targetSdkVersion="30" />
+9-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml
+10
+11    <application
+11-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:5:5-42:19
+12        android:name="com.example.snapup_android.MyApplication"
+12-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:6:9-38
+13        android:allowBackup="true"
+13-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:7:9-35
+14        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+14-->[androidx.core:core:1.3.2] /Users/bytedance/.gradle/caches/transforms-2/files-2.1/0e4b20e0b5a803bf1b9fa072c81c11da/core-1.3.2/AndroidManifest.xml:24:18-86
+15        android:debuggable="true"
+16        android:icon="@mipmap/ic_launcher"
+16-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:8:9-43
+17        android:label="@string/app_name"
+17-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:9:9-41
+18        android:roundIcon="@mipmap/ic_launcher_round"
+18-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:10:9-54
+19        android:supportsRtl="true"
+19-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:11:9-35
+20        android:testOnly="true"
+21        android:theme="@style/Theme.SnapUp_Android" >
+21-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:12:9-52
+22        <activity android:name="com.example.snapup_android.login.RegisterActivity" />
+22-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:13:9-14:53
+22-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:14:13-51
+23        <activity
+23-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:15:9-18:71
+24            android:name="com.example.snapup_android.Homepage.HomepageActivity"
+24-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:16:13-54
+25            android:label="@string/title_activity_homepage"
+25-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:17:13-60
+26            android:theme="@style/Theme.SnapUp_Android.NoActionBar" />
+26-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:18:13-68
+27        <activity android:name="com.example.snapup_android.viewSchedule.TicketActivity" />
+27-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:19:9-65
+27-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:19:19-62
+28        <activity android:name="com.example.snapup_android.settings.SettingsActivity" />
+28-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:20:9-63
+28-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:20:19-60
+29        <activity android:name="com.example.snapup_android.viewSchedule.ScheduleInfo" />
+29-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:21:9-63
+29-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:21:19-60
+30        <activity android:name="com.example.snapup_android.viewOrder.OrderInfo" />
+30-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:22:9-57
+30-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:22:19-54
+31        <activity
+31-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:23:9-26:71
+32            android:name="com.example.snapup_android.feedback.FeedbackActivity"
+32-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:24:13-54
+33            android:label="@string/title_activity_feedback"
+33-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:25:13-60
+34            android:theme="@style/Theme.SnapUp_Android.NoActionBar" />
+34-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:26:13-68
+35        <activity android:name="com.example.snapup_android.completeOrder.CompleteOrderActivity" />
+35-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:27:9-73
+35-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:27:19-70
+36        <activity
+36-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:28:9-31:71
+37            android:name="com.example.snapup_android.viewSchedule.ViewScheduleActivity"
+37-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:29:13-62
+38            android:label="@string/title_activity_view_info"
+38-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:30:13-61
+39            android:theme="@style/Theme.SnapUp_Android.NoActionBar" />
+39-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:31:13-68
+40        <activity
+40-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:32:9-35:71
+41            android:name="com.example.snapup_android.viewOrder.ViewOrderActivity"
+41-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:33:13-56
+42            android:label="@string/title_activity_view_order"
+42-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:34:13-62
+43            android:theme="@style/Theme.SnapUp_Android.NoActionBar" />
+43-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:35:13-68
+44        <activity android:name="com.example.snapup_android.login.LoginActivity" >
+44-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:36:9-41:20
+44-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:36:19-54
+45            <intent-filter>
+45-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:37:13-40:29
+46                <action android:name="android.intent.action.MAIN" />
+46-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:38:17-69
+46-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:38:25-66
+47
+48                <category android:name="android.intent.category.LAUNCHER" />
+48-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:39:17-77
+48-->/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android/app/src/main/AndroidManifest.xml:39:27-74
+49            </intent-filter>
+50        </activity>
+51    </application>
+52
+53</manifest>

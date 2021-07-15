@@ -1,0 +1,126 @@
+com/example/snapup_android/service/SnapUpService.java
+ com.example.snapup_android.service.SnapUpService
+com/example/snapup_android/service/ValueAddedService.java
+ com.example.snapup_android.service.ValueAddedService
+com/example/snapup_android/pojo/FeedBack.java
+ com.example.snapup_android.pojo.FeedBack
+com/example/snapup_android/service/FeedBackServiceImpl.java
+ com.example.snapup_android.service.FeedBackServiceImpl
+com/example/snapup_android/service/TicketServiceImpl.java
+ com.example.snapup_android.service.TicketServiceImpl
+com/example/snapup_android/pojo/RestrictedUsr.java
+ com.example.snapup_android.pojo.RestrictedUsr
+com/example/snapup_android/dao/ReservationMapper.java
+ com.example.snapup_android.dao.ReservationMapper
+com/example/snapup_android/service/SeatServiceImpl.java
+ com.example.snapup_android.service.SeatServiceImpl
+com/example/snapup_android/dao/InsuranceMapper.java
+ com.example.snapup_android.dao.InsuranceMapper
+com/example/snapup_android/dao/RestrictedUsrMapper.java
+ com.example.snapup_android.dao.RestrictedUsrMapper
+com/example/snapup_android/pojo/ValueAdded.java
+ com.example.snapup_android.pojo.ValueAdded
+com/example/snapup_android/service/TicketService.java
+ com.example.snapup_android.service.TicketService
+com/example/snapup_android/pojo/Ticket.java
+ com.example.snapup_android.pojo.Ticket
+com/example/snapup_android/service/TrainSerialServiceImpl.java
+ com.example.snapup_android.service.TrainSerialServiceImpl
+com/example/snapup_android/service/PassengerServiceImpl.java
+ com.example.snapup_android.service.PassengerServiceImpl
+com/example/snapup_android/service/RestrictedUsrServiceImpl.java
+ com.example.snapup_android.service.RestrictedUsrServiceImpl
+com/example/snapup_android/pojo/TimeTable.java
+ com.example.snapup_android.pojo.TimeTable
+com/example/snapup_android/service/TimeTableService.java
+ com.example.snapup_android.service.TimeTableService
+com/example/snapup_android/service/OrderService.java
+ com.example.snapup_android.service.OrderService
+com/example/snapup_android/service/Usr_train_search_impl.java
+ com.example.snapup_android.service.Usr_train_search_impl
+com/example/snapup_android/dao/PassengerMapper.java
+ com.example.snapup_android.dao.PassengerMapper
+com/example/snapup_android/controller/Control.java
+ com.example.snapup_android.controller.Control
+com/example/snapup_android/dao/SeatMapper.java
+ com.example.snapup_android.dao.SeatMapper
+com/example/snapup_android/service/StationOnLineService.java
+ com.example.snapup_android.service.StationOnLineService
+com/example/snapup_android/service/TrainRunServiceImpl.java
+ com.example.snapup_android.service.TrainRunServiceImpl
+com/example/snapup_android/pojo/SeatTicket.java
+ com.example.snapup_android.pojo.SeatTicket
+com/example/snapup_android/dao/UserMapper.java
+ com.example.snapup_android.dao.UserMapper
+com/example/snapup_android/dao/TrainSerialMapper.java
+ com.example.snapup_android.dao.TrainSerialMapper
+com/example/snapup_android/dao/TicketMapper.java
+ com.example.snapup_android.dao.TicketMapper
+com/example/snapup_android/pojo/Order.java
+ com.example.snapup_android.pojo.Order
+com/example/snapup_android/dao/ValueAddedMapper.java
+ com.example.snapup_android.dao.ValueAddedMapper
+com/example/snapup_android/service/TrainSerialService.java
+ com.example.snapup_android.service.TrainSerialService
+com/example/snapup_android/pojo/TrainRun.java
+ com.example.snapup_android.pojo.TrainRun
+com/example/snapup_android/service/UserService.java
+ com.example.snapup_android.service.UserService
+com/example/snapup_android/dao/TrainRunMapper.java
+ com.example.snapup_android.dao.TrainRunMapper
+com/example/snapup_android/pojo/Station.java
+ com.example.snapup_android.pojo.Station
+com/example/snapup_android/service/UserServiceImpl.java
+ com.example.snapup_android.service.UserServiceImpl
+com/example/snapup_android/pojo/TrainSerial.java
+ com.example.snapup_android.pojo.TrainSerial
+com/example/snapup_android/pojo/Insurance.java
+ com.example.snapup_android.pojo.Insurance
+com/example/snapup_android/service/RestrictedUsrService.java
+ com.example.snapup_android.service.RestrictedUsrService
+com/example/snapup_android/pojo/Passenger.java
+ com.example.snapup_android.pojo.Passenger
+com/example/snapup_android/dao/TimeTableMapper.java
+ com.example.snapup_android.dao.TimeTableMapper
+com/example/snapup_android/service/OrderServiceImpl.java
+ com.example.snapup_android.service.OrderServiceImpl
+com/example/snapup_android/dao/FeedBackMapper.java
+ com.example.snapup_android.dao.FeedBackMapper
+com/example/snapup_android/service/StationServiceImpl.java
+ com.example.snapup_android.service.StationServiceImpl
+com/example/snapup_android/BuildConfig.java
+ com.example.snapup_android.BuildConfig
+com/example/snapup_android/pojo/Seat.java
+ com.example.snapup_android.pojo.Seat
+com/example/snapup_android/dao/StationOnLineMapper.java
+ com.example.snapup_android.dao.StationOnLineMapper
+com/example/snapup_android/service/PassengerService.java
+ com.example.snapup_android.service.PassengerService
+com/example/snapup_android/pojo/User.java
+ com.example.snapup_android.pojo.User
+com/example/snapup_android/service/TrainRunService.java
+ com.example.snapup_android.service.TrainRunService
+com/example/snapup_android/dao/StationMapper.java
+ com.example.snapup_android.dao.StationMapper
+com/example/snapup_android/service/SeatService.java
+ com.example.snapup_android.service.SeatService
+com/example/snapup_android/service/Usr_train_search.java
+ com.example.snapup_android.service.Usr_train_search
+com/example/snapup_android/pojo/Reservation.java
+ com.example.snapup_android.pojo.Reservation
+com/example/snapup_android/service/StationOnLineServiceImpl.java
+ com.example.snapup_android.service.StationOnLineServiceImpl
+com/example/snapup_android/service/StationService.java
+ com.example.snapup_android.service.StationService
+com/example/snapup_android/service/ValueAddedServiceImpl.java
+ com.example.snapup_android.service.ValueAddedServiceImpl
+com/example/snapup_android/pojo/Station_on_line.java
+ com.example.snapup_android.pojo.Station_on_line
+com/example/snapup_android/pojo/TrainInfo.java
+ com.example.snapup_android.pojo.TrainInfo
+com/example/snapup_android/service/FeedBackService.java
+ com.example.snapup_android.service.FeedBackService
+com/example/snapup_android/dao/OrderMapper.java
+ com.example.snapup_android.dao.OrderMapper
+com/example/snapup_android/service/TimeTableServiceImpl.java
+ com.example.snapup_android.service.TimeTableServiceImpl

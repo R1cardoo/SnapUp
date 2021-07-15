@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.snapup_android.dao.TicketMapper">
+
+    <insert id="createTicket" parameterType="Ticket">
+        insert into snapup.ticket(run_serial, depart_station_code, arrival_station_code, seat_type, seat_price, remain)
+        values(#{run_serial}, #{depart_station_code}, #{arrival_station_code}, #{seat_type}, #{seat_price}, #{remain})
+    </insert>
+
+    <update id="updateTicketRemain" parameterType="Ticket">
+        update snapup.ticket
+        set remain = #{remain}
+        where run_serial = #{run_serial} and depart_station_code = #{depart_station_code} and arrival_station_code = #{arrival_station_code} and seat_type = #{seat_type}
+    </update>
+
+    <select id="findSeatTicket" resultType="SeatTicket">
+        select seat_type, seat_price, remain from snapup.ticket
+        where run_serial = #{run_serial} and depart_station_code = #{depart_station_code} and arrival_station_code = #{arrival_station_code}
+    </select>
+
+    <select id="findTicket" resultType="Ticket">
+        select * from snapup.ticket
+        where run_serial = #{run_serial}
+    </select>
+
+
+
+</mapper>
