@@ -339,15 +339,11 @@ public class Control {
         String lineInfo = jsonObject.get("trainNo").getAsString();
         JsonArray ja = jo.get("lineStation").getAsJsonArray();
 
-        if (!flag) {         /* 修改线路,将原有的信息删除，再添加 */    /* test pass */
-            /* 必须将所有表同时删除，否则出错 */
-            // 删除 station_on_line中满足run_code = lineInfo的表项
-            stationOnLineService.delStation(lineInfo);
-            // 删除 train_run 中满足 run_code = lineInfo的表项
-            trainRunService.delLine(lineInfo);
-            // 删除 time_table 中满足 run_code = lineInfo的表项
-            timeTableService.delLine(lineInfo);
-        }
+        int is_legal = 0;       /*  0: 合法
+                                 *  1: 站点名字不合法
+                                 *
+                                 */
+        //TODO：先判断所有数据是否合法
 
         for (int i = 0; i < ja.size(); i++) {
             JsonObject tt = ja.get(i).getAsJsonObject();
@@ -355,29 +351,77 @@ public class Control {
             String arrive_date_string = tt.get("arrive").getAsString(); /* 到达时间 */
             String depart_date_string = tt.get("depart").getAsString(); /* 出发时间 */
             Station station = stationService.getStationByName(station_name);
+            if (station == null) {      /* 名字不合法 */
+                is_legal = 1;
+                break;
+            }
             DateFormat sdf = new SimpleDateFormat("HH:mm");
             Date arrive_date = null;
             Date depart_date = null;
             try {
+                sdf.setLenient(false);
                 arrive_date = sdf.parse(arrive_date_string);
                 arrive_date_string = sdf.format(arrive_date);
                 depart_date = sdf.parse(depart_date_string);
                 depart_date_string = sdf.format(depart_date);
             } catch (ParseException e) {
-                e.printStackTrace();
+                is_legal = 2;       /* 时间不合法 */
+                break;
             }
-            //TODO: 检查合不合法
-            timeTableService.addTime(lineInfo, station.getCode(), Time.valueOf(arrive_date_string + ":00"), Time.valueOf(depart_date_string + ":00"));
-            // 插入time_table (lineInfo, station.getCode(), depart_date, arrive_date)
-            stationOnLineService.addStation(lineInfo, i + 1, station.getCode());
-            // 插入station_on_line (lineInfo, i + 1, station.getCode())
         }
-        //TODO: 插入train_run (lineInfo, type?, ja.size(), 8, 540/700)
-        trainRunService.createLine(lineInfo, 'G', ja.size(), 8, 700);
-        JsonObject result = new JsonObject();
-        result.addProperty("error", false);
-        result.addProperty("reason","成功添加");
-        res.add("result", result);
+        if (is_legal == 0) {
+            if (!flag) {         /* 修改线路,将原有的信息删除，再添加 */    /* test pass */
+                /* 必须将所有表同时删除，否则出错 */
+                // 删除 station_on_line中满足run_code = lineInfo的表项
+                stationOnLineService.delStation(lineInfo);
+                // 删除 train_run 中满足 run_code = lineInfo的表项
+                trainRunService.delLine(lineInfo);
+                // 删除 time_table 中满足 run_code = lineInfo的表项
+                timeTableService.delLine(lineInfo);
+            }
+
+            for (int i = 0; i < ja.size(); i++) {
+                JsonObject tt = ja.get(i).getAsJsonObject();
+                String station_name = tt.get("stationName").getAsString();  /* 车站名字 */
+                String arrive_date_string = tt.get("arrive").getAsString(); /* 到达时间 */
+                String depart_date_string = tt.get("depart").getAsString(); /* 出发时间 */
+                Station station = stationService.getStationByName(station_name);
+                DateFormat sdf = new SimpleDateFormat("HH:mm");
+                Date arrive_date = null;
+                Date depart_date = null;
+                try {
+                    arrive_date = sdf.parse(arrive_date_string);
+                    arrive_date_string = sdf.format(arrive_date);
+                    depart_date = sdf.parse(depart_date_string);
+                    depart_date_string = sdf.format(depart_date);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                timeTableService.addTime(lineInfo, station.getCode(), Time.valueOf(arrive_date_string + ":00"), Time.valueOf(depart_date_string + ":00"));
+                // 插入time_table (lineInfo, station.getCode(), depart_date, arrive_date)
+                stationOnLineService.addStation(lineInfo, i + 1, station.getCode());
+                // 插入station_on_line (lineInfo, i + 1, station.getCode())
+            }
+            // 插入train_run (lineInfo, type?, ja.size(), 8, 540/700)
+            trainRunService.createLine(lineInfo, 'G', ja.size(), 8, 700);
+            JsonObject result = new JsonObject();
+            result.addProperty("error", false);
+            result.addProperty("reason","成功添加");
+            res.add("result", result);
+        }
+        else {      /* 数据不合法 */
+            JsonObject result = new JsonObject();
+            if (is_legal == 1) {
+                result.addProperty("error", true);
+                result.addProperty("reason","存在错误站点名称");
+                res.add("result", result);
+            } else if (is_legal == 2) {
+                result.addProperty("error", true);
+                result.addProperty("reason","录入时间不合法");
+                res.add("result", result);
+            }
+        }
+
         return res;
     }
 
