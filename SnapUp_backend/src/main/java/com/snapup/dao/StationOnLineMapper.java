@@ -3,6 +3,7 @@ package com.snapup.dao;
 import com.snapup.pojo.Station_on_line;
 import org.apache.ibatis.annotations.Param;
 
+import java.sql.Time;
 import java.util.List;
 
 public interface StationOnLineMapper {
@@ -14,5 +15,8 @@ public interface StationOnLineMapper {
     public int findStationIdx(@Param("run_code") String run_code, @Param("station_code")String station_code);
     public String findStationCode(@Param("run_code") String run_code, @Param("station_idx")int station_idx);
 
-    public void deleteLine(@Param("run_code") String run_code);
+    public void deleteLine(String run_code);
+
+    public void createStationOnLine(@Param("run_code") String run_code, @Param("station_idx") int station_idx,
+                                @Param("station_code") String station_code);
 }

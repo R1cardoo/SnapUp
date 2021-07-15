@@ -4,6 +4,7 @@ import com.snapup.pojo.TimeTable;
 import org.apache.ibatis.annotations.Param;
 
 import java.sql.Time;
+import java.util.Date;
 import java.util.List;
 
 public interface TimeTableMapper {
@@ -20,4 +21,7 @@ public interface TimeTableMapper {
     public List<TimeTable> findTimeTableByArriveTime(Time arrive_time);
 
     public void delLine(@Param("num_code") String num_code);
+
+    public void createTimeTable(@Param("num_code") String num_code, @Param("station_code") String station_code,
+                                @Param("departure_time") Time departure_time, @Param("arrival_time") Time arrival_time);
 }

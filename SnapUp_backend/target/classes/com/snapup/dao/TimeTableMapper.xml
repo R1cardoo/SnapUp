@@ -29,8 +29,13 @@
         where arrival_time = #{arrive_time}
     </select>
 
-    <delete id="delLine">
-        select * from snapup.time_table
+    <delete id="delLine" parameterType="java.lang.String">
+        delete from snapup.time_table
         where num_code = #{num_code}
     </delete>
+
+    <insert id="createTimeTable">
+        insert into snapup.time_table(num_code, station_code, departure_time, arrival_time)
+        values(#{num_code}, #{station_code}, #{departure_time}, #{arrival_time})
+    </insert>
 </mapper>

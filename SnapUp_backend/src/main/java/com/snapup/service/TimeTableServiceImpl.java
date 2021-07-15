@@ -3,6 +3,7 @@ package com.snapup.service;
 import com.snapup.dao.TimeTableMapper;
 import com.snapup.pojo.TimeTable;
 
+import java.sql.Date;
 import java.sql.Time;
 
 public class TimeTableServiceImpl implements TimeTableService{
@@ -26,5 +27,10 @@ public class TimeTableServiceImpl implements TimeTableService{
 
     public void delLine(String num_code) {
         timeTableMapper.delLine(num_code);
+    }
+
+    public void addTime(String num_code, String station_code, Time departure_time,
+                        Time arrival_time) {
+        timeTableMapper.createTimeTable(num_code, station_code, departure_time, arrival_time);
     }
 }

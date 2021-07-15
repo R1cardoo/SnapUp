@@ -63,4 +63,8 @@ public class TrainRunServiceImpl implements TrainRunService{
     public void delLine(String run_code) {
         trainRunMapper.delLine(run_code);
     }
+
+    public void createLine(String run_code, char type, int station_num, int coach_num, int seat_num) {
+        trainRunMapper.createTrainRun(run_code, type, station_num, coach_num, seat_num);
+    }
 }

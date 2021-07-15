@@ -1,5 +1,6 @@
 package com.snapup.service;
 
+import java.sql.Date;
 import java.sql.Time;
 
 public interface TimeTableService {
@@ -9,4 +10,7 @@ public interface TimeTableService {
     public Time getDepartTime(String num_code, String station_code);
 
     public void delLine(String num_code);
+
+    public void addTime(String num_code, String station_code, Time departure_time,
+                        Time arrival_time);
 }

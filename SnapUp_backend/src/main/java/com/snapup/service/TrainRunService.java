@@ -13,4 +13,5 @@ public interface TrainRunService {
     public List<TrainRun> getAllTrainRun();
     public TrainInfo getTrainInfo(String run_code);
     public void delLine(String run_code);
+    public void createLine(String run_code, char type, int station_num, int coach_num, int seat_num);
 }

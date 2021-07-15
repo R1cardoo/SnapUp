@@ -11,9 +11,13 @@
     <select id="findAllTrainRun" resultType="TrainRun">
         select * from snapup.train_run
     </select>
-    <delete id="delLine">
-        select * from snapup.train_run
+    <delete id="delLine" parameterType="java.lang.String">
+        delete from snapup.train_run
         where run_code = #{run_code}
     </delete>
 
+    <insert id="createTrainRun">
+        insert into snapup.train_run(run_code, `type`, station_num, coach_num, seat_num)
+        values(#{run_code}, #{'type'}, #{station_num}, #{coach_num}, #{seat_num})
+    </insert>
 </mapper>

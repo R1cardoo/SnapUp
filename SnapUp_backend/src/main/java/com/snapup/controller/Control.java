@@ -332,13 +332,15 @@ public class Control {
 
     @RequestMapping("/api/train/save-line")
     @ResponseBody
-    public JsonObject save_line(JsonObject jo) {
+    public JsonObject save_line(@RequestBody JsonObject jo) {
         JsonObject res = new JsonObject();
         Boolean flag = jo.get("create").getAsBoolean();
-        String lineInfo = jo.get("lineInfo").getAsString();
+        JsonObject jsonObject = jo.getAsJsonObject("lineInfo");
+        String lineInfo = jsonObject.get("trainNo").getAsString();
         JsonArray ja = jo.get("lineStation").getAsJsonArray();
 
-        if (!flag) {         /* 修改线路,将原有的信息删除，再添加 */
+        if (!flag) {         /* 修改线路,将原有的信息删除，再添加 */    /* test pass */
+            /* 必须将所有表同时删除，否则出错 */
             // 删除 station_on_line中满足run_code = lineInfo的表项
             stationOnLineService.delStation(lineInfo);
             // 删除 train_run 中满足 run_code = lineInfo的表项
@@ -354,17 +356,24 @@ public class Control {
             String depart_date_string = tt.get("depart").getAsString(); /* 出发时间 */
             Station station = stationService.getStationByName(station_name);
             DateFormat sdf = new SimpleDateFormat("HH:mm");
+            Date arrive_date = null;
+            Date depart_date = null;
             try {
-                Date arrive_date = sdf.parse(arrive_date_string);
-                Date depart_date = sdf.parse(depart_date_string);
+                arrive_date = sdf.parse(arrive_date_string);
+                arrive_date_string = sdf.format(arrive_date);
+                depart_date = sdf.parse(depart_date_string);
+                depart_date_string = sdf.format(depart_date);
             } catch (ParseException e) {
                 e.printStackTrace();
             }
             //TODO: 检查合不合法
-            //TODO: 插入time_table (lineInfo, station.getCode(), depart_date, arrive_date)
-            //TODO: 插入station_on_line (lineInfo, i + 1, station.getCode())
+            timeTableService.addTime(lineInfo, station.getCode(), Time.valueOf(arrive_date_string + ":00"), Time.valueOf(depart_date_string + ":00"));
+            // 插入time_table (lineInfo, station.getCode(), depart_date, arrive_date)
+            stationOnLineService.addStation(lineInfo, i + 1, station.getCode());
+            // 插入station_on_line (lineInfo, i + 1, station.getCode())
         }
         //TODO: 插入train_run (lineInfo, type?, ja.size(), 8, 540/700)
+        trainRunService.createLine(lineInfo, 'G', ja.size(), 8, 700);
         JsonObject result = new JsonObject();
         result.addProperty("error", false);
         result.addProperty("reason","成功添加");

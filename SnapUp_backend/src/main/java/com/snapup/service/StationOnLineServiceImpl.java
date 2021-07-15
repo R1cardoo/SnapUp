@@ -181,4 +181,8 @@ public class StationOnLineServiceImpl implements StationOnLineService{
     public void delStation(String run_code) {
         stationOnLineMapper.deleteLine(run_code);
     }
+
+    public void addStation(String run_code, int station_idx, String station_code) {
+        stationOnLineMapper.createStationOnLine(run_code, station_idx, station_code);
+    }
 }

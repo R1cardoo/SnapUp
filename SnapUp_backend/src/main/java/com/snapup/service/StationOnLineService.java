@@ -32,4 +32,6 @@ public interface StationOnLineService {
     public List<Station> getPassStation(String run_code, String depart_station_name, String arrival_station_name);
 
     public void delStation(String run_code);
+
+    public void addStation(String run_code, int station_idx, String station_code);
 }
