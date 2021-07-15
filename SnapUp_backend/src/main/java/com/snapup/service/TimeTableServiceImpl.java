@@ -4,6 +4,7 @@ import com.snapup.dao.TimeTableMapper;
 import com.snapup.pojo.TimeTable;
 
 import java.sql.Time;
+import java.util.List;
 
 public class TimeTableServiceImpl implements TimeTableService{
     private TimeTableMapper timeTableMapper;
@@ -23,4 +24,5 @@ public class TimeTableServiceImpl implements TimeTableService{
         if(timeTable == null) return null;
         return timeTable.getDeparture_time();
     }
+
 }

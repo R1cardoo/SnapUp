@@ -14,13 +14,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
+import java.sql.Time;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
 public class Control {
-
-    private Map<String, TrainPOJO> trainDict;
 
     @Autowired
     @Qualifier("restrictedUsrService")
@@ -221,179 +220,111 @@ public class Control {
             @RequestParam(value="arriveTime", required = false) String arrive_time
     ) {
 
-//        if (trainDict == null) {
-//            File dictFile = new File("./dict.dat");
-//            if (dictFile.exists()) {
-//                try {
-//                    ObjectInputStream trainDictStream = new ObjectInputStream(new FileInputStream(dictFile));
-//                    trainDict = (Map<String, TrainPOJO>) trainDictStream.readObject();
-//                    trainDictStream.close();
-//                } catch (IOException | ClassNotFoundException e) {
-//                    e.printStackTrace();
-//                }
-//            } else {
-//                trainDict = new HashMap<>();
-//                List<TrainRun> all_train = trainRunService.getAllTrainRun();
-//                for (TrainRun trainRun : all_train) {
-//                    String trainRunCode = trainRun.getRun_code();
-//                    Character trainRunType = trainRun.getType();
-//                    int allN = trainRun.getStation_num();
-//                    String trainRunDepartName = stationService.getStationByCode(stationOnLineService.getOneStation(trainRunCode, 1)).getName();
-//                    String trainRunArriveName = stationService.getStationByCode(stationOnLineService.getOneStation(trainRunCode, 1)).getName();
-//                    Date trainRunDepartTime = timeTableService.getDepartTime(trainRunCode, trainRunDepartName);
-//                    Date trainRunArriveTime = timeTableService.getArrivalTime(trainRunCode, trainRunArriveName);
-//                    TrainPOJO tpj = new TrainPOJO(trainRunCode, trainRunType, allN, trainRunDepartName, trainRunArriveName, trainRunDepartTime, trainRunArriveTime);
-//                    trainDict.put(trainRunCode, tpj);
-//                }
-//                try {
-//                    ObjectOutputStream trainDictStream = new ObjectOutputStream(new FileOutputStream(dictFile));
-//                    trainDictStream.writeObject(trainDict);
-//                    trainDictStream.close();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
-//        }
-
         JsonObject res = new JsonObject();
         JsonObject result = new JsonObject();
         JsonArray data = new JsonArray();
 
         /* 标志量 */
         boolean train_no_flag = (train_no != null && !train_no.equals(""));
-        boolean train_type_flag = (train_type != null && !train_type.equals(""));
+        boolean train_type_flag = (train_type != null);
         boolean depart_station_flag = (depart_station != null && !depart_station.equals(""));
         boolean arrive_station_flag = (arrive_station != null && !arrive_station.equals(""));
         boolean depart_time_flag = (depart_time != null && !depart_time.equals(""));
         boolean arrive_time_flag = (arrive_time != null && !arrive_time.equals(""));
 
         List<TrainRun> all_train = trainRunService.getAllTrainRun();
-        int n = all_train.size();     /* 总数量 */
-        int total_page = 0;   /* 页数上取整 */
         int st = (page_no - 1) * page_size + 1;     /* 开始条目 */
         int ed = page_no * page_size;               /* 终止条目 */
-        int t = 0;                                  /* 满足搜索条件的个数 */
 
-//        String st_station_name = depart_station_flag ? depart_station : null;
-//        String ed_station_name = arrive_station_flag ? arrive_station : null;
-//        String st_station_code = null;
-//        String ed_station_code = null;
+        ArrayList<Set<String>> ass = new ArrayList<>();
+        ArrayList<TrainRun> resultTrainList = new ArrayList<>();
+        if (train_no_flag) {
+            Set<String> set = new HashSet<>();
+            set.add(train_no);
+            ass.add(set);
+        }
+        if (depart_station_flag) {
+            String depart_station_code = stationService.getStationByName(depart_station).getCode();
+            List<String> as = stationOnLineService.getTrainLineByDepartStation(depart_station_code);
+            Set<String> set = new HashSet<>(as);
+            ass.add(set);
+        }
+        if (arrive_station_flag) {
+            String arrive_station_code = stationService.getStationByName(arrive_station).getCode();
+            List<String> as = stationOnLineService.getTrainLineByArriveStation(arrive_station_code);
+            Set<String> set = new HashSet<>(as);
+            ass.add(set);
+        }
+        if (depart_time_flag) {
+            Time time = Time.valueOf(depart_time + ":00");
+            List<String> as = stationOnLineService.getTrainLineByDepartTime(time);
+            Set<String> set = new HashSet<>(as);
+            ass.add(set);
+        }
+        if (arrive_time_flag) {
+            Time time = Time.valueOf(arrive_time + ":00");
+            List<String> as = stationOnLineService.getTrainLineByArriveTime(time);
+            Set<String> set = new HashSet<>(as);
+            ass.add(set);
+        }
 
-//        Map<String, TrainPOJO> trainDict = new TrainDictionary().getTrainDictionary();
-
-        for (int i = 0; i < n; i++) {
-
-            TrainRun trainRun = all_train.get(i);
+        for (TrainRun trainRun : all_train) {
             String trainRunCode = trainRun.getRun_code();
-            Character trainRunType = trainRun.getType();
-            int allN = trainRun.getStation_num();
-            Station trainRunDepartStation = null;
-            Station trainRunArriveStation = null;
-            String trainRunDepartName = null;
-            String trainRunArriveName = null;
-            if (arrive_station_flag || depart_station_flag) {
-                trainRunDepartStation = stationService.getStationByCode(stationOnLineService.getOneStation(trainRunCode, 1));
-                trainRunArriveStation = stationService.getStationByCode(stationOnLineService.getOneStation(trainRunCode, allN));
-                trainRunDepartName = trainRunDepartStation.getName();
-                trainRunArriveName = trainRunArriveStation.getName();
+            boolean contain = true;
+            for (Set<String> s : ass) {
+                if (!s.contains(trainRunCode)) {
+                    contain = false;
+                    break;
+                }
             }
+            if (train_type_flag && trainRun.getType() != train_type) {
+                contain = false;
+            }
+            if (!contain) {
+                continue;
+            }
+            resultTrainList.add(trainRun);
+        }
 
-            if (train_no_flag && !trainRunCode.equals(train_no))
-                continue;
-            if (train_type_flag && trainRunType != train_type)
-                continue;
-            if (depart_station_flag) {
-                boolean flag = false;
-                if (trainRunDepartName.equals(depart_station)) {
-                    flag = true;
-                }
-                if (!flag) continue;
-            }
-            if (arrive_station_flag) {
-                boolean flag = false;
-                if (trainRunArriveName.equals(arrive_station)) {
-                    flag = true;
-                }
-                if (!flag) continue;
-            }
-            t++;
-            if (t >= st && t <= ed) {
-                if (trainRunDepartStation == null) {
-                    trainRunDepartStation = stationService.getStationByCode(stationOnLineService.getOneStation(trainRunCode, 1));
-                    trainRunDepartName = trainRunDepartStation.getName();
-                }
-                if (trainRunArriveStation == null) {
-                    trainRunArriveStation = stationService.getStationByCode(stationOnLineService.getOneStation(trainRunCode, allN));
-                    trainRunArriveName = trainRunArriveStation.getName();
-                }
+        int resultItemNums = resultTrainList.size();
+        for (int i = 1; i <= resultItemNums; i++) {
+
+            if (i >= st && i <= ed) {
+                TrainRun trainRun = resultTrainList.get(i - 1);
+                String trainRunCode = trainRun.getRun_code();
+                int trainRunStationNum = trainRun.getStation_num();
+                Station trainRunDepartStation = stationService.getStationByCode(stationOnLineService.getOneStation(trainRunCode, 1));
+                Time trainRunDepartTime = timeTableService.getDepartTime(trainRunCode, trainRunDepartStation.getCode());
+                Station trainRunArriveStation = stationService.getStationByCode(stationOnLineService.getOneStation(trainRunCode, trainRunStationNum));
+                Time trainRunArriveTime = timeTableService.getArrivalTime(trainRunCode, trainRunArriveStation.getCode());
+                String trainRunDepartTimeFormat = trainRunDepartTime.toString().substring(0, 5);
+                String trainRunArriveTimeFormat = trainRunArriveTime.toString().substring(0, 5);
+
                 JsonObject jot = new JsonObject();
-                jot.addProperty("id", t);
-                jot.addProperty("key", t);
-                Date st_date = timeTableService.getDepartTime(trainRunCode, trainRunDepartStation.getCode());
-                Date ed_date = timeTableService.getArrivalTime(trainRunCode, trainRunArriveStation.getCode());
-                SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-
-                jot.addProperty("arriveTime", sdf.format(st_date));
-                jot.addProperty("departTime", sdf.format(ed_date));
+                jot.addProperty("id", i);
+                jot.addProperty("key", i);
+                jot.addProperty("arriveTime", trainRunArriveTimeFormat);
+                jot.addProperty("departTime", trainRunDepartTimeFormat);
                 jot.addProperty("editable", false);
-                jot.addProperty("stationInfo", trainRunDepartName + " - " + trainRunArriveName);
-                jot.addProperty("stationNum", allN);
+                jot.addProperty("stationInfo", trainRunDepartStation.getName() + " - " + trainRunArriveStation.getName());
+                jot.addProperty("stationNum", trainRunStationNum);
                 jot.addProperty("status", 1);
                 jot.addProperty("trainNo", trainRunCode);
-                jot.addProperty("trainType", trainRunType);
+                jot.addProperty("trainType", trainRun.getType());
                 data.add(jot);
             }
         }
 
-        total_page = (t + page_size - 1) / page_size;
+        int total_page = (resultItemNums + page_size - 1) / page_size;
         result.addProperty("pageSize", page_size);
         result.addProperty("pageNo", page_no);
-        result.addProperty("totalCount", t);
+        result.addProperty("totalCount", resultItemNums);
         result.addProperty("totalPage", total_page);
-//        for (int i = st; i <= ed; i++) {
-//            TrainRun temp = all_train.get(i - 1);
-//            String run_code_res = temp.getRun_code();
-//            Integer station_num_res = temp.getStation_num();
-//            Character train_type_res = temp.getType();
-//            List<Station> all_station = stationOnLineService.getAllStation(run_code_res);
-//            st_station_name = all_station.get(0).getName();
-//            ed_station_name = all_station.get(station_num_res - 1).getName();
-//            st_station_code = all_station.get(0).getCode();
-//            ed_station_code = all_station.get(station_num_res - 1).getCode();
-//            JsonObject jot = new JsonObject();
-//            jot.addProperty("id", i);
-//            jot.addProperty("key", i);
-//            Date st_date = timeTableService.getDepartTime(run_code_res, st_station_code);
-//            Date ed_date = timeTableService.getArrivalTime(run_code_res, ed_station_code);
-//            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-//
-//            jot.addProperty("arriveTime", sdf.format(st_date));
-//            jot.addProperty("departTime", sdf.format(ed_date));
-//            jot.addProperty("editable", false);
-//            jot.addProperty("stationInfo", st_station_name + " - " + ed_station_name);
-//            jot.addProperty("stationNum", station_num_res);
-//            jot.addProperty("status", 0);
-//            jot.addProperty("trainNo", run_code_res);
-//            jot.addProperty("trainType", train_type_res);
-//            data.add(jot);
-//        }
         result.add("data", data);
         res.add("result", result);
         return res;
     }
 
-//    @RequestMapping("/api/train/lines")
-//    @ResponseBody
-//    public JsonObject line-station(
-//            @RequestParam(value="pageNo") int page_no,
-//            @RequestParam(value="pageSize") int page_size,
-//            @RequestParam(value="trainNo", required = false) String train_no,
-//            @RequestParam(value="trainType", required = false) Character train_type,
-//            @RequestParam(value="departStation", required = false) String depart_station,
-//            @RequestParam(value="arriveStation", required = false) String arrive_station,
-//            @RequestParam(value="departTime", required = false) String depart_time,
-//            @RequestParam(value="arriveTime", required = false) String arrive_time
-//    )
 
     @RequestMapping("/api/train/save-line")
     @ResponseBody

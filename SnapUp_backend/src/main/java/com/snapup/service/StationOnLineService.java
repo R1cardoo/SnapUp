@@ -4,6 +4,7 @@ import com.snapup.pojo.Station;
 import com.snapup.pojo.TrainRun;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.Date;
 import java.util.List;
 
 public interface StationOnLineService {
@@ -13,6 +14,10 @@ public interface StationOnLineService {
     public List<String> getTrainLineByDepartStation(String depart_station_code);
     //购票者可以输入终点站，返回线路
     public List<String> getTrainLineByArriveStation(String arrival_station_code);
+    //购票者可以输入始发时间，返回线路
+    public List<String> getTrainLineByDepartTime(Date depart_station_time);
+    //购票者可以输入终点时间，返回线路
+    public List<String> getTrainLineByArriveTime(Date arrival_station_time);
     //购票者可以输入旅程信息，返回线路，包括中间站:
     public List<String> getTrainLine2(String depart_station_code, String arrival_station_code);
     //查询一个车次的始发站

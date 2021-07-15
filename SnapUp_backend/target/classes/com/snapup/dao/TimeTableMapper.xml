@@ -18,4 +18,14 @@
         select * from snapup.time_table
         where num_code = #{num_code} and station_code = #{station_code}
     </select>
+
+    <select id="findTimeTableByDepartTime" resultType="TimeTable">
+        select * from snapup.time_table
+        where departure_time = #{depart_time}
+    </select>
+
+    <select id="findTimeTableByArriveTime" resultType="TimeTable">
+        select * from snapup.time_table
+        where arrival_time = #{arrive_time}
+    </select>
 </mapper>

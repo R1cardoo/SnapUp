@@ -3,22 +3,36 @@ package com.snapup.service;
 
 import com.snapup.dao.StationMapper;
 import com.snapup.dao.StationOnLineMapper;
+import com.snapup.dao.TimeTableMapper;
+import com.snapup.dao.TrainRunMapper;
 import com.snapup.pojo.Station;
 import com.snapup.pojo.Station_on_line;
+import com.snapup.pojo.TimeTable;
 import com.snapup.pojo.TrainRun;
 
+import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class StationOnLineServiceImpl implements StationOnLineService{
     private StationOnLineMapper stationOnLineMapper;
     private StationMapper stationMapper;
+    private TrainRunMapper trainRunMapper;
+    private TimeTableMapper timeTableMapper;
 
     public void setStationMapper(StationMapper stationMapper) {
         this.stationMapper = stationMapper;
     }
     public void setStationOnLineMapper(StationOnLineMapper stationOnLineMapper) {
         this.stationOnLineMapper = stationOnLineMapper;
+    }
+    public void setTrainRunMapper(TrainRunMapper trainRunMapper) {
+        this.trainRunMapper = trainRunMapper;
+    }
+    public void setTimeTableMapper(TimeTableMapper timeTableMapper) {
+        this.timeTableMapper = timeTableMapper;
     }
 
     public List<String> getTrainLine(String depart_station_code, String arrival_station_code) {
@@ -72,8 +86,44 @@ public class StationOnLineServiceImpl implements StationOnLineService{
         List<Station_on_line> arrive_stations = stationOnLineMapper.findStationOnLineByStation(arrive_station_code);
         for (Station_on_line sol : arrive_stations) {
             String trainRunCode = sol.getRun_code();
-            if (sol.getStation_idx() == 1) {
-                resultTrainLines.add(sol.getRun_code());
+            TrainRun trainRun = trainRunMapper.findTrainRunByCode(trainRunCode);
+            if (sol.getStation_idx() == trainRun.getStation_num()) {
+                resultTrainLines.add(trainRunCode);
+            }
+        }
+        return resultTrainLines;
+    }
+
+    public List<String> getTrainLineByDepartTime(Date depart_station_time) {
+        List<String> resultTrainLines = new ArrayList<String>();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        String timeString = sdf.format(depart_station_time);
+        Time time = Time.valueOf(timeString + ":00");
+        List<TimeTable> ltt = timeTableMapper.findTimeTableByDepartTime(time);
+        for (TimeTable tt : ltt) {
+            String stationCode = tt.getStation_code();
+            String trainRunCode = tt.getNum_code();
+            int idx = stationOnLineMapper.findStationIdx(trainRunCode, stationCode);
+            if (idx == 1) {
+                resultTrainLines.add(trainRunCode);
+            }
+        }
+        return resultTrainLines;
+    }
+
+    public List<String> getTrainLineByArriveTime(Date arrival_station_time) {
+        List<String> resultTrainLines = new ArrayList<String>();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
+        String timeString = sdf.format(arrival_station_time);
+        Time time = Time.valueOf(timeString + ":00");
+        List<TimeTable> ltt = timeTableMapper.findTimeTableByArriveTime(time);
+        for (TimeTable tt : ltt) {
+            String stationCode = tt.getStation_code();
+            String trainRunCode = tt.getNum_code();
+            TrainRun trainRun = trainRunMapper.findTrainRunByCode(trainRunCode);
+            int idx = stationOnLineMapper.findStationIdx(trainRunCode, stationCode);
+            if (idx == trainRun.getStation_num()) {
+                resultTrainLines.add(trainRunCode);
             }
         }
         return resultTrainLines;

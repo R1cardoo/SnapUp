@@ -1,6 +1,9 @@
 package com.snapup.service;
 
+import com.snapup.pojo.Station_on_line;
+
 import java.sql.Time;
+import java.util.List;
 
 public interface TimeTableService {
     //根据车次和站点编号查询列车到达时间：

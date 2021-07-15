@@ -21,6 +21,8 @@
     <bean id="stationOnLineServiceImpl" class="com.snapup.service.StationOnLineServiceImpl">
         <property name="stationOnLineMapper" ref="stationOnLineMapper"/>
         <property name="stationMapper" ref="stationMapper"/>
+        <property name="trainRunMapper" ref="trainRunMapper"/>
+        <property name="timeTableMapper" ref="timeTableMapper"/>
     </bean>
     <bean id="trainSerialServiceImpl" class="com.snapup.service.TrainSerialServiceImpl">
         <property name="trainSerialMapper" ref="trainSerialMapper"/>
