@@ -14,13 +14,5 @@ public class TrainSerial {
     private Date date;
     private String run_code;
 
-    public TrainSerial(int i, Date date, String num) {
-        this.serial =i;
-        this.date =date;
-        this.run_code = num;
-    }
 
-    public String getRun_code() {
-        return run_code;
-    }
 }

@@ -10,8 +10,4 @@ import lombok.NoArgsConstructor;
 public class RestrictedUsr {
     String name;
     String identity_id;
-
-    public String getIdentity_id() {
-        return identity_id;
-    }
 }

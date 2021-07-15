@@ -12,15 +12,4 @@ public class SeatTicket {
     private float seat_price;
     private int remain;
 
-    public char getSeat_type() {
-        return seat_type;
-    }
-
-    public float getSeat_price() {
-        return seat_price;
-    }
-
-    public int getRemain() {
-        return remain;
-    }
 }

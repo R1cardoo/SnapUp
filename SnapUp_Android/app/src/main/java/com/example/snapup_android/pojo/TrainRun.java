@@ -14,23 +14,5 @@ public class TrainRun {
     private int coach_num;
     private int seat_num;
 
-    public char getType() {
-        return type;
-    }
 
-    public int getStation_num() {
-        return station_num;
-    }
-
-    public int getCoach_num() {
-        return coach_num;
-    }
-
-    public int getSeat_num() {
-        return seat_num;
-    }
-
-    public String getRun_code() {
-        return run_code;
-    }
 }

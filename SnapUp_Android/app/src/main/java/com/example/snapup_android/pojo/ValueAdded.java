@@ -14,32 +14,4 @@ public class ValueAdded {
     boolean umbrella;
     boolean insurance;
 
-    public int getRun_serial() {
-        return run_serial;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-    public void setUmbrella(boolean a ){
-        this.umbrella = a;
-    }
-
-    public void setInsurance(boolean a ){
-        this.insurance = a;
-    }
-    public void setMcd(boolean a ){
-        this.mcd = a;
-    }
-    public boolean isMcd() {
-        return mcd;
-    }
-
-    public boolean isInsurance() {
-        return insurance;
-    }
-
-    public boolean isUmbrella() {
-        return umbrella;
-    }
 }

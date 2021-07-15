@@ -16,11 +16,5 @@ public class TimeTable {
     private Time departure_time;
     private Time arrival_time;
 
-    public Time getArrival_time() {
-        return arrival_time;
-    }
 
-    public Time getDeparture_time() {
-        return departure_time;
-    }
 }

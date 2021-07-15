@@ -15,12 +15,4 @@ public class Ticket {
     private float seat_price;
     private int remain;
 
-    public Ticket(int serial, String code, String code1, char c, float price1, int i) {
-        this.seat_price = price1;
-        this.run_serial =serial;
-        this.arrival_station_code =code1;
-        this.depart_station_code = code;
-        this.seat_type = c;
-        this.remain =i;
-    }
 }

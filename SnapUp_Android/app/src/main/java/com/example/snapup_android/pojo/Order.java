@@ -22,15 +22,4 @@ public class Order {
     private String passenger_id;
     private String username;
     private float price;
-
-    public Order(int i, Date time, String id, int id1, int id2, char type, int serial, int idx, int idx1, String username, String id3, float price) {
-    }
-
-    public float getPrice() {
-        return price;
-    }
-
-    public void setPrice(float price) {
-        this.price = price;
-    }
 }

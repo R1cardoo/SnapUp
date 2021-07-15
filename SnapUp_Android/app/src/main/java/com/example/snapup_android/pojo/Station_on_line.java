@@ -12,15 +12,4 @@ public class Station_on_line {
     private int station_idx;
     private String station_code;
 
-    public String getRun_code() {
-        return run_code;
-    }
-
-    public int getStation_idx() {
-        return station_idx;
-    }
-
-    public Object getStation_code() {
-        return station_code;
-    }
 }

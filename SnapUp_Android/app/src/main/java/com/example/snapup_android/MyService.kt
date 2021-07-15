@@ -4,30 +4,16 @@ import com.example.snapup_android.pojo.Order
 import com.example.snapup_android.pojo.TrainInfo
 import com.example.snapup_android.pojo.User
 import com.example.snapup_android.pojo.ValueAdded
-import com.example.snapup_android.service.FeedBackService
-import com.example.snapup_android.service.FeedBackServiceImpl
-import com.example.snapup_android.service.OrderService
-import com.example.snapup_android.service.OrderServiceImpl
-import com.example.snapup_android.service.PassengerService
-import com.example.snapup_android.service.PassengerServiceImpl
-import com.example.snapup_android.service.SeatService
-import com.example.snapup_android.service.SeatServiceImpl
-import com.example.snapup_android.service.StationOnLineService
-import com.example.snapup_android.service.StationOnLineServiceImpl
-import com.example.snapup_android.service.StationService
-import com.example.snapup_android.service.StationServiceImpl
-import com.example.snapup_android.service.TrainRunService
-import com.example.snapup_android.service.TrainRunServiceImpl
-import com.example.snapup_android.service.TrainSerialService
-import com.example.snapup_android.service.TrainSerialServiceImpl
-import com.example.snapup_android.service.UserService
-import com.example.snapup_android.service.UserServiceImpl
-import com.example.snapup_android.service.Usr_train_search
-import com.example.snapup_android.service.Usr_train_search_impl
-import com.example.snapup_android.service.ValueAddedService
-import com.example.snapup_android.service.ValueAddedServiceImpl
+import com.example.snapup_android.service.*
+import org.springframework.context.ApplicationContext
+import org.springframework.context.support.ClassPathXmlApplicationContext
 
 object MyService {
+    var ctx: ApplicationContext = ClassPathXmlApplicationContext("applicationContext.xml")
+    var userService = ctx.getBean("userServiceImpl") as UserServiceImpl
+
+
+
     val a = UserServiceImpl()
     val b = PassengerServiceImpl()
     val c = OrderServiceImpl()
