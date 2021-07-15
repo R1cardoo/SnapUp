@@ -8,10 +8,10 @@ com/example/snapup_android/service/FeedBackServiceImpl.java
  com.example.snapup_android.service.FeedBackServiceImpl
 com/example/snapup_android/service/TicketServiceImpl.java
  com.example.snapup_android.service.TicketServiceImpl
-com/example/snapup_android/pojo/RestrictedUsr.java
- com.example.snapup_android.pojo.RestrictedUsr
 com/example/snapup_android/dao/ReservationMapper.java
  com.example.snapup_android.dao.ReservationMapper
+com/example/snapup_android/pojo/RestrictedUsr.java
+ com.example.snapup_android.pojo.RestrictedUsr
 com/example/snapup_android/service/SeatServiceImpl.java
  com.example.snapup_android.service.SeatServiceImpl
 com/example/snapup_android/dao/InsuranceMapper.java
@@ -38,10 +38,10 @@ com/example/snapup_android/service/OrderService.java
  com.example.snapup_android.service.OrderService
 com/example/snapup_android/service/Usr_train_search_impl.java
  com.example.snapup_android.service.Usr_train_search_impl
-com/example/snapup_android/dao/PassengerMapper.java
- com.example.snapup_android.dao.PassengerMapper
 com/example/snapup_android/controller/Control.java
  com.example.snapup_android.controller.Control
+com/example/snapup_android/dao/PassengerMapper.java
+ com.example.snapup_android.dao.PassengerMapper
 com/example/snapup_android/dao/SeatMapper.java
  com.example.snapup_android.dao.SeatMapper
 com/example/snapup_android/service/StationOnLineService.java

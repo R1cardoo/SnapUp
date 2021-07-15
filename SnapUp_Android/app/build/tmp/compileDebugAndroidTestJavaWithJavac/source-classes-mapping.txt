@@ -1,0 +1,2 @@
+com/example/snapup_android/test/BuildConfig.java
+ com.example.snapup_android.test.BuildConfig
