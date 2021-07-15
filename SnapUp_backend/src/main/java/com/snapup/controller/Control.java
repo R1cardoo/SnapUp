@@ -296,6 +296,7 @@ public class Control {
                 }
             }
             if (train_type_flag && trainRun.getType() != train_type) {
+
                 contain = false;
             }
             if (!contain) {
@@ -326,7 +327,7 @@ public class Control {
                 jot.addProperty("editable", false);
                 jot.addProperty("stationInfo", trainRunDepartStation.getName() + " - " + trainRunArriveStation.getName());
                 jot.addProperty("stationNum", trainRunStationNum);
-                //TODO : 根据流水表车次安排，返回对应车次状态
+                // 根据流水表车次安排，返回对应车次状态
                 List<TrainSerial> trainSerials = trainSerialService.getCenterTrainSerial(trainRun.getRun_code());
                 if (trainSerials != null) {
                     boolean status = false;
@@ -370,7 +371,12 @@ public class Control {
         JsonObject jsonObject = jo.getAsJsonObject("lineInfo");
         String lineInfo = jsonObject.get("trainNo").getAsString();
         JsonArray ja = jo.get("lineStation").getAsJsonArray();
-
+        char trainType;
+        if (flag) {     /* 新建线路 */
+            trainType = jsonObject.get("trainType").getAsString().charAt(0);
+        } else {        /* 修改线路,不能修改车的类型 */
+            trainType = trainRunService.getTrainType(lineInfo);
+        }
         int is_legal = 0;       /*  0: 合法
                                  *  1: 站点名字不合法
                                  *  2: 录入时间不合法
@@ -450,8 +456,14 @@ public class Control {
                 stationOnLineService.addStation(lineInfo, i + 1, station.getCode());
                 // 插入station_on_line (lineInfo, i + 1, station.getCode())
             }
+
             // 插入train_run (lineInfo, type?, ja.size(), 8, 540/700)
-            trainRunService.createLine(lineInfo, 'G', ja.size(), 8, 700);
+            if (trainType == 'G') {       /* 高铁 */
+                trainRunService.createLine(lineInfo, trainType, ja.size(), 8, 700);
+            } else {                    /* 动车 */
+                trainRunService.createLine(lineInfo, trainType, ja.size(), 8, 540);
+            }
+
             JsonObject result = new JsonObject();
             result.addProperty("error", false);
             result.addProperty("reason","成功添加");
@@ -542,4 +554,5 @@ public class Control {
 
         return res;
     }
+
 }
