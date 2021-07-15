@@ -10,26 +10,26 @@
               </a-form-item>
             </a-col>
             <a-col :md="8" :sm="24">
-              <a-form-item label="状态">
-                <a-select v-model="queryParam.status" placeholder="请选择" default-value="0">
-                  <a-select-option value="0">不限</a-select-option>
-                  <a-select-option value="1">正常</a-select-option>
-                  <a-select-option value="2">关闭</a-select-option>
-                  <a-select-option value="3">暂停</a-select-option>
-                </a-select>
+              <a-form-item label="查询日期">
+                <a-date-picker v-model="queryParam.date"></a-date-picker>
               </a-form-item>
             </a-col>
             <template v-if="advanced">
               <a-col :md="8" :sm="24">
+                <a-form-item label="状态">
+                  <a-select v-model="queryParam.status" placeholder="请选择" default-value="!">
+                    <a-select-option value="!">不限</a-select-option>
+                    <a-select-option value="1">正常</a-select-option>
+                    <a-select-option value="0">关闭</a-select-option>
+                  </a-select>
+                </a-form-item>
+              </a-col>
+              <a-col :md="8" :sm="24">
                 <a-form-item label="列车类型">
-                  <a-select v-model="queryParam.trainType" placeholder="请选择" default-value="0">
-                    <a-select-option value="0">不限</a-select-option>
+                  <a-select v-model="queryParam.trainType" placeholder="请选择" default-value="!">
+                    <a-select-option value="!">不限</a-select-option>
                     <a-select-option value="G">高速动车组</a-select-option>
-                    <a-select-option value="C">城际动车组</a-select-option>
                     <a-select-option value="D">动车组</a-select-option>
-                    <a-select-option value="Z">直达特快</a-select-option>
-                    <a-select-option value="T">特快列车</a-select-option>
-                    <a-select-option value="K">快速列车</a-select-option>
                   </a-select>
                 </a-form-item>
               </a-col>
@@ -57,7 +57,7 @@
             <a-col :md="!advanced && 8 || 24" :sm="24">
               <span class="table-page-search-submitButtons" :style="advanced && { float: 'right', overflow: 'hidden' } || {} ">
                 <a-button type="primary" @click="$refs.table.refresh(true)">查询</a-button>
-                <a-button style="margin-left: 8px" @click="() => this.queryParam = {}">重置</a-button>
+                <a-button style="margin-left: 8px" @click="() => this.queryParam = { date: moment(new Date()) }">重置</a-button>
                 <a @click="toggleAdvanced" style="margin-left: 8px">
                   {{ advanced ? '收起' : '展开' }}
                   <a-icon :type="advanced ? 'up' : 'down'"/>
@@ -78,6 +78,7 @@
         size="default"
         rowKey="key"
         :columns="columns"
+        :alert="true"
         :data="loadData"
         :rowSelection="rowSelection"
         showPagination="auto"
@@ -98,6 +99,14 @@
           </template>
         </span>
       </s-table>
+      <arrange-train
+        ref="createModal"
+        :visible="visible"
+        :loading="confirmLoading"
+        :model="mdl"
+        @cancel="handleCancel"
+        @ok="handleOk"
+      />
     </a-card>
   </page-header-wrapper>
 </template>
@@ -107,7 +116,8 @@
 // 线路：车次编号；列车类型；车厢数量与座位数量；车站数量-车站列表；各站出发与到达时间
 import moment from 'moment'
 import { STable, Ellipsis } from '@/components'
-import { arrangeLine, getRoleList, getTrainList } from '@/api/manage'
+import { getRoleList, getTrainList, arrangeLine } from '@/api/manage'
+import ArrangeTrain from './ArrangeTrain'
 
 const columns = [
   {
@@ -162,10 +172,6 @@ const statusMap = {
   1: {
     status: 'success',
     text: '正常'
-  },
-  2: {
-    status: 'error',
-    text: '暂停'
   }
 }
 
@@ -173,11 +179,13 @@ export default {
   name: 'TableList',
   components: {
     STable,
-    Ellipsis
+    Ellipsis,
+    ArrangeTrain
   },
   data () {
     this.columns = columns
     return {
+      moment,
       // create model
       visible: false,
       confirmLoading: false,
@@ -185,21 +193,22 @@ export default {
       // 高级搜索 展开/关闭
       advanced: false,
       // 查询参数
-      queryParam: {},
+      queryParam: { date: moment(new Date()) },
       // 加载数据方法 必须为 Promise 对象
       loadData: parameter => {
         const requestParameters = Object.assign({}, parameter, this.queryParam)
         delete requestParameters.status
         if (requestParameters.departTime) {
-          requestParameters.departTime = requestParameters.departTime._d.toTimeString().substring(0, 5)
+          requestParameters.departTime = requestParameters.departTime.format('HH:mm')
         } else {
           delete requestParameters.departTime
         }
         if (requestParameters.arriveTime) {
-          requestParameters.arriveTime = requestParameters.arriveTime._d.toTimeString().substring(0, 5)
+          requestParameters.arriveTime = requestParameters.arriveTime.format('HH:mm')
         } else {
           delete requestParameters.arriveTime
         }
+        requestParameters.date = requestParameters.date.format('YYYY-MM-DD')
         console.log('loadData request parameters:', requestParameters)
         return getTrainList(requestParameters)
           .then(res => {
@@ -236,7 +245,7 @@ export default {
       this.$router.push({ path: '/train/form/' + line })
     },
     handleAdd () {
-      this.mdl = null
+      this.mdl = { }
       this.visible = true
       this.$router.push({ path: '/train/form' })
     },
@@ -245,51 +254,54 @@ export default {
       this.mdl = { ...record }
     },
     handleOk () {
-      const form = this.$refs.createModal.form
       this.confirmLoading = true
+      const form = this.$refs.createModal.form
+      const { $notification } = this
+      const arrangeNo = this.selectedRows.reduce((acc, cur, i) => {
+        acc.push(cur.trainNo)
+        return acc
+      }, [])
+      this.confirmLoading = false
       form.validateFields((errors, values) => {
+        const arrange = { date: values.date.format('YYYY-MM-DD'), day: values.days, lines: arrangeNo }
+        console.log(arrange)
         if (!errors) {
-          console.log('values', values)
-          if (values.id > 0) {
-            // 修改 e.g.
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                resolve()
-              }, 1000)
-            }).then(res => {
-              this.visible = false
-              this.confirmLoading = false
-              // 重置表单数据
-              form.resetFields()
+          // 新增
+          arrangeLine(arrange).then(res => {
+            const result = res.result
+            if (result.error) {
+              $notification['error']({
+                message: '错误',
+                description: result.reason
+              })
+            } else {
+              $notification['success']({
+                message: '成功',
+                description: result.reason
+              })
+              this.selectedRows.splice(0, this.selectedRows.length)
+              this.selectedRowKeys.splice(0, this.selectedRowKeys.length)
               // 刷新表格
               this.$refs.table.refresh()
-
-              this.$message.info('修改成功')
-            })
-          } else {
-            // 新增
-            new Promise((resolve, reject) => {
-              setTimeout(() => {
-                resolve()
-              }, 1000)
-            }).then(res => {
-              this.visible = false
-              this.confirmLoading = false
-              // 重置表单数据
-              form.resetFields()
-              // 刷新表格
-              this.$refs.table.refresh()
-
-              this.$message.info('安排车次成功')
-            })
-          }
-        } else {
-          this.confirmLoading = false
+            }
+            this.visible = false
+            // 重置表单数据
+            form.resetFields()
+            // 刷新表格
+            this.$refs.table.refresh()
+          })
         }
+      }).catch(() => {
+        $notification['error']({
+          message: '错误',
+          description: '发送请求异常'
+        })
       })
+      this.confirmLoading = false
     },
     handleCancel () {
       this.visible = false
+      this.mdl = null
 
       const form = this.$refs.createModal.form
       form.resetFields() // 清理表单数据（可不做）
@@ -302,37 +314,10 @@ export default {
       }
     },
     handleArrange () {
-      const { $notification } = this
-      const arrangeNo = this.selectedRows.reduce((acc, cur, i) => {
-        acc.push(cur.trainNo)
-        return acc
-      }, [])
-      arrangeLine(arrangeNo).then(res => {
-        console.log(arrangeNo)
-        console.log(res)
-        const result = res.result
-        if (result.error) {
-          $notification['error']({
-            message: '错误',
-            description: result.reason
-          })
-        } else {
-          $notification['success']({
-            message: '成功',
-            description: result.reason
-          })
-          this.confirmLoading = false
-          this.selectedRows.splice(0, this.selectedRows.length)
-          this.selectedRowKeys.splice(0, this.selectedRowKeys.length)
-          // 刷新表格
-          this.$refs.table.refresh()
-        }
-      }).catch(() => {
-        $notification['error']({
-          message: '错误',
-          description: '发送请求异常'
-        })
-      })
+      this.visible = true
+      // const form = this.$refs.createModal.form
+      // form.setFieldsValue('days', 1)
+      // form.setFieldsValue('date', moment(new Date()))
     },
     onSelectChange (selectedRowKeys, selectedRows) {
       this.selectedRowKeys = selectedRowKeys

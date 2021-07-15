@@ -12,6 +12,18 @@
             :disabled="trainNo !== null"/>
         </a-form-item>
       </a-col>
+      <a-col :lg="6" :md="12" :sm="24">
+        <a-form-item v-show="trainNo === null" label="列车类型">
+          <a-select
+            placeholder="请选择"
+            default-value="G"
+            v-decorator="['trainType']"
+          >
+            <a-select-option value="G">高速动车组</a-select-option>
+            <a-select-option value="D">动车组</a-select-option>
+          </a-select>
+        </a-form-item>
+      </a-col>
     <!--      <a-col :xl="{span: 7, offset: 1}" :lg="{span: 8}" :md="{span: 12}" :sm="24">-->
     <!--        <a-form-item-->
     <!--          label="仓库域名">-->
@@ -89,12 +101,20 @@ export default {
     trainNo: {
       type: String,
       default: ''
+    },
+    trainType: {
+      type: String,
+      default: 'G'
     }
   },
   mounted () {
     if (this.$props.trainNo !== null) {
       this.form.setFieldsValue({
         trainNo: this.$props.trainNo
+      })
+    } else {
+      this.form.setFieldsValue({
+        trainType: 'G'
       })
     }
   },

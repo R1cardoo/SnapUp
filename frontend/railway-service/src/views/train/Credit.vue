@@ -62,7 +62,7 @@ const columns = [
   {
     title: '身份证号',
     dataIndex: 'identity',
-    customRender: (text) => text.toString().substring(0, 14) + '***' + text.toString().substring(17, 18),
+    customRender: (text) => text.toString().slice(0, -4) + '***' + text.toString().slice(-1),
     sorter: true
   },
   {
@@ -158,6 +158,7 @@ export default {
                   message: '错误',
                   description: result.reason
                 })
+                this.confirmLoading = false
               } else {
                 $notification['success']({
                   message: '成功',

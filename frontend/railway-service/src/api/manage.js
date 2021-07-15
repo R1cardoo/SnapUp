@@ -11,6 +11,7 @@ const api = {
   creditList: '/train/credit',
   saveCredit: '/train/save-credit',
   deleteCredit: '/train/delete-credit',
+  feedbackList: '/train/feedback',
   saveLine: '/train/save-line',
   permission: '/permission',
   permissionNoPager: '/permission/no-pager',
@@ -102,6 +103,14 @@ export function getStationList (parameter) {
 export function getCreditList (parameter) {
   return request({
     url: api.creditList,
+    method: 'get',
+    params: parameter
+  })
+}
+
+export function getFeedbackList (parameter) {
+  return request({
+    url: api.feedbackList,
     method: 'get',
     params: parameter
   })

@@ -1,6 +1,6 @@
 <template>
   <a-modal
-    title="新建规则"
+    title="安排车次"
     :width="640"
     :visible="visible"
     :confirmLoading="loading"
@@ -9,12 +9,18 @@
   >
     <a-spin :spinning="loading">
       <a-form :form="form" v-bind="formLayout">
-        <!-- 检查是否有 id 并且大于0，大于0是修改。其他是新增，新增不显示主键ID -->
-        <a-form-item v-show="model && model.id > 0" label="主键ID">
-          <a-input v-decorator="['id', { initialValue: 0 }]" disabled />
+        <a-form-item label="起始日期">
+          <a-date-picker
+            @change="changeNumber"
+            v-decorator="['date', { initialValue: moment(new Date()) }]"
+          ></a-date-picker>
         </a-form-item>
-        <a-form-item label="描述">
-          <a-input v-decorator="['description', {rules: [{required: true, min: 5, message: '请输入至少五个字符的规则描述！'}]}]" />
+        <a-form-item label="持续天数">
+          <a-input-number
+            :min="1"
+            @change="changeDate"
+            v-decorator="['days', { initialValue: 1 }]"
+          />
         </a-form-item>
       </a-form>
     </a-spin>
@@ -22,10 +28,7 @@
 </template>
 
 <script>
-import pick from 'lodash.pick'
-
-// 表单字段
-const fields = ['description', 'id']
+import moment from 'moment'
 
 export default {
   props: {
@@ -54,19 +57,17 @@ export default {
       }
     }
     return {
+      moment,
       form: this.$form.createForm(this)
     }
   },
-  created () {
-    console.log('custom modal created')
-
-    // 防止表单未注册
-    fields.forEach(v => this.form.getFieldDecorator(v))
-
-    // 当 model 发生改变时，为表单设置值
-    this.$watch('model', () => {
-      this.model && this.form.setFieldsValue(pick(this.model, fields))
-    })
+  methods: {
+    changeNumber (number) {
+      this.form.setFieldsValue('days', number)
+    },
+    changeDate (date) {
+      this.form.setFieldsValue('date', date)
+    }
   }
 }
 </script>
