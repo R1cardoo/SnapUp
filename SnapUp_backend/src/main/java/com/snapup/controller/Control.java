@@ -3,10 +3,7 @@ package com.snapup.controller;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mysql.cj.exceptions.StreamingNotifiable;
-import com.snapup.pojo.RestrictedUsr;
-import com.snapup.pojo.Station;
-import com.snapup.pojo.TrainRun;
-import com.snapup.pojo.TrainSerial;
+import com.snapup.pojo.*;
 import com.snapup.service.*;
 import com.snapup.util.TrainPOJO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +46,10 @@ public class Control {
     @Autowired
     @Qualifier("trainSerialServiceImpl")
     private TrainSerialService trainSerialService;
+
+    @Autowired
+    @Qualifier("feedBackService")
+    private FeedBackService feedBackService;
 
 
     @RequestMapping("/api/train/save-credit")
@@ -221,6 +222,7 @@ public class Control {
     public JsonObject search_lines(
             @RequestParam(value="pageNo") int page_no,
             @RequestParam(value="pageSize") int page_size,
+            @RequestParam(value="date") String show_date,
             @RequestParam(value="trainNo", required = false) String train_no,
             @RequestParam(value="trainType", required = false) Character train_type,
             @RequestParam(value="departStation", required = false) String depart_station,
@@ -233,11 +235,10 @@ public class Control {
         JsonObject result = new JsonObject();
         JsonArray data = new JsonArray();
 
-        String timesstamp = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
         DateFormat fmt =new SimpleDateFormat("yyyy-MM-dd");
-        Date today = null;
+        Date show_day = null;
         try {
-            today = fmt.parse(timesstamp);
+            show_day = fmt.parse(show_date);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -333,7 +334,7 @@ public class Control {
                     boolean status = false;
                     for (int j = 0; j < trainSerials.size(); j++) {
                         Date date = trainSerials.get(j).getDate();
-                        if (today.equals(date)) {
+                        if (show_day.equals(date)) {
                             status = true;
                         }
                     }
@@ -531,13 +532,15 @@ public class Control {
 
     @RequestMapping("/api/train/arrange-line")
     @ResponseBody
-    public JsonObject arrange_line(@RequestBody JsonArray ja) {
+    public JsonObject arrange_line(@RequestBody JsonObject jo) {
         JsonObject res = new JsonObject();
-        String timeStamp = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+        String array_day_start = jo.get("date").getAsString();
+        JsonArray ja = jo.get("lines").getAsJsonArray();
+        int arrangeDay = jo.get("day").getAsInt();
         DateFormat fmt =new SimpleDateFormat("yyyy-MM-dd");
-        Date today = null;
+        Date array_start_date = null;
         try {
-            today = fmt.parse(timeStamp);
+            array_start_date = fmt.parse(array_day_start);
         } catch (ParseException e) {
             e.printStackTrace();
         }
@@ -546,7 +549,7 @@ public class Control {
             String arrange_train = ja.get(i).getAsString();
             run_code.add(arrange_train);
         }
-        trainSerialService.generateTrainSerial(run_code, 3, today);
+        trainSerialService.generateTrainSerial(run_code, arrangeDay, array_start_date);
         JsonObject result = new JsonObject();
         result.addProperty("error", false);
         result.addProperty("reason", "成功安排车次");
@@ -555,4 +558,35 @@ public class Control {
         return res;
     }
 
+    @RequestMapping("/api/train/feedback")
+    @ResponseBody
+    public JsonObject feed_back(
+            @RequestParam(value="pageNo") int page_no,
+            @RequestParam(value="pageSize") int page_size
+    ) {
+        JsonObject res = new JsonObject();
+        JsonArray ja = new JsonArray();
+        List<FeedBack> all_feed_back = feedBackService.getAllFeedBack();
+
+        int st = (page_no - 1) * page_size + 1;     /* 开始条目 */
+        int ed = page_no * page_size;               /* 终止条目 */
+
+        for (int i = 1; i <= all_feed_back.size(); i++) {
+            if (st <= i && i <= ed) {
+                JsonObject temp = new JsonObject();
+                String usr_name = all_feed_back.get(i - 1).getUsername();
+                String tele = all_feed_back.get(i - 1).getTele();
+                String comment = all_feed_back.get(i - 1).getComment();
+                temp.addProperty("username", usr_name);
+                temp.addProperty("tel", tele);
+                temp.addProperty("detail", comment);
+                ja.add(temp);
+            }
+        }
+        res.add("data", ja);
+
+        return res;
+    }
+
+    
 }
