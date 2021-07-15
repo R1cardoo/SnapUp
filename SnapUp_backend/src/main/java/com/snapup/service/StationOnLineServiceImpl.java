@@ -45,7 +45,7 @@ public class StationOnLineServiceImpl implements StationOnLineService{
                         station_on_line_start.getStation_idx() < station_on_line_end.getStation_idx() &&
                         station_on_line_start.getStation_code().equals(getStartStation(station_on_line_start.getRun_code())) &&
                         station_on_line_end.getStation_code().equals(getEndStation(station_on_line_end.getRun_code()))){
-                            resultTrainLines.add(station_on_line_end.getRun_code());
+                    resultTrainLines.add(station_on_line_end.getRun_code());
 
                 }
             }
@@ -61,7 +61,7 @@ public class StationOnLineServiceImpl implements StationOnLineService{
         for(Station_on_line station_on_line_start: depart_stations){
             for(Station_on_line station_on_line_end: arrival_stations){
                 if(station_on_line_start.getRun_code().equals(station_on_line_end.getRun_code()) &&
-                    station_on_line_start.getStation_idx() < station_on_line_end.getStation_idx()){
+                        station_on_line_start.getStation_idx() < station_on_line_end.getStation_idx()){
                     resultTrainLines.add(station_on_line_end.getRun_code());
                 }
             }
@@ -178,4 +178,7 @@ public class StationOnLineServiceImpl implements StationOnLineService{
         return stationOnLineMapper.findStationCode(run_code, station_idx);
     }
 
+    public void delStation(String run_code) {
+        stationOnLineMapper.deleteLine(run_code);
+    }
 }

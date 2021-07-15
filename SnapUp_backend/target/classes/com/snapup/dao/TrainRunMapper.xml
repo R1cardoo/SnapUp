@@ -11,5 +11,9 @@
     <select id="findAllTrainRun" resultType="TrainRun">
         select * from snapup.train_run
     </select>
+    <delete id="delLine">
+        select * from snapup.train_run
+        where run_code = #{run_code}
+    </delete>
 
 </mapper>

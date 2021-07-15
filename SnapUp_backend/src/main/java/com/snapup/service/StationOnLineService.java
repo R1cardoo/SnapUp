@@ -31,4 +31,5 @@ public interface StationOnLineService {
     //查询经停站：
     public List<Station> getPassStation(String run_code, String depart_station_name, String arrival_station_name);
 
+    public void delStation(String run_code);
 }

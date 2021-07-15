@@ -1,3 +1,4 @@
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.snapup.controller.Control;
 import com.snapup.pojo.RestrictedUsr;
@@ -104,6 +105,24 @@ public class MyTest {
         object.addProperty("identity", "110105199905140634");
         object.addProperty("name", "张三");
         object.addProperty("id", 0);
+        //System.out.println(c.save_credit(object));
+    }
+    @Test
+    public void TestDelLine() {
+        Control c = new Control();
+        JsonObject object = new JsonObject();
+        object.addProperty("create", false);
+        object.addProperty("lineInfo", "C1001");
+        JsonArray lineStation = new JsonArray();
+        JsonObject t = new JsonObject();
+        t.addProperty("stationName", "浦东");
+        t.addProperty("arrive", "22:30");
+        t.addProperty("depart", "22:40");
+        t.addProperty("key", 3);
+        t.addProperty("ediable", false);
+        lineStation.add(t);
+        object.add("lineStation", lineStation);
+        c.save_line(object);
         //System.out.println(c.save_credit(object));
     }
 }

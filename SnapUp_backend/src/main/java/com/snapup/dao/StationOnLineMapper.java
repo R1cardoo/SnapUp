@@ -14,4 +14,5 @@ public interface StationOnLineMapper {
     public int findStationIdx(@Param("run_code") String run_code, @Param("station_code")String station_code);
     public String findStationCode(@Param("run_code") String run_code, @Param("station_idx")int station_idx);
 
+    public void deleteLine(@Param("run_code") String run_code);
 }

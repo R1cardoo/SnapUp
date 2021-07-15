@@ -15,11 +15,15 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.*;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Controller
 public class Control {
+
+    private Map<String, TrainPOJO> trainDict;
 
     @Autowired
     @Qualifier("restrictedUsrService")
@@ -331,15 +335,40 @@ public class Control {
     public JsonObject save_line(JsonObject jo) {
         JsonObject res = new JsonObject();
         Boolean flag = jo.get("create").getAsBoolean();
-        if (flag) {         /* 新建线路 */
-            String lineInfo = jo.get("lineInfo").getAsString();
-            JsonArray ja = jo.get("lineStation").getAsJsonArray();
-            for (int i = 0; i < ja.size(); i++) {
-                
-            }
-        } else {            /* 修改线路 */
+        String lineInfo = jo.get("lineInfo").getAsString();
+        JsonArray ja = jo.get("lineStation").getAsJsonArray();
 
+        if (!flag) {         /* 修改线路,将原有的信息删除，再添加 */
+            // 删除 station_on_line中满足run_code = lineInfo的表项
+            stationOnLineService.delStation(lineInfo);
+            // 删除 train_run 中满足 run_code = lineInfo的表项
+            trainRunService.delLine(lineInfo);
+            // 删除 time_table 中满足 run_code = lineInfo的表项
+            timeTableService.delLine(lineInfo);
         }
+
+        for (int i = 0; i < ja.size(); i++) {
+            JsonObject tt = ja.get(i).getAsJsonObject();
+            String station_name = tt.get("stationName").getAsString();  /* 车站名字 */
+            String arrive_date_string = tt.get("arrive").getAsString(); /* 到达时间 */
+            String depart_date_string = tt.get("depart").getAsString(); /* 出发时间 */
+            Station station = stationService.getStationByName(station_name);
+            DateFormat sdf = new SimpleDateFormat("HH:mm");
+            try {
+                Date arrive_date = sdf.parse(arrive_date_string);
+                Date depart_date = sdf.parse(depart_date_string);
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            //TODO: 检查合不合法
+            //TODO: 插入time_table (lineInfo, station.getCode(), depart_date, arrive_date)
+            //TODO: 插入station_on_line (lineInfo, i + 1, station.getCode())
+        }
+        //TODO: 插入train_run (lineInfo, type?, ja.size(), 8, 540/700)
+        JsonObject result = new JsonObject();
+        result.addProperty("error", false);
+        result.addProperty("reason","成功添加");
+        res.add("result", result);
         return res;
     }
 

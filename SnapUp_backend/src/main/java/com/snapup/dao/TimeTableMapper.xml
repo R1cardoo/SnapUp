@@ -28,4 +28,9 @@
         select * from snapup.time_table
         where arrival_time = #{arrive_time}
     </select>
+
+    <delete id="delLine">
+        select * from snapup.time_table
+        where num_code = #{num_code}
+    </delete>
 </mapper>

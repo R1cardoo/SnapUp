@@ -24,4 +24,8 @@
         where run_code = #{run_code} and station_idx = #{station_idx}
     </select>
 
+    <delete id="deleteLine">
+        delete * from snapup.station_on_line
+        where run_code = #{run_code}
+    </delete>
 </mapper>
