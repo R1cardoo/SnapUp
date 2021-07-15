@@ -42,7 +42,7 @@ export const asyncRouterMap = [
         path: '/train',
         redirect: '/train/lines',
         component: RouteView,
-        meta: { title: 'menu.train.line', icon: 'control', permission: [ 'train' ] },
+        meta: { title: 'menu.train', icon: 'control', permission: [ 'train' ] },
         children: [
           {
             path: '/train/lines',
@@ -70,13 +70,19 @@ export const asyncRouterMap = [
         path: '/passenger',
         redirect: '/passenger/credit',
         component: RouteView,
-        meta: { title: 'menu.train.credit', icon: 'control', permission: [ 'train' ] },
+        meta: { title: 'menu.train.passenger', icon: 'control', permission: [ 'train' ] },
         children: [
           {
             path: '/passenger/credit',
             name: 'Credit',
             component: () => import('@/views/train/Credit'),
             meta: { title: 'menu.train.credit', permission: [ 'train' ] }
+          },
+          {
+            path: '/passenger/feedback',
+            name: 'Feedback',
+            component: () => import('@/views/train/Feedback'),
+            meta: { title: 'menu.train.feedback', permission: [ 'train' ] }
           }
         ]
       },
