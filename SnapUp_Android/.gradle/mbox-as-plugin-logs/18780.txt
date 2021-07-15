@@ -1,0 +1,21 @@
+DEBUG [CommandLine-/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android] Execute cmd(`git remote -v`) in dir /Users/bytedance/AndroidStudioProjects/SnapUp/frontend.log start  **************
+DEBUG [CommandLine-/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android] Execute cmd(`git remote -v`) in dir /Users/bytedance/AndroidStudioProjects/SnapUp/.git.log start  **************
+DEBUG [CommandLine-/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android] Execute cmd(`git remote -v`) in dir /Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android.log start  **************
+DEBUG [CommandLine-/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android] Execute cmd(`git remote -v`) in dir /Users/bytedance/AndroidStudioProjects/SnapUp/.gradle.log start  **************
+DEBUG [CommandLine-/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android] Execute cmd(`git remote -v`) in dir /Users/bytedance/AndroidStudioProjects/SnapUp/.git.log end.exitCode:0 result:origin	https://github.com/R1cardoo/SnapUp.git (fetch)
+origin	https://github.com/R1cardoo/SnapUp.git (push)
+**************
+DEBUG [CommandLine-/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android] Execute cmd(`git remote -v`) in dir /Users/bytedance/AndroidStudioProjects/SnapUp/.gradle.log end.exitCode:0 result:origin	https://github.com/R1cardoo/SnapUp.git (fetch)
+origin	https://github.com/R1cardoo/SnapUp.git (push)
+**************
+DEBUG [CommandLine-/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android] Execute cmd(`git remote -v`) in dir /Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android.log end.exitCode:0 result:origin	https://github.com/R1cardoo/SnapUp.git (fetch)
+origin	https://github.com/R1cardoo/SnapUp.git (push)
+**************
+DEBUG [CommandLine-/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android] Execute cmd(`git status -s`) in dir /Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android.log start  **************
+DEBUG [CommandLine-/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android] Execute cmd(`git remote -v`) in dir /Users/bytedance/AndroidStudioProjects/SnapUp/frontend.log end.exitCode:0 result:origin	https://github.com/R1cardoo/SnapUp.git (fetch)
+origin	https://github.com/R1cardoo/SnapUp.git (push)
+**************
+DEBUG [CommandLine-/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android] Execute cmd(`git status -s`) in dir /Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android.log end.exitCode:0 result:**************
+DEBUG [CommandLine-/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android] Execute cmd(`git symbolic-ref --short -q HEAD`) in dir /Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android.log start  **************
+DEBUG [CommandLine-/Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android] Execute cmd(`git symbolic-ref --short -q HEAD`) in dir /Users/bytedance/AndroidStudioProjects/SnapUp/SnapUp_Android.log end.exitCode:0 result:ricardo
+**************
