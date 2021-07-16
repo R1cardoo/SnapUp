@@ -1,5 +1,6 @@
 package com.example.snapup_android.viewOrder
 
+import android.annotation.SuppressLint
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -28,12 +29,13 @@ class MyOrderRecyclerViewAdapter(
     interface OnOrderClickListener {
         fun onItemClick(view: View?, position: Int)
     }
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.beginToDestination.text = "${item.BeginningStation}——${item.Destination}"
-        holder.time.text = item.Time
-        holder.trainId.text = item.TrainId
-        holder.proxyState.text = item.state
+        holder.beginToDestination.text = "${item.start_station_name}——${item.end_station_name}"
+        holder.time.text = "时间：${item.departure_time}——${item.arrival_time}"
+        holder.trainId.text = "车次号：${item.run_code}"
+        holder.proxyState.text = "订单号：${item.order}"
         if (mOnOrderClickListener != null) {
             holder.itemView.setOnClickListener(OnClickListener { view -> mOnOrderClickListener!!.onItemClick(view, position) })
         }

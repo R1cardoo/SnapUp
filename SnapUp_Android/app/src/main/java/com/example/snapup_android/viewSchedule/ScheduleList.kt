@@ -62,12 +62,7 @@ class ScheduleList : Fragment() {
                 adapter = MyScheduleRecyclerViewAdapter(ScheduleContentList.ITEMS) //在这里init ScheduleList
                 (adapter as MyScheduleRecyclerViewAdapter).setOnItemClickListener(object : OnItemClickListener {
                     override fun onItemClick(view: View?, position: Int) {
-
-
-
-
                         //点击事件 弹出详情请求详细信息
-                        //val dummy = (adapter as MyScheduleRecyclerViewAdapter).values[position]
                         requestScheduleInfo(position)
 
                     }

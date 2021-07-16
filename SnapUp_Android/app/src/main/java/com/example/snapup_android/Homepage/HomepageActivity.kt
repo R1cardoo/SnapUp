@@ -16,14 +16,14 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.snapup_android.Http
 import com.example.snapup_android.R
-import com.example.snapup_android.data.gsonClass.RegisterGson
-import com.example.snapup_android.data.gsonClass.ScheduleGson
-import com.example.snapup_android.data.gsonClass.UserGson
+import com.example.snapup_android.User
 import com.example.snapup_android.feedback.FeedbackActivity
 import com.example.snapup_android.login.LoginActivity
 import com.example.snapup_android.settings.SettingsActivity
 import com.example.snapup_android.viewSchedule.ViewScheduleActivity
 import com.example.snapup_android.viewOrder.ViewOrderActivity
+import com.example.snapup_android.viewOrder.content.OrderContentList
+import com.example.snapup_android.viewOrder.content.OrderContentList.OrderInfo
 import com.example.snapup_android.viewSchedule.content.ScheduleContentList
 import com.example.snapup_android.viewSchedule.content.ScheduleContentList.TrainInfo
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -31,13 +31,14 @@ import com.google.android.material.navigation.NavigationView
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
-import com.google.gson.JsonArray
 import com.google.gson.JsonParser
 import okhttp3.Call
 import okhttp3.Callback
 import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.OkHttpClient
 import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.Response
 import org.json.JSONObject
 import java.io.IOException
@@ -55,11 +56,6 @@ class HomepageActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        val fab: FloatingActionButton = findViewById(R.id.fab)
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
-        }
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
@@ -80,13 +76,11 @@ class HomepageActivity : AppCompatActivity() {
                 }
                 R.id.nav_info -> {
                     requestSchedule()
-                    val intent1 = Intent(this, ViewScheduleActivity::class.java)
-                    startActivity(intent1)
+
                 }
                 R.id.nav_order -> {
+                    requestOrder()
 
-                    val intent2 = Intent(this, ViewOrderActivity::class.java)
-                    startActivity(intent2)
                 }
                 R.id.nav_feedback -> {
                     val intent3 = Intent(this, FeedbackActivity::class.java)
@@ -128,6 +122,7 @@ class HomepageActivity : AppCompatActivity() {
                 //Log.d("UPDATE", "OnResponse: " + response.body?.string())
                 try {
                     val jsonArray = JsonParser().parse(response.body?.string()).getAsJsonArray()
+                    ScheduleContentList.clear()
                     for(i in 0 until jsonArray.size()){
                         val trainInfo = Gson().fromJson(jsonArray.get(i).toString(), TrainInfo::class.java)
                         ScheduleContentList.addScheduleItem(trainInfo)
@@ -135,6 +130,47 @@ class HomepageActivity : AppCompatActivity() {
                 }catch (e : Exception){
                     e.printStackTrace()
                 }
+                val intent1 = Intent(this@HomepageActivity, ViewScheduleActivity::class.java)
+                startActivity(intent1)
+
+            }
+        })
+    }
+
+    fun requestOrder(){
+        val mime = "application/json;charset=utf-8".toMediaTypeOrNull()
+
+        val json = JSONObject()
+            .put("username",User.username).toString()
+
+        val request = Request.Builder()//创建Request 对象。
+            .url("${Http.prefix}/api/train/order-info/")
+            .post(json.toRequestBody(mime)).build()//传递请求体
+
+        OkHttpClient().newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                Log.d("UPDATE", "onFailure: $e")
+                Looper.prepare()
+                Toast.makeText(this@HomepageActivity, "Http Request Failed", Toast.LENGTH_SHORT).show()
+                Looper.loop()
+            }
+
+            @Throws(IOException::class)
+            override fun onResponse(call: Call, response: Response) {
+                //Log.d("UPDATE", "OnResponse: " + response.body?.string())
+                try {
+                    val jsonArray = JsonParser().parse(response.body?.string()).asJsonArray
+                    Log.d("UPDATE", "OnResponse: $jsonArray")
+                    OrderContentList.clear()
+                    for(i in 0 until jsonArray.size()){
+                        val orderInfo = Gson().fromJson(jsonArray.get(i).toString(), OrderInfo::class.java)
+                        OrderContentList.addOrderItem(orderInfo)
+                    }
+                }catch (e : Exception){
+                    e.printStackTrace()
+                }
+                val intent2 = Intent(this@HomepageActivity, ViewOrderActivity::class.java)
+                startActivity(intent2)
 
             }
         })

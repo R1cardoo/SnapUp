@@ -17,20 +17,21 @@ import java.util.ArrayList
 class OrderInfo: AppCompatActivity() {
     //TO Add more fields about an order
 
-
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_order_info)
 
-        val trainId = intent.getStringExtra("TRAIN_ID") ?: "ABC123"
-        val startingStation = intent.getStringExtra("STARTING_STATION")?: "i am starting station"
-        val terminus = intent.getStringExtra("TERMINUS")?: "i am terminus"
-        val time = intent.getStringExtra("TIME")?: "i am time"
-        val stopovers = intent.getStringArrayListExtra("STOPOVERS")//经停站
-        val passengerName = intent.getStringExtra("NAME")?: "zqx"
-        val seatKind = intent.getStringExtra("SEAT_KIND")?: "一等座"
-        val state = intent.getStringExtra("STATE")?:"已支付"
+        val trainId = intent.getStringExtra("run_code") ?: "ABC123"
+        val startingStation = intent.getStringExtra("depart")?: "i am starting station"
+        val terminus = intent.getStringExtra("arrive")?: "i am terminus"
+        val time = intent.getStringExtra("depart_time")?: "i am time"
+        val stopovers = intent.getStringArrayListExtra("data")//经停站
+        val passengerName = User.username ?: "zqx"
+        val seatKind = intent.getStringExtra("seat_type")?: "一等座"
+        val coachId = intent.getStringExtra("coach_id")?: "车厢"
+        val seatId = intent.getStringExtra("seat_id")?: "座位"
+        //val state = intent.getStringExtra("STATE")?:"已支付"
         //val stopovers = intent.getStringArrayListExtra()
 
 
@@ -43,9 +44,9 @@ class OrderInfo: AppCompatActivity() {
         TrainDestination.text = "终点站： $terminus"
         TrainTime.text = "发车时间： $time"
         PassengerName.text = "乘客姓名： $passengerName"
-        if(stopovers!!.size <3) StationList.text = "经停站： $stopovers ..."
+        if(stopovers!!.size <3) StationList.text = "经停站： $stopovers "
             else StationList.text = "经停站： $startingStation ... $terminus"
-        Proxy.text = "状态： $state"
+        Position.text = "车厢： $coachId， 座位：$seatId"
         SeatKind.text = "座椅类型： $seatKind"
 
 
@@ -86,7 +87,7 @@ class OrderInfo: AppCompatActivity() {
                     Toast.makeText(this, checkBoxItems[which] + "  未选中", Toast.LENGTH_SHORT).show();
                 }
             }
-            .setPositiveButton("good") {dialog, i ->
+            .setPositiveButton("done") {dialog, i ->
                 dialog.dismiss()
         }.create().show()
     }

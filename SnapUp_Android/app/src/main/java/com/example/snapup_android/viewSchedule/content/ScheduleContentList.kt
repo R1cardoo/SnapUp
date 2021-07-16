@@ -31,16 +31,14 @@ object ScheduleContentList {
 //        }
     }
 
-    public fun addScheduleItem(item: TrainInfo) {
+     fun addScheduleItem(item: TrainInfo) {
         ITEMS.add(item)
         ITEM_MAP[item.num_code] = item
     }
 
-    private fun createScheduleItem(position: Int): TrainInfo {
-        return TrainInfo("ABC$position", "ItemBegin $position", "ItemDestination $position","1：00——2：00", "3：00——4：00")
+    fun clear(){
+        ITEMS.clear()
     }
-
-
     /**
      * A dummy item representing a piece of content.
      */

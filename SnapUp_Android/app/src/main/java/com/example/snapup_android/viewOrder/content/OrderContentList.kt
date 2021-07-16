@@ -25,25 +25,22 @@ object OrderContentList {
 
     init {
         // 不要乱生成了，到时候可以注释init块，通过循环 addItem讲后端传过来的数据存到OrderContentList中
-        for (i in 1..COUNT) {
-            addItem(createOrderItem(i))
-        }
     }
 
-    private fun addItem(item: OrderInfo) {
+    fun addOrderItem(item: OrderInfo) {
         ITEMS.add(item)
-        ITEM_MAP[item.TrainId] = item
+        ITEM_MAP[item.run_code] = item
     }
 
-    private fun createOrderItem(position: Int): OrderInfo {
-        return OrderInfo("ABC$position", "ItemBegin $position", "ItemDestination $position","1：00——2：00", "代理抢票中")
+    fun clear(){
+        ITEMS.clear()
     }
 
 
     /**
      * A dummy item representing a piece of content.
      */
-    data class OrderInfo(val TrainId: String, val BeginningStation: String, val Destination: String,val Time: String, val state: String) {
-        override fun toString(): String = "$BeginningStation——$Destination"
+    data class OrderInfo(val run_code: String, val start_station_name: String, val end_station_name: String,val departure_time: String, val arrival_time: String, val order: String) {
+
     }
 }
