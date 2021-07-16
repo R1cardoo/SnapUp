@@ -21,4 +21,6 @@ public interface TrainSerialService {
 
     //根据某一车次号，返回相应的列车流水
     public List<TrainSerial> getCenterTrainSerial(String run_code);
+
+    public TrainSerial findTrainSerial(TrainSerial trainSerial);
 }

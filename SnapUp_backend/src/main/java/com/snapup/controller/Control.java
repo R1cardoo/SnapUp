@@ -1,6 +1,7 @@
 package com.snapup.controller;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mysql.cj.exceptions.StreamingNotifiable;
 import com.snapup.pojo.*;
@@ -51,6 +52,17 @@ public class Control {
     @Qualifier("feedBackService")
     private FeedBackService feedBackService;
 
+    @Autowired
+    @Qualifier("userServiceImpl")
+    private UserService userService;
+
+    @Autowired
+    @Qualifier("ticketServiceImpl")
+    private TicketService ticketService;
+
+    @Autowired
+    @Qualifier("orderService")
+    private  OrderService orderService;
 
     @RequestMapping("/api/train/save-credit")
     @ResponseBody
@@ -553,8 +565,11 @@ public class Control {
         JsonObject result = new JsonObject();
         result.addProperty("error", false);
         result.addProperty("reason", "成功安排车次");
+        List<TrainSerial> trainSerial = trainSerialService.getAllTrainSerial();
+        for (int i = 0; i < trainSerial.size(); i++) {
+            ticketService.initial(trainSerial.get(i).getSerial());
+        }
         res.add("result", result);
-
         return res;
     }
 
@@ -565,9 +580,12 @@ public class Control {
             @RequestParam(value="pageSize") int page_size
     ) {
         JsonObject res = new JsonObject();
+        JsonObject result = new JsonObject();
         JsonArray ja = new JsonArray();
         List<FeedBack> all_feed_back = feedBackService.getAllFeedBack();
 
+        int n = all_feed_back.size();     /* 总数量 */
+        int total_page = (n + page_size - 1) / page_size;   /* 页数上取整 */
         int st = (page_no - 1) * page_size + 1;     /* 开始条目 */
         int ed = page_no * page_size;               /* 终止条目 */
 
@@ -583,10 +601,199 @@ public class Control {
                 ja.add(temp);
             }
         }
+        result.addProperty("pageSize", page_size);
+        result.addProperty("pageNo", page_no);
+        result.addProperty("totalCount", n);
+        result.addProperty("totalPage", total_page);
+        result.add("data", ja);
+        res.add("result", result);
+        return res;
+    }
+
+    @RequestMapping("/api/train/getUsr")
+    @ResponseBody
+    public JsonObject get_usr(@RequestBody JsonObject jo) {
+        JsonObject res = new JsonObject();
+        String usr_name = jo.get("username").getAsString();
+        String pwd = jo.get("pwd").getAsString();
+        boolean flag = userService.isRegistered(usr_name);
+        if (flag) {
+            flag = userService.checkPassword(usr_name, pwd);
+            if (flag) {     /* 用户名&密码正确 */
+                User usr = userService.getUserInstance(usr_name, pwd);
+                res.addProperty("usrname", usr.getUsername());
+                res.addProperty("identity", usr.getIdentity_id());
+                res.addProperty("gender", usr.getGender());
+                res.addProperty("name", usr.getName());
+                res.addProperty("tele", usr.getTele());
+                res.addProperty("mail", usr.getMail());
+                res.addProperty("pwd", usr.getPwd());
+                res.addProperty("nickname", usr.getNickname());
+            }  else {       /* 密码不正确 */
+                res.addProperty("usrname", "-1");
+                res.addProperty("identity", "");
+                res.addProperty("gender", "");
+                res.addProperty("name", "");
+                res.addProperty("tele", "");
+                res.addProperty("mail", "");
+                res.addProperty("pwd", "");
+                res.addProperty("nickname", "");
+            }
+        } else {        /* 不存在改用户 */
+            res.addProperty("usrname", "-1");
+            res.addProperty("identity", "");
+            res.addProperty("gender", "");
+            res.addProperty("name", "");
+            res.addProperty("tele", "");
+            res.addProperty("mail", "");
+            res.addProperty("pwd", "");
+            res.addProperty("nickname", "");
+        }
+        return res;
+    }
+
+    @RequestMapping("/api/train/registerUsr")
+    @ResponseBody
+    public JsonObject register_usr(@RequestBody JsonObject jo) {
+        JsonObject res = new JsonObject();
+        String usrname = jo.get("usrname").getAsString();
+        JsonElement temp = jo.get("identity");
+        String identity = temp == null ? null : temp.getAsString();
+        temp = jo.get("name");
+        String name = temp == null ? null : temp.getAsString();
+        temp = jo.get("gender");
+        char gender;
+        if (temp != null && !temp.equals("")) {
+            gender = temp.getAsString().charAt(0);
+        } else {
+            gender = 0;
+        }
+
+        temp = jo.get("tele");
+        String tele = temp == null ? null : temp.getAsString();
+        temp = jo.get("mail");
+        String mail = temp == null ? null : temp.getAsString();
+        temp = jo.get("pwd");
+        String pwd = temp == null ? null : temp.getAsString();
+        temp = jo.get("nickname");
+        String nickname = temp == null ? null : temp.getAsString();
+        Boolean is_success = pwd == null ? false : true;
+        if (is_success)
+            is_success = userService.registerUser(usrname, identity, gender, name, tele, mail, pwd, nickname);
+        if (is_success) {      /* 成功注册 */
+            res.addProperty("result", true);
+        } else {               /* 注册失败 */
+            res.addProperty("result", false);
+        }
+        return res;
+    }
+
+    @RequestMapping("/api/train/train-run-info")
+    @ResponseBody
+    public JsonArray train_info() {
+        JsonArray res = new JsonArray();
+
+        List<TrainRun> trainRuns = trainSerialService.getAllTrainRun();
+        for (int i = 0; i < trainRuns.size(); i++) {
+            TrainInfo trainInfo = trainRunService.getTrainInfo(trainRuns.get(i).getRun_code());
+            JsonObject jo = new JsonObject();
+            jo.addProperty("num_code", trainInfo.getNum_code());
+            jo.addProperty("startTime", trainInfo.getStartTime().toString().substring(0, 5));
+            jo.addProperty("endTime", trainInfo.getEndTime().toString().substring(0, 5));
+            jo.addProperty("departName", trainInfo.getDepart_station_name());
+            jo.addProperty("arrivalName", trainInfo.getArrival_station_name());
+            res.add(jo);
+        }
+
+        return res;
+    }
+
+    @RequestMapping("/api/train/submit-order")
+    @ResponseBody
+    public JsonObject submit_order(@RequestBody JsonObject jo) {
+        JsonObject res = new JsonObject();
+        String run_code =  jo.get("run_code").getAsString();
+        String dateStr = jo.get("date").getAsString();
+        DateFormat fmt =new SimpleDateFormat("yyyy-MM-dd");
+        Date date = null;
+        try {
+            date = fmt.parse(dateStr);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String depart_station_name = jo.get("depart_station_name").getAsString();
+        String arrival_station_name = jo.get("arrival_station_name").getAsString();
+        char seat_type = jo.get("seat_type").getAsString().charAt(0);
+        String username = jo.get("username").getAsString();
+        int run_serial = trainSerialService.findTrainSerial(new TrainSerial(0, date, run_code)).getSerial();
+        float price = orderService.createOrder(run_serial, depart_station_name, arrival_station_name, seat_type, username);
+        res.addProperty("price", price);
+        return res;
+    }
+
+    @RequestMapping("/api/train/train-info-detail")
+    @ResponseBody
+    public JsonObject train_info_detail(@RequestBody JsonObject jo) {
+        JsonObject res = new JsonObject();
+        String run_code = jo.get("run_code").getAsString();
+        String dateStr = jo.get("date").getAsString();
+        String depart_station = jo.get("depart_station").getAsString();
+        String arrive_station = jo.get("arrival_station").getAsString();
+        List<Station> all_station = stationOnLineService.getAllStation(run_code);
+        JsonArray ja = new JsonArray();
+        for (int i = 0; i < all_station.size(); i++) {
+            ja.add(all_station.get(i).getName());
+        }
+        res.addProperty("run_code", run_code);
+        res.addProperty("date", dateStr);
+        res.addProperty("depart_station", depart_station);
+        res.addProperty("arrive_station", arrive_station);
         res.add("data", ja);
 
         return res;
     }
 
-    
+    @RequestMapping("/api/train/before-submit-order")
+    @ResponseBody
+    public JsonObject before_submit_order(@RequestBody JsonObject jo) {
+        JsonObject res = new JsonObject();
+        String run_code = jo.get("run_code").getAsString();
+        List<Station> stations = stationOnLineService.getAllStation(run_code);
+        List<TrainSerial> time_arrange = trainSerialService.getCenterTrainSerial(run_code);
+
+        JsonArray ja = new JsonArray();
+        JsonArray ja_time = new JsonArray();
+        for (int i = 0; i < stations.size(); i++) {
+            ja.add(stations.get(i).getName());
+        }
+        DateFormat fmt =new SimpleDateFormat("yyyy-MM-dd");
+        for (int i = 0; i < time_arrange.size(); i++) {
+            ja_time.add(fmt.format(time_arrange.get(i).getDate()));
+        }
+        res.add("depart", ja);
+        res.add("arrive", ja);
+        res.add("time", ja_time);
+        return res;
+    }
+
+    @RequestMapping("/api/train/submit-feedback")
+    @ResponseBody
+    public JsonObject submit_feedback(@RequestBody JsonObject jo) {
+        JsonObject res = new JsonObject();
+        String username = jo.get("username").getAsString();
+        String tele = jo.get("tele").getAsString();
+        String comment = jo.get("comment").getAsString();
+
+        feedBackService.createFeedBack(new FeedBack(1, username, tele, comment));
+        res.addProperty("result", true);
+        return res;
+    }
+
+    @RequestMapping("/api/train/person-info-change")
+    @ResponseBody
+    public JsonObject person_info_change(@RequestBody JsonObject jo) {
+        JsonObject res = new JsonObject();
+
+        return res;
+    }
 }

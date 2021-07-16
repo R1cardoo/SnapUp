@@ -82,6 +82,8 @@ public class OrderServiceImpl implements OrderService{
         String arrival_station_code = stationService.getStationByName(arrival_station_name).getCode();
         int depart_station_idx = stationOnLineMapper.findStationIdx(trainRun.getRun_code(), depart_station_code);
         int arrival_station_idx = stationOnLineMapper.findStationIdx(trainRun.getRun_code(), arrival_station_code);
+        if(depart_station_idx >= arrival_station_idx)
+            return 0;
         //自动生成车厢号和座位号
 
         int coach_id = 0 ;
