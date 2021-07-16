@@ -21,6 +21,11 @@
         where ticket_id = #{ticket_id}
     </select>
 
+    <select id="findOrderByOrderId" resultType="Order">
+        select * from snapup.order
+        where order_id = #{order_id}
+    </select>
+
     <select id="findOrderByUsername" resultType="Order">
         select * from snapup.order
         where username = #{username}

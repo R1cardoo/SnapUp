@@ -10,6 +10,8 @@ public interface OrderMapper {
     public void createOrder(Order order);
     //根据订单号查询订单
     public Order findOrderByTicketId(int ticket_id);
+    //根据虚拟主键查询订单
+    public  Order findOrderByOrderId(int order_id);
     //查询该用户的所有订单
     public List<Order> findOrderByUsername(String username);
     //查询某个订单

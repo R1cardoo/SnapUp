@@ -793,7 +793,86 @@ public class Control {
     @ResponseBody
     public JsonObject person_info_change(@RequestBody JsonObject jo) {
         JsonObject res = new JsonObject();
+        String usrname = jo.get("usrname").getAsString();
+        JsonElement temp = jo.get("identity");
+        String identity = temp == null ? null : temp.getAsString();
+        temp = jo.get("name");
+        String name = temp == null ? null : temp.getAsString();
+        temp = jo.get("gender");
+        char gender;
+        if (temp != null && !temp.equals("")) {
+            gender = temp.getAsString().charAt(0);
+        } else {
+            gender = 0;
+        }
+        temp = jo.get("tele");
+        String tele = temp == null ? null : temp.getAsString();
+        temp = jo.get("mail");
+        String mail = temp == null ? null : temp.getAsString();
+        temp = jo.get("pwd");
+        String pwd = temp == null ? null : temp.getAsString();
+        temp = jo.get("nickname");
+        String nickname = temp == null ? null : temp.getAsString();
+        Boolean is_success = pwd == null ? false : true;
+        if (is_success) {
+            User user = new User(usrname, identity, gender, name, tele, mail, pwd, nickname);
+            is_success = userService.updateUserInfo(user);
+        }
+        if (is_success) {      /* 成功注册 */
+            res.addProperty("result", true);
+        } else {               /* 注册失败 */
+            res.addProperty("result", false);
+        }
+        return res;
+    }
 
+    @RequestMapping("/api/train/order-info")
+    @ResponseBody
+    public JsonArray order_info(@RequestBody JsonObject jo) {
+        String username = jo.get("username").getAsString();
+        List<Order> all_order = orderService.findAllUserOrder(username);
+        JsonArray ja = new JsonArray();
+
+        for (int i = 0; i < all_order.size(); i++) {
+            JsonObject temp = new JsonObject();
+            TrainInfo trainInfo = trainSerialService.getTrainInfo(all_order.get(i).getRun_serial());
+            String run_code = trainInfo.getNum_code();
+            temp.addProperty("run_code", run_code);
+            String depart_code = stationOnLineService.getOneStation(run_code, all_order.get(i).getDepart_station_idx());
+            String arrive_code =  stationOnLineService.getOneStation(run_code, all_order.get(i).getArrival_station_idx());
+            temp.addProperty("departure_time", timeTableService.getDepartTime(run_code, depart_code).toString().substring(0, 5));
+            temp.addProperty("arrival_time", timeTableService.getArrivalTime(run_code, arrive_code).toString().substring(0, 5));
+            temp.addProperty("start_station_name", stationService.getStationByCode(depart_code).getName());
+            temp.addProperty("end_station_name", stationService.getStationByCode(arrive_code).getName());
+            temp.addProperty("order", all_order.get(i).getOrder_id());
+            ja.add(temp);
+        }
+        return ja;
+    }
+
+    @RequestMapping("/api/train/order-info-detail")
+    @ResponseBody
+    public JsonObject order_info_detail(@RequestBody JsonObject jo) {
+        JsonObject res = new JsonObject();
+        int order_id = jo.get("order").getAsInt();
+        String run_code = jo.get("run_code").getAsString();
+        String depart_time = jo.get("depart_time").getAsString();
+        String depart = jo.get("depart").getAsString();
+        String arrive = jo.get("arrive").getAsString();
+        res.addProperty("run_code", run_code);
+        res.addProperty("depart_time", depart_time);
+        res.addProperty("depart", depart);
+        res.addProperty("arrive", arrive);
+
+        JsonArray ja = new JsonArray();
+        List<Station> all_station = stationOnLineService.getPassStation(run_code, depart, arrive);
+        for (int i = 0; i < all_station.size(); i++) {
+            ja.add(all_station.get(i).getName());
+        }
+        res.add("data",ja);
+        res.addProperty("seat_type", orderService.findOrderById(order_id).getSeat_type());
+        res.addProperty("coach_id", orderService.findOrderById(order_id).getCoach_id());
+        res.addProperty("seat_id", orderService.findOrderById(order_id).getSeat_id());
         return res;
     }
 }

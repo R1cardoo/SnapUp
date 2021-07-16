@@ -9,6 +9,7 @@ import com.snapup.pojo.ValueAdded;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 public class OrderServiceImpl implements OrderService{
     private OrderMapper orderMapper;
@@ -86,10 +87,10 @@ public class OrderServiceImpl implements OrderService{
             return 0;
         //自动生成车厢号和座位号
 
-        int coach_id = 0 ;
-        int seat_id = 0;
+        List<Integer> coachAndSeat = generateCoachAndSeat(run_serial, seat_type);
+        int coach_id = coachAndSeat.get(0) ;
+        int seat_id = coachAndSeat.get(1);
 
-        //TODO: PassengerID 可以不是用户本身
         String passenger_id = username;
         float price = 0;
         List<SeatTicket> seatTickets = ticketMapper.findSeatTicket(run_serial, depart_station_code, arrival_station_code);
@@ -110,18 +111,17 @@ public class OrderServiceImpl implements OrderService{
     }
 
     public List<Integer> generateCoachAndSeat(int run_serial, char seat_type) {
-        List<Integer> CoachAndSeat = new ArrayList<Integer>();
+        List<Integer> coachAndSeat = new ArrayList<Integer>();
         String run_code = trainSerialMapper.findTrainSerialBySerialNum(run_serial).getRun_code();
         char train_type = trainRunService.getTrainType(run_code);
         int coach_num = trainRunService.getCoachNum(run_code);
         int seat_num = trainRunService.getSeatNum(run_code);
-        if(train_type == 'D'){
-
-        }
-        else{ //'G'
-
-        }
-        return null;
+        Random r = new Random();
+        int coach_id = r.nextInt(coach_num);
+        int seat_id = r.nextInt(seat_num/coach_num);
+        coachAndSeat.add(coach_id);
+        coachAndSeat.add(seat_id);
+        return coachAndSeat;
     }
 
     public boolean checkValid(String username, int run_serial) {
@@ -144,5 +144,9 @@ public class OrderServiceImpl implements OrderService{
         }
         order.setPrice(price);
         orderMapper.updateOrder(order);
+    }
+
+    public Order findOrderById(int order_id) {
+        return orderMapper.findOrderByOrderId(order_id);
     }
 }

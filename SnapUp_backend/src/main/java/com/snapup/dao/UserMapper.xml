@@ -12,8 +12,8 @@
 
     <update id="updateUser" parameterType="User">
         update snapup.user
-        set username = #{username},gender = #{gender},`name` = #{name}, tele = #{tele},mail = #{mail},pwd = #{pwd},nickname = #{nickname}
-        where identity_id = #{identity_id}
+        set username = #{username}, identity_id = #{identity_id}, gender = #{gender},`name` = #{name}, tele = #{tele},mail = #{mail},pwd = #{pwd},nickname = #{nickname}
+        where username = #{username}
     </update>
 
     <select id="findUserByUsername" resultType="User">

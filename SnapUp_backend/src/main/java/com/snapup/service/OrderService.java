@@ -22,4 +22,6 @@ public interface OrderService {
     public boolean checkValid(String username, int run_serial);
     //根据增值服务更新订单
     public void updateOrder(ValueAdded valueAdded);
+
+    public Order findOrderById(int order_id);
 }

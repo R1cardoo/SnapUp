@@ -22,5 +22,4 @@ public class Order {
     private String passenger_id;
     private String username;
     private float price;
-
 }
