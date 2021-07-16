@@ -36,11 +36,8 @@ class ViewScheduleActivity : AppCompatActivity() {
         val seatList: Array<String> = arrayOf("一等座", "二等座")
         val view = LayoutInflater.from(this).inflate(R.layout.activity_search,null)
         val adapterStation = ArrayAdapter<String>(this, layout.activity_search, stationList)
-        adapterStation.setDropDownViewResource(R.layout.activity_search)
         val adapterTime = ArrayAdapter<String>(this, layout.activity_search, timeList)
-        adapterTime.setDropDownViewResource(R.layout.activity_search)
         val adapterSeat = ArrayAdapter<String>(this, layout.activity_search, seatList)
-        adapterSeat.setDropDownViewResource(R.layout.activity_search)
 
         view.findViewById<NiceSpinner>(id.start_Station).setAdapter(adapterStation)
         view.findViewById<NiceSpinner>(id.start_Station).onSpinnerItemSelectedListener = OnSpinnerItemSelectedListener{ _: NiceSpinner, view: View, _: Int, _: Long ->

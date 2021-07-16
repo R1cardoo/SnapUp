@@ -2,7 +2,10 @@ package com.example.snapup_android.Homepage
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Looper
+import android.util.Log
 import android.view.Menu
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.drawerlayout.widget.DrawerLayout
@@ -11,16 +14,34 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.example.snapup_android.Http
 import com.example.snapup_android.R
+import com.example.snapup_android.data.gsonClass.RegisterGson
+import com.example.snapup_android.data.gsonClass.ScheduleGson
+import com.example.snapup_android.data.gsonClass.UserGson
 import com.example.snapup_android.feedback.FeedbackActivity
 import com.example.snapup_android.login.LoginActivity
 import com.example.snapup_android.settings.SettingsActivity
 import com.example.snapup_android.viewSchedule.ViewScheduleActivity
 import com.example.snapup_android.viewOrder.ViewOrderActivity
+import com.example.snapup_android.viewSchedule.content.ScheduleContentList
+import com.example.snapup_android.viewSchedule.content.ScheduleContentList.TrainInfo
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.navigation.NavigationView.OnNavigationItemSelectedListener
 import com.google.android.material.snackbar.Snackbar
+import com.google.gson.Gson
+import com.google.gson.JsonArray
+import com.google.gson.JsonParser
+import okhttp3.Call
+import okhttp3.Callback
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.Response
+import org.json.JSONObject
+import java.io.IOException
+import java.lang.Exception
 
 
 class HomepageActivity : AppCompatActivity() {
@@ -58,10 +79,12 @@ class HomepageActivity : AppCompatActivity() {
                     drawerLayout.closeDrawers()
                 }
                 R.id.nav_info -> {
+                    requestSchedule()
                     val intent1 = Intent(this, ViewScheduleActivity::class.java)
                     startActivity(intent1)
                 }
                 R.id.nav_order -> {
+
                     val intent2 = Intent(this, ViewOrderActivity::class.java)
                     startActivity(intent2)
                 }
@@ -80,6 +103,40 @@ class HomepageActivity : AppCompatActivity() {
 
             }
             true
+        })
+    }
+
+    fun requestSchedule(){
+        val thisUrl = Http.prefix.toHttpUrlOrNull()!!.newBuilder()
+            .addPathSegment("api")
+            .addPathSegment("train")
+            .addPathSegment("train-run-info")
+            .build()
+        val request = Request.Builder()//创建Request 对象。
+            .url(thisUrl)
+            .build()//传递请求体
+        OkHttpClient().newCall(request).enqueue(object : Callback {
+            override fun onFailure(call: Call, e: IOException) {
+                Log.d("UPDATE", "onFailure: $e")
+                Looper.prepare()
+                Toast.makeText(this@HomepageActivity, "Http Request Failed", Toast.LENGTH_SHORT).show()
+                Looper.loop()
+            }
+
+            @Throws(IOException::class)
+            override fun onResponse(call: Call, response: Response) {
+                //Log.d("UPDATE", "OnResponse: " + response.body?.string())
+                try {
+                    val jsonArray = JsonParser().parse(response.body?.string()).getAsJsonArray()
+                    for(i in 0 until jsonArray.size()){
+                        val trainInfo = Gson().fromJson(jsonArray.get(i).toString(), TrainInfo::class.java)
+                        ScheduleContentList.addScheduleItem(trainInfo)
+                    }
+                }catch (e : Exception){
+                    e.printStackTrace()
+                }
+
+            }
         })
     }
     override fun onNewIntent(intent: Intent)

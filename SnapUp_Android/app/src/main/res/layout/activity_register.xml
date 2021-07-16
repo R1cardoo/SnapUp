@@ -206,11 +206,11 @@
                     android:text="性别："
                     android:textSize="15dp" />
 
-                <EditText
-                    android:id="@+id/editText6"
-                    android:layout_width="250dp"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dp" />
+                <org.angmarch.views.NiceSpinner
+                    android:id="@+id/gender"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="10dp" />
             </LinearLayout>
 
         </com.google.android.material.card.MaterialCardView>

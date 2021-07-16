@@ -26,25 +26,25 @@ object ScheduleContentList {
 
     init {
         // 不要乱生成了，到时候可以注释init块，通过循环 addItem讲后端传过来的数据存到ScheduleContentList中
-        for (i in 1..COUNT) {
-            addItem(createScheduleItem(i))
-        }
+//        for (i in 1..COUNT) {
+//            addItem(createScheduleItem(i))
+//        }
     }
 
-    private fun addItem(item: TrainInfo) {
+    public fun addScheduleItem(item: TrainInfo) {
         ITEMS.add(item)
-        ITEM_MAP[item.TrainId] = item
+        ITEM_MAP[item.num_code] = item
     }
 
     private fun createScheduleItem(position: Int): TrainInfo {
-        return TrainInfo("ABC$position", "ItemBegin $position", "ItemDestination $position","1：00——2：00")
+        return TrainInfo("ABC$position", "ItemBegin $position", "ItemDestination $position","1：00——2：00", "3：00——4：00")
     }
 
 
     /**
      * A dummy item representing a piece of content.
      */
-    data class TrainInfo(val TrainId: String, val BeginningStation: String, val Destination: String,val Time: String) {
-        override fun toString(): String = "$BeginningStation——$Destination"
+    data class TrainInfo(val num_code: String, val departName: String, val arrivalName: String,val startTime: String,val endTime: String) {
+        override fun toString(): String = "$departName——$arrivalName"
     }
 }

@@ -33,9 +33,9 @@ class MyScheduleRecyclerViewAdapter(
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = values[position]
-        holder.beginToDestination.text = "${item.BeginningStation}——${item.Destination}"
-        holder.time.text = item.Time
-        holder.trainId.text = item.TrainId
+        holder.beginToDestination.text = "${item.departName}————${item.arrivalName}"
+        holder.time.text = "时间：${item.startTime}——${item.endTime}"
+        holder.trainId.text = "车次号：${item.num_code}"
         if (mOnItemClickListener != null) {
             holder.itemView.setOnClickListener(OnClickListener { view -> mOnItemClickListener!!.onItemClick(view, position) })
         }
